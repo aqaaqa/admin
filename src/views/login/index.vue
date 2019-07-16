@@ -3,17 +3,17 @@
     <el-form size="mini" ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
 
       <div class="title-container">
-        <h3 class="title">外研社新标准英语测评系统</h3>
+        <h3 class="title">外研社新标准英语后台管理系统</h3>
       </div>
 
-      <div class="login-table">
+      <!-- <div class="login-table">
         <p>
           <span :class="loginCheck == 'login' ? 'hover' : ''" name="login" @click="tabLogin('login')">已有账户登录</span>
         </p>
         <p>
           <span :class="loginCheck == 'newlogin' ? 'hover' : ''" name="newlogin"  @click="tabLogin('newlogin')">新用户注册</span>
         </p>
-      </div>
+      </div> -->
 
       <div v-show="loginCheck == 'login'" class="login-input">
         <el-form-item prop="username" >
@@ -275,14 +275,7 @@ export default {
           this.$store.dispatch('user/login', this.loginForm).then( data => {
             this.loading = false
             saveObjArr('userName', this.loginForm.username)
-            this.$store.dispatch('user/getRole', data).then(res=> {
-              this.$router.addRoutes(res) //动态添加路由
-              this.$router.push({ path: this.redirect || '/' })
-              // next({ ...to, replace: true })
-            }).catch(() => {
-              this.loading = false
-              this.$store.dispatch('user/postError')
-            })
+            this.$router.push({ path: this.redirect || '/' })
           }).catch(() => {
             this.loading = false
           })
@@ -449,7 +442,7 @@ $fc: rgb(24, 144, 255);
 
   .login-form {
     position: relative;
-    width: 400px;
+    width: 450px;
     max-width: 100%;
     padding: 10% 35px 0;
     margin: 0 auto;

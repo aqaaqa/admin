@@ -40,7 +40,7 @@ export default {
       'role'
     ]),
     routes() {
-      return this.role
+      return this.$router.options.routes
     },
     activeMenu() {
       const route = this.$route

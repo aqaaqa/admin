@@ -61,7 +61,7 @@
   </div>
 
 
-  <el-dialog :title="value == 1 ? '添加' : '编辑'" :visible.sync="dialogFormVisible">
+  <el-dialog title="添加学校" :visible.sync="dialogFormVisible">
     <el-form :model="form" size="mini">
       <el-form-item label="学校全称" :label-width="formLabelWidth">
         <el-input v-model="form.fullName" auto-complete="off"></el-input>
@@ -76,6 +76,8 @@
         <el-radio v-model="form.status" label="1">开启</el-radio>
         <el-radio v-model="form.status" label="0">关闭</el-radio>
       </el-form-item>
+      
+      
     </el-form>
     <div slot="footer" class="dialog-footer">
       <el-button @click="dialogFormVisible = false" size="mini">取 消</el-button>
@@ -182,7 +184,6 @@ export default {
           message: this.value == 1 ? '添加失败' : '修改失败',
           type: 'error'
         })
-        this.loading1 = false
       })
     },
     choosePage(current) {

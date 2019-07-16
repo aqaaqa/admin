@@ -36,11 +36,13 @@ export const constantRoutes = [
     component: () => import('@/views/login/index'),
     hidden: true
   },
+
   {
     path: '/404',
     component: () => import('@/views/404'),
     hidden: true
   },
+
   {
     path: '/',
     component: Layout,
@@ -48,22 +50,46 @@ export const constantRoutes = [
     hidden: true,
     children: [{
       path: 'index',
-      name: 'dashboard',
+      name: 'index',
       component: () => import('@/views/dashboard/index'),
-      meta: { 
-        title: '首页', 
-        icon: 'dashboard',
-      }
-    },
-    {
-      path: '/activate',
-      component: Layout,
-      name: 'activate',
-      hidden: true,
-      meta: { title: '激活页面', icon: 'activate' },
-      component: () => import('@/views/activate/index'),
+      meta: { title: '首页', icon: 'dashboard' }
     }]
-  }
+  },
+  
+  {
+    path: 'table',
+    component: Layout,
+    redirect: '/table',
+    children: [
+      {
+        path: '/table',
+        meta: { title: '学校管理', icon: 'dashboard' },
+        component: () => import('@/views/table/index'),
+      }
+    ]
+  },
+
+  {
+    path: 'user',
+    component: Layout,
+    redirect: '/user',
+    meta: { title: '用户管理', icon: 'dashboard' },
+    children: [
+      {
+        path: '/user',
+        meta: { title: '用户信息管理' },
+        component: () => import('@/views/user/index'),
+      },
+      {
+        path: '/user/role',
+        meta: { title: '用户角色管理'},
+        component: () => import('@/views/user/role'),
+      }
+    ]
+  },
+
+  // 404 page must be placed at the end !!!
+  { path: '*', redirect: '/404', hidden: true }
 ]
 
 const createRouter = () => new Router({

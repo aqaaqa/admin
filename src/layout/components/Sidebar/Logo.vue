@@ -27,7 +27,7 @@ export default {
   data() {
     return {
       collapse: true,
-      title: '外研社新标准英语测评系统',
+      title: '外研社新标准管理系统',
       logo: 'https://wpimg.wallstcn.com/69a1c46c-eb1c-4b46-8bd4-e9e686ef5251.png'
     }
   }
@@ -73,6 +73,7 @@ export default {
       font-size: 12px;
       font-family: Avenir, Helvetica Neue, Arial, Helvetica, sans-serif;
       vertical-align: middle;
+      margin-left: 20px;
     }
   }
 

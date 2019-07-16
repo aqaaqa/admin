@@ -1,6 +1,6 @@
 module.exports = {
 
-  title: '外研社新标准英语测评系统',
+  title: '外研社新标准管理系统',
 
   /**
    * @type {boolean} true | false

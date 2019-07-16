@@ -1,67 +1,30 @@
 <template>
   <div v-if="!item.hidden" class="menu-wrapper">
-    <template v-if="item.state == 0">
-      <!-- <router-link :to="{ path: '/activate', query:{ redirect: item.path+'/'+item.children[0].path, id:item.children[0].id } }">
-        <el-menu-item :class="{'submenu-title-noDropdown':!isNest}">
-          <item v-if="item.meta" :icon="item.state || item.state == 0 ? openMenu.indexOf(item.path) > -1 ? 'folder-open' :'folder' : ''" :title="item.meta.title" />
-          <i v-if="isCollapse" class="locks">
-            <svg-icon :icon-class="'block'" />
-          </i>
+    <template v-if="hasOneShowingChild(item.children,item) && (!onlyOneChild.children||onlyOneChild.noShowingChildren)&&!item.alwaysShow">
+      <app-link v-if="onlyOneChild.meta" :to="resolvePath(onlyOneChild.path)">
+        <el-menu-item :index="resolvePath(onlyOneChild.path)" :class="{'submenu-title-noDropdown':!isNest}">
+          <item :icon="onlyOneChild.meta.icon||(item.meta&&item.meta.icon)" :title="onlyOneChild.meta.title" />
         </el-menu-item>
-      </router-link> -->
+      </app-link>
+    </template>
 
-      <div @click="toRouter('/activate',item.children[0].meta.id,item.children[0].path, item.meta.baseId)">
-        <el-menu-item :index="'/activate?base ='+item.meta.baseId" :class="{'submenu-title-noDropdown':!isNest}">
-          <item v-if="item.meta" :icon="item.state || item.state == 0 ? openMenu.indexOf(item.path) > -1 ? 'folder-open' :'folder' : ''" :title="item.meta.title" />
-          <i class="locks">
-            <svg-icon :icon-class="'block'" />
-          </i>
-        </el-menu-item>
-      </div>
-      
-    </template>
-    <template v-else-if="item.state == 2">
-      <router-link :to="{ path: '/paper/index'}">
-        <el-menu-item :index="'/paper/index'" :class="{'submenu-title-noDropdown':!isNest}">
-          <item v-if="item.meta" :icon="item.state || item.state == 0 ? openMenu.indexOf(item.path) > -1 ? 'folder-open' :'folder' : ''" :title="item.meta.title" />
-        </el-menu-item>
-      </router-link>
-    </template>
-    
-    
-    <template v-else>
-      <template v-if="!item.state && hasOneShowingChild(item.children,item) && (!onlyOneChild.children||onlyOneChild.noShowingChildren)&&!item.alwaysShow">
-        <!-- <app-link v-if="onlyOneChild.meta" :to="{path: resolvePath(onlyOneChild.path) , query :{id:onlyOneChild.id }}">
-          <el-menu-item :index="resolvePath(onlyOneChild.path)" :class="{'submenu-title-noDropdown':!isNest}">
-            <item :icon="item.state ? openMenu.indexOf(item.path) > -1 ? 'folder-open' :'folder' :''" :title="item.meta.title" />
-          </el-menu-item>
-        </app-link> -->
-        <div v-if="onlyOneChild.meta" @click="toRouter(resolvePath(onlyOneChild.path),onlyOneChild.meta.id)">
-          <el-menu-item :index="resolvePath(onlyOneChild.path)" :class="{'submenu-title-noDropdown':!isNest}">
-            <item :icon="item.state ? openMenu.indexOf(item.path) > -1 ? 'folder-open' :'folder' :''" :title="item.meta.title" />
-          </el-menu-item>
-        </div>
+    <el-submenu v-else ref="subMenu" :index="resolvePath(item.path)" popper-append-to-body>
+      <template slot="title">
+        <item v-if="item.meta" :icon="item.meta && item.meta.icon" :title="item.meta.title" />
       </template>
-
-      <el-submenu v-else ref="subMenu" :index="resolvePath(item.path)" popper-append-to-body>
-        <template slot="title">
-          <item v-if="item.meta" :icon="item.state ? openMenu.indexOf(item.path) > -1 ? 'folder-open' :'folder' :''" :title="item.meta.title" />
-        </template>
-        <sidebar-item
-          v-for="child in item.children"
-          :key="child.path"
-          :is-nest="true"
-          :item="child"
-          :base-path="resolvePath(child.path)"
-          class="nest-menu"
-        />
-      </el-submenu>
-    </template>
+      <sidebar-item
+        v-for="child in item.children"
+        :key="child.path"
+        :is-nest="true"
+        :item="child"
+        :base-path="resolvePath(child.path)"
+        class="nest-menu"
+      />
+    </el-submenu>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 import path from 'path'
 import { isExternal } from '@/utils/validate'
 import Item from './Item'
@@ -72,15 +35,6 @@ export default {
   name: 'SidebarItem',
   components: { Item, AppLink },
   mixins: [FixiOSBug],
-  computed: {
-    ...mapGetters([
-      'sidebar',
-      'menu'
-    ]),
-    isCollapse() {
-      return this.sidebar.opened
-    }
-  },
   props: {
     // route object
     item: {
@@ -100,24 +54,7 @@ export default {
     // To fix https://github.com/PanJiaChen/vue-admin-template/issues/237
     // TODO: refactor with render function
     this.onlyOneChild = null
-    return {
-      newRouter: '',
-      openMenu: []
-    }
-  },
-  watch: {
-    $route() {
-      this.newRouter = this.$route.name
-    },
-
-    menu: {
-      handler: function(val) {
-        this.openMenu = val
-      },
-      deep: true
-    }
-  },
-  mounted() {
+    return {}
   },
   methods: {
     hasOneShowingChild(children = [], parent) {
@@ -152,33 +89,7 @@ export default {
         return this.basePath
       }
       return path.resolve(this.basePath, routePath)
-    },
-    toRouter(next, id, redirect,base) {
-      this.$store.dispatch('page/setId', id).then( res=> {
-        if(redirect) {
-          this.$router.push(`${next}?redirect=${redirect}&&base=${base}`)
-        } else {
-          this.$router.push(next)
-        }
-      })
-      
     }
   }
 }
 </script>
-
-<style lang="css">
-  .el-icon-lock:before {
-      content: "\e6e5";
-  }
-  .locks {
-    font-size: 14px !important;
-    float: right;
-    width: 1em !important;
-    height: 1em !important;
-    position: relative;
-    z-index: 10;
-    color:rgb(191, 203, 217) !important;
-  }
-</style>
-
