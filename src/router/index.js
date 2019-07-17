@@ -88,6 +88,33 @@ export const constantRoutes = [
     ]
   },
 
+  {
+    path: 'menu',
+    component: Layout,
+    redirect: '/menu',
+    meta: { title: '题库管理', icon: 'dashboard' },
+    children: [
+      {
+        path: '/menu',
+        meta: { title: '题库管理' },
+        component: () => import('@/views/menus/index'),
+      }
+    ]
+  },
+  // {
+  //   path: 'code',
+  //   component: Layout,
+  //   redirect: '/code',
+  //   meta: { title: '激活码管理', icon: 'dashboard' },
+  //   children: [
+  //     {
+  //       path: '/code',
+  //       meta: { title: '激活码管理' },
+  //       component: () => import('@/views/code/index'),
+  //     }
+  //   ]
+  // },
+  
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
 ]

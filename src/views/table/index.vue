@@ -192,12 +192,12 @@ export default {
     myList() {
       this.loading = true
 			tantList({pageNumber: this.page,pageSize: 10}).then( res=> {
-        if(res.data.list.length < 1 && this.page > 1) {
-          this.page = this.page--
+        if(!res.data.list.length && this.page > 1) {
+          this.page = Number(this.page) -1
           this.myList()
         } else {
           this.total = res.data.total
-          this.list = [] = res.data.list
+          this.list = res.data.list
           this.loading = false
         } 
       })
@@ -213,4 +213,9 @@ export default {
   .pageinat {
     margin: 20px 0;
   }
+</style>
+<style>
+.el-loading-mask {
+  z-index: 100;
+}
 </style>

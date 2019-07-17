@@ -89,7 +89,7 @@
 </template>
 
 <script>
-import { tantList, tantAdd, tantDel } from '@/api/ajax'
+import { rolesList, tantAdd, tantDel } from '@/api/ajax'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -192,13 +192,13 @@ export default {
 		},
     myList() {
       this.loading = true
-			tantList({pageNumber: this.page,pageSize: 10}).then( res=> {
-        if(res.data.list.length < 1 && this.page > 1) {
-          this.page = this.page--
+			rolesList({pageNumber: this.page,pageSize: 10}).then( res=> {
+        if(!res.data.roles.length && this.page > 1) {
+          this.page = Number(this.page) -1
           this.myList()
         } else {
           this.total = res.data.total
-          this.list = [] = res.data.list
+          this.list = [] = res.data.roles
           this.loading = false
         } 
       })

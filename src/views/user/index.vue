@@ -79,9 +79,9 @@
         <el-select v-model="form.tenantId" placeholder="请选择">
           <el-option
             v-for="item in options"
-            :key="item.tenantId"
+            :key="item.name"
             :label="item.fullName"
-            :value="item.tenantId">
+            :value="item.name">
           </el-option>
         </el-select>
       </el-form-item>
@@ -110,9 +110,9 @@
         <el-select v-model="form1.tenantId" placeholder="请选择">
           <el-option
             v-for="item in options"
-            :key="item.tenantId"
+            :key="item.name"
             :label="item.fullName"
-            :value="item.tenantId">
+            :value="item.name">
           </el-option>
         </el-select>
       </el-form-item>
@@ -175,6 +175,7 @@ export default {
   methods: {
     toEdit(row) {
       this.form1 = JSON.parse(JSON.stringify(row))
+      this.form1.tenantId = this.form1.name
       this.dialogFormVisible1 = true
     },
     addSchoolBtn() {
@@ -228,7 +229,7 @@ export default {
           type: 'success'
         })
         this.loading1 = false
-        this.dialogFormVisible = false
+        this.dialogFormVisible1 = false
         this.myList()
         
       }).catch(() => {
@@ -306,8 +307,8 @@ export default {
     myList() {
       this.loading = true
 			userList({pageNumber: this.page,pageSize: 10}).then( res=> {
-        if(res.data.list.length < 1 && this.page > 1) {
-          this.page = this.page--
+        if(!res.data.list.length && this.page > 1) {
+          this.page = Number(this.page) -1
           this.myList()
         } else {
           this.total = res.data.total

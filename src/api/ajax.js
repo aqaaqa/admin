@@ -99,3 +99,129 @@ export function userSchool(data) {
     data
   })
 }
+
+//菜单管理
+
+/*
+ * 册列表
+ * @param {*} data 
+ */
+export function bookList(data) {
+  return request({
+    url: '/back/base/book',
+    method: 'post',
+    data
+  })
+}
+
+/*
+ * 添加册
+ * @param {*} data 
+ */
+export function addBook(data) {
+  return request({
+    url: '/back/base/addBook',
+    method: 'post',
+    data
+  })
+}
+
+/*
+ * 修改册
+ * @param {*} data 
+ */
+export function editBook(data) {
+  return request({
+    url: '/back/base/editBook',
+    method: 'post',
+    data
+  })
+}
+
+/*
+ * 删除册
+ * @param {*} data 
+ */
+// export function editBook(data) {
+//   return request({
+//     url: 'back/base/editBook',
+//     method: 'post',
+//     data
+//   })
+// }
+
+
+/*
+ * 增加单元
+ * @param {*} data 
+ */
+export function addUnit(data) {
+  return request({
+    url: '/back/base/addUnit',
+    method: 'post',
+    data
+  })
+}
+
+/*
+ * 修改单元
+ * @param {*} data 
+ */
+export function editUnit(data) {
+  return request({
+    url: '/back/base/editUnit',
+    method: 'post',
+    data
+  })
+}
+
+/*
+ * 修改单元
+ * @param {*} data 
+ */
+export function deleteUnit(data) {
+  return request({
+    url: '/back/base/deleteUnit',
+    method: 'post',
+    data
+  })
+}
+
+/*
+ * 单元列表
+ * @param {*} data 
+ */
+export function unitList(data) {
+  return request({
+    url: '/back/base/unit',
+    method: 'post',
+    data
+  })
+}
+
+//激活码管理
+/*
+ * 添加激活码
+ * @param {*} data 
+ */
+export function addCode(data) {
+  return request({
+    url: '/back/code/addCode',
+    method: 'post',
+    data
+  })
+}
+
+/*
+ * 激活码列表
+ * @param {*} data 
+ */
+export function codeList(data) {
+  return request({
+    url: '/back/code/code',
+    method: 'post',
+    data
+  })
+}
+
+
