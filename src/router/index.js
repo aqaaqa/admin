@@ -101,19 +101,19 @@ export const constantRoutes = [
       }
     ]
   },
-  // {
-  //   path: 'code',
-  //   component: Layout,
-  //   redirect: '/code',
-  //   meta: { title: '激活码管理', icon: 'dashboard' },
-  //   children: [
-  //     {
-  //       path: '/code',
-  //       meta: { title: '激活码管理' },
-  //       component: () => import('@/views/code/index'),
-  //     }
-  //   ]
-  // },
+  {
+    path: 'topic',
+    component: Layout,
+    redirect: '/topic',
+    meta: { title: '题目统计', icon: 'dashboard' },
+    children: [
+      {
+        path: '/topic',
+        meta: { title: '题目统计' },
+        component: () => import('@/views/topic/index'),
+      }
+    ]
+  },
   
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }

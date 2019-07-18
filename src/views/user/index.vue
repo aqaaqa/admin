@@ -12,11 +12,11 @@
       label="用户名"
       min-width="180">
     </el-table-column>
-    <el-table-column
+    <!-- <el-table-column
       prop="fullName"
       label="全称"
       min-width="120">
-    </el-table-column>
+    </el-table-column> -->
     <el-table-column
       prop="name"
       label="所属学校"

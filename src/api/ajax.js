@@ -224,4 +224,27 @@ export function codeList(data) {
   })
 }
 
+/*
+ * 激活码列表
+ * @param {*} data 
+ */
+export function codeEdit(data) {
+  return request({
+    url: '/back/code/edit',
+    method: 'post',
+    data
+  })
+}
 
+//题目查询接口
+/*
+ * 激活码列表
+ * @param {*} data 
+ */
+export function qlogList(data) {
+  return request({
+    url: '/back/qlog/list',
+    method: 'post',
+    data
+  })
+}

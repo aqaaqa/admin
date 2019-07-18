@@ -97,6 +97,7 @@ export default {
     base: {
       handler(val) {
         this.bases = val
+        this.page = 1
         this.unitList()
       }
       
