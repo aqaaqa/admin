@@ -30,7 +30,6 @@
       </el-table-column>
     </el-table>
 
-
     <div class="pageinat">
       <el-pagination background
         size="mini"
