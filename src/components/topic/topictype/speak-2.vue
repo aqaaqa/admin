@@ -1,21 +1,16 @@
 <template>
-  <div class="read4">
-    <ul class="lang3-main">
-      <li v-for= "(items, index) in list" :key="index">
-        <p v-html="items.steam[0]"></p>
-        <p>
-          <span v-show="showAnswer">
-            {{items.correct}}
-          </span>
-        </p>
-      </li>
-    </ul>
+  <div class="write2">
+    <div class="write2-main" v-for= "(items, index) in list" :key="index">
+        <p v-for= "(art, index1) in items.steam" :key="index1" v-html="art"></p>
+        <p class="padd" v-for= "(opt, arr) in items.options" :key="arr+'a'">{{opt}}</p>
+    </div>
+
   </div>
 </template>
 
 <script>
 export default {
-  name: 'read4',
+  name: 'speak2',
   props:{
     itemList: {
       type: Object,
@@ -58,9 +53,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  @import "~@/styles/topic/lang3.scss";
-  .read4 {
-    width: 600px;
+.write2 {
+  width: 600px;
+  word-break:break-all;
+  p {
+    line-height: 28px;
+    font-size:14px;
+    font-weight:400;
+    color:rgba(0,0,0,0.85);
   }
+  .padd {
+    padding-left: 10px;
+  }
+}
 </style>
 

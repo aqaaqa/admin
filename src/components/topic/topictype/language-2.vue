@@ -1,130 +1,160 @@
 <template>
-  <div class="language2">
-    <div class="language2-detail" v-if='itemAll.detail && itemAll.detail.length != 0'>
-      <div v-for='(item,index) in itemAll.detail' :key="index">
-        <table class="language2-tab">
-          <tr v-for='(dItem, dIdx) in item.steam' :key="dIdx">
-            <td class="language2-border">
-              <span class="language2-word">{{dItem}}</span>
-              <span class="language2-ans">{{isShow && item.corArr ? item.corArr[dIdx].r : ''}}</span>
-            </td>
-            <td v-if="dIdx === 0" :rowspan='item.steam.length' class="language2-blank">
-              <span class="language2-line"></span>
-            </td>
-            <td class="language2-border language2-padR">{{item.options[dIdx]}}</td>
-          </tr>
-        </table>
+  <div class="listen5">
+    <div class="listen5-main" style="margin-top:20px;">
+      <div style="width: 200px;">
+        <el-table
+          :data = list.steam
+          :show-header = false
+          size= 'small'
+          border>
+          <el-table-column>
+          <template slot-scope="scope">
+            <span class="fonts">{{scope.row}}</span>
+          </template>
+          </el-table-column>
+          <!-- <el-table-column
+            style="text-align:center"
+            align="center"
+            width="50">
+          <template v-if="showAnswer" slot-scope="scope">
+            <span class="fonts">{{list.correct[scope.$index]}}</span>
+          </template>
+          </el-table-column> -->
+        </el-table>
+      </div>
+
+      
+      <div >
+        <el-table
+          size="small"
+          :data = list.options
+          :show-header = false
+          border
+          style="">
+          <el-table-column>
+          <template slot-scope="scope">
+            <span class="fonts">{{scope.row}}</span>
+          </template>
+          </el-table-column>
+        </el-table>
       </div>
     </div>
+
   </div>
 </template>
 
 <script>
+import {letterArr} from '@/utils/auth'
 export default {
-  name:'Language2',
-  data () {
-    return {
-      lData:[],
-      rData:[],
-      length:0,
-      isShow:false
+  name: 'listen5',
+  props:{
+    itemList: {
+      type: Object,
     }
   },
-  props: {
-    item: Object
+  data() {
+    return {
+      item: this.itemList,
+      list: this.itemList.detail[0],
+      answer: this.itemList.detail[0].correct,
+      showAnswer: this.itemList.isShow,
+      change: letterArr()
+    }
   },
   watch: {
-    item: {
+    itemList: {
       handler(val) {
-        this.isShow = val.isShow
+        this.item = val
+        this.list = val.detail[0],
+        this.answer = val.detail[0].correct
+        this.showAnswer = val.isShow
+        // this.lookAnswer()
       },
       deep: true
-    }
+      
+    },
+    
   },
   computed: {
-    itemAll () {
-      var zm = 'ABCDEFGHIJK';
-      this.item.detail.forEach(ele => {
-        var lData = [];
-        var rData = [];
-        var steam = ele.steam;
-        var total = steam.length;
-        var leg = total / 2;
-        ele.length = leg;
-        for(let i=0; i<leg; i++){
-          lData.push(steam[i]);
-        }
-        for(let i=leg; i<total; i++){
-          rData.push(steam[i]);
-        }
-        ele.lData = lData;
-        ele.rData = rData;
-        if(ele.correct.length) {
-          var correct = ele.correct;
-          var corArr = []
-          correct.forEach(c=>{
-            var rCatch = 0, lCatch =0;
-            var rCatch = parseInt(c.split('-')[1]);
-            rCatch = zm[rCatch];
-            var lCatch = parseInt(c.split('-')[0]);
-            corArr.push({l:lCatch,r:rCatch})
-          })
-          ele.corArr = corArr;
-        }
-        
-      });
-      return this.item;
-    }
+   
+  },
+  created() {
+    // let list = JSON.parse(JSON.stringify(this.list))
+    // let answerList = JSON.parse(JSON.stringify(this.answer))
+    // let aList = []
+    // for(let i =0 ; i < answerList.length; i++) {
+    //   let str = answerList[i]
+    //   let index = str.lastIndexOf("R");
+    //   let result = str.substr(index + 1,str.length);
+    //   aList.push(this.change[result-1])
+    // }
+    // let arr = []
+    // if(list) {
+    //   for( let i = 0; i < list.length/2 ;i++){
+    //     arr[i] = {
+    //       left: list[i],
+    //       answer: aList[i],
+    //       right: list[list.length/2+i]
+    //     }
+    //   }
+    //   this.listArr = arr
+    // }
+  },
+  mounted() {
+    
+    
   },
   methods: {
+    lookAnswer() {
+      this.showAnswer = !this.showAnswer
+    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.language2 {
-  margin-top: 20px;
+.listen5 {
+  background: #fff;
 }
-.language2-tab{
-  border-collapse: collapse;
-  td{
-    width:320px;
-    height:38px;
-    .language2-word{
-     width:auto;
-     line-height: 37px;
-     float: left;
-     padding-right: 10px
-    }
-    .language2-ans{
-      width:37px;
-      height:37px;
-      line-height: 37px;
-      float: right;
-      color:blue;
-      font-weight: bolder;
-    }
-  }
-  td.language2-border{
-    width:320px;
-    border:1px #999 solid;
-    padding: 0 0 0 16px;
-    font-size:14px;
+.video-box {
+  margin-top: 10px;
+}
+
+.gap-box {
+  margin: 20px auto 0;
+  p {
+    font-size: 14px;
     font-weight:400;
     color:rgba(0,0,0,0.85);
-    line-height:20px;
-  }
-  td.language2-padR{
-    padding-right: 16px
-  }
-  td.language2-blank{
-    width: 80px;
-  }
-  .language2-line{
-    height:1px;
-    background:#000
+    line-height:36px;
   }
 }
-</style>
+.fonts {
+  font-size: 14px;
+  font-weight:400;
+  color:rgba(0,0,0,0.85);
+  line-height:24px;
+}
 
+.listen5-main {
+  > div {
+    p {
+      font-weight: 500;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+    display: inline-block; 
+    vertical-align: top;
+    &:nth-child(1) {
+      width: 200px
+    }
+    &:nth-child(2) {
+      margin-left: 30px;
+      width: 400px;
+    }
+  }
+}
+
+
+</style>
 

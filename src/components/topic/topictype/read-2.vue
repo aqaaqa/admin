@@ -1,6 +1,6 @@
 <template>
   <div class="read2">
-    <div class="taskArtcle" v-html="item.ar" :id="item.id">
+    <div class="taskArtcle" v-html="item.article" :id="item.id">
     </div>
     <div v-for="(item,index) in item.detail" :key="index" class="taskOptions">
       <div v-for="(item1,index2) in item.options" :key="index2">
@@ -43,7 +43,7 @@
     methods: {
       fnInit() {
         var ar = this.item.article;
-        this.item.ar = ar.replace(/(_)+(\d)?(_)+/g,
+        this.item.ar = ar.replace(/(_)+([0-9]{0,2})?(_)+/g,
           '<span class="line" style=" border-bottom: 1px #000 solid;line-height:20px;display: inline-block;width:100px;height:20px;text-align:center"></span>'
         );
       },

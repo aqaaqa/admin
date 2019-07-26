@@ -112,12 +112,12 @@
 
             var id = i + '.' + j;
             //有值(8) //有值 且值为数组 不给边框
-            if (map[id] && '12345678910'.indexOf(map[id]) > -1) {
+            if (map[id] && '123456789'.indexOf(map[id].charAt(0)) > -1) {
               var Td = '<td>' + map[id] + '</td>';
             } else if (map[id] && map[id] === '@') {
               // 有值且是@ 放黑色边框 不放入值
               var Td = '<td class="danci view">' + '</td>';
-            } else if (map[id] && '12345678910'.indexOf(map[id]) > -1 ===false && map[id] !== '@') {
+            } else if (map[id] && '123456789'.indexOf(map[id].charAt(0)) > -1 ===false && map[id] !== '@') {
 
               //不是@ 不是数组 就放入值 加边框
               var Td = '<td class="danci">' + map[id] + '</td>';

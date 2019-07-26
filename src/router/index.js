@@ -88,6 +88,46 @@ export const constantRoutes = [
     ]
   },
 
+  {
+    path: 'menu',
+    component: Layout,
+    redirect: '/menu',
+    meta: { title: '题库管理', icon: 'dashboard' },
+    children: [
+      {
+        path: '/menu',
+        meta: { title: '题库管理' },
+        component: () => import('@/views/menus/index'),
+      }
+    ]
+  },
+  {
+    path: 'topic',
+    component: Layout,
+    redirect: '/topic',
+    meta: { title: '题目统计', icon: 'dashboard' },
+    children: [
+      {
+        path: '/topic',
+        meta: { title: '题目统计' },
+        component: () => import('@/views/topic/index'),
+      }
+    ]
+  },
+  {
+    path: 'quest',
+    component: Layout,
+    redirect: '/quest',
+    meta: { title: '试题录入', icon: 'dashboard' },
+    children: [
+      {
+        path: '/quest',
+        meta: { title: '试题录入' },
+        component: () => import('@/views/quest/index'),
+      }
+    ]
+  },
+  
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
 ]

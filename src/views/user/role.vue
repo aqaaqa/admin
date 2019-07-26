@@ -1,217 +1,189 @@
 <template>
-<div class="table-box">
-  <el-button type="primary" @click="addSchoolBtn" size="mini">添加学校</el-button>
-  <el-table
-    :data="list"
-    v-loading="loading"
-    border
-    size="mini"
-    style="width: 100%; margin-top: 10px;">
-    <el-table-column
-      prop="fullName"
-      label="学校全称"
-      min-width="160">
-    </el-table-column>
-    <el-table-column
-      prop="name"
-      label="学校简称"
-      min-width="160">
-    </el-table-column>
-    <el-table-column
-      prop="dsc"
-      label="描述"
-      width="140">
-    </el-table-column>
-    <el-table-column
-      prop="school"
-      label="状态">
-      <template slot-scope="scope">
-        {{scope.row.status == 1 ? '开启' : '关闭'}}
-      </template>
-    </el-table-column>
-    <el-table-column
-      min-width="280"
-      label="操作">
-      <div slot-scope="scope">
-        <!-- <el-button type="text" size="mini" @click="exportWord(scope.row.paperId)">
-          <svg-icon :icon-class="'word'" />
-          导出为word文档
-        </el-button> -->
-        <el-button type="text" size="mini" @click="toEdit(scope.row)">
-          <svg-icon :icon-class="'form'" />
-          编辑
-        </el-button>
-        <el-button type="text" size="mini" style="color: #ff3B30" @click="delSchool(scope.row.tenantId)">
-          <svg-icon :icon-class="'del'" />
-          删除
-        </el-button>
-      </div>
-    </el-table-column>
-  </el-table>
+  <div class="role-box">
+    <el-table :data="listData" border size="mini" v-loading = 'loading'>
+      <el-table-column prop="username" label="用户名">
+      </el-table-column>
+      <el-table-column prop="role" label="角色">
+      </el-table-column>
+      <el-table-column label="操作" min-width="200">
+        <template slot-scope="scope">
+          <el-button type="text" size="mini" @click="toEdit(scope.row)">
+            <svg-icon :icon-class="'form'" />
+            编辑
+          </el-button>
+        </template>
+      </el-table-column>
 
-  <div class="pageinat">
-    <el-pagination background
-      size="mini"
-      :current-page="page"
-      layout="prev, pager, next"
-      @current-change="choosePage"
-      :total="total"
-      :page-size="10">
-    </el-pagination>
+    </el-table>
+
+
+    <div class="pageinat">
+      <el-pagination background size="mini" layout="prev, pager, next" @current-change="choosePage" :page-size="10"
+        :total="Number(total)" :current-page.sync="page">
+      </el-pagination>
+    </div>
+
+
+    <el-dialog :title="username" :visible.sync="dialogFormVisible">
+      <el-checkbox-group v-model="checked" @change="checkedChange">
+        <el-checkbox v-for="option in options" :label="option.roleName" :key="option.roleId" :value="option.roleId">
+
+        </el-checkbox>
+      </el-checkbox-group>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogFormVisible = false" size="mini">取 消</el-button>
+        <el-button type="primary" @click="Submit()" size="mini">确 定</el-button>
+      </div>
+    </el-dialog>
   </div>
 
-
-  <el-dialog title="添加学校" :visible.sync="dialogFormVisible">
-    <el-form :model="form" size="mini">
-      <el-form-item label="学校全称" :label-width="formLabelWidth">
-        <el-input v-model="form.fullName" auto-complete="off"></el-input>
-      </el-form-item>
-      <el-form-item label="学校缩写" :label-width="formLabelWidth">
-        <el-input v-model="form.name" auto-complete="off"></el-input>
-      </el-form-item>
-      <el-form-item label="描述" :label-width="formLabelWidth">
-        <el-input v-model="form.desc" auto-complete="off"></el-input>
-      </el-form-item>
-      <el-form-item label="状态" :label-width="formLabelWidth">
-        <el-radio v-model="form.status" label="1">开启</el-radio>
-        <el-radio v-model="form.status" label="0">关闭</el-radio>
-      </el-form-item>
-      
-      
-    </el-form>
-    <div slot="footer" class="dialog-footer">
-      <el-button @click="dialogFormVisible = false" size="mini">取 消</el-button>
-      <el-button type="primary" @click="addSchool()" size="mini" :loading="loading1">确 定</el-button>
-    </div>
-  </el-dialog>
-</div>
-  
 </template>
 
 <script>
-import { tantList, tantAdd, tantDel } from '@/api/ajax'
-import { mapGetters } from 'vuex'
+  import {
+    getAllUser,
+    getAllRole,
+    modify
+  } from '@/api/role'
+  import {
+    mapGetters
+  } from 'vuex'
 
-export default {
-  data(){
-    return{
-      loading: false,
-      loading1: false,
-      dialogFormVisible: false,
-      page: 1,
-      total: 0,
-      list : [],
-      info: {},
-      form: {
-        name: '',
-        desc: '',
-        fullName:'',
-        status: '1'
+  export default {
+    data() {
+      return {
+        username: '',
+        //修改角色的入参
+        objParams: {
+          userId: '',
+          roleArr: [],
+        },
+        loading: false,
+        isChange: false,//判断用户是否编辑过角色的变量
+        checked: [],//当前用户拥有的角色
+        options: [],//所有用户的所有角色
+        listData: [],
+        dialogFormVisible: false,
+        total: 0,
+        page: 1,
+      }
+    },
+    computed: {
+
+    },
+    created() {
+      this.myList();
+      getAllRole().then(res => {
+        var roleList = res.data.roles;
+        this.options = [];
+        roleList.forEach(element => {
+          this.options.push({
+            "roleId": element.roleId,
+            "roleName": element.roleName
+          });
+        });
+      });
+    },
+    methods: {
+      /**
+       * 查询所有用户角色信息
+       */
+      myList(val) {
+        val = val == undefined ? 1 : val
+        this.loading = true
+        getAllUser({
+          "pageNumber": val,
+          "pageSize": 10
+        }).then(res => {
+          this.listData = res.data.list
+          this.total = res.data.total;
+          this.loading = false
+        })
       },
-      value: 1,
-      formLabelWidth: '100px'
-    }
-  },
-  computed: {
-    
-  },
-  created() {
-    this.myList()
-  },
-  methods: {
-    toEdit(row) {
-      this.value = 0
-      this.form = JSON.parse(JSON.stringify(row))
-      this.form.desc = row.dsc
-      this.dialogFormVisible = true
-    },
-    addSchoolBtn() {
-      this.dialogFormVisible = true
-      this.value = 1
-      this.form = {
-        name: '',
-        desc: '',
-        fullName:'',
-        status: '1'
-      }
-    },
-    delSchool(id) {
-      tantDel({tenantId: id}).then(res => {
-        console.log(res)
-        this.$notify({
-          title: '提示信息',
-          message: '删除成功',
-          type: 'success'
-        })
-        this.myList()
-      })
-    },
-    addSchool() {
-      var msg = null
-      for(var i in this.form) {
-        if(!this.form[i]) {
-            msg = '资料不能为空'
+      /**
+       * 分页 页码改变
+       */
+      choosePage(current) {
+        this.myList(current);
+      },
+      /**
+       * 点击编辑按钮 查询所有用户的所有角色
+       */
+      toEdit(row) {
+        this.username = row.username
+        this.objParams.userId = row.userId
+        this.dialogFormVisible = true
+        //如果用户没有角色 赋值为空数组
+        if (row.roleIdArr === null) {
+          this.checked = [];
+        } else {
+          this.checked = row.role.split(",")
         }
-      }
-      if(msg) {
-          this.$message.error(msg)
-          return false
-      }
-      this.loading1 = true
-      tantAdd(this.form).then(res => {
-        this.$notify({
-          title: '提示信息',
-          message: this.value == 1 ? '添加成功' : '修改成功',
-          type: 'success'
-        })
-        this.loading1 = false
-        this.dialogFormVisible = false
-        for(var i in this.form) {
-          if(i == 'status') {
-            i = 1
-          }else {
-            i = ''
+        // 查询所有用户的所有角色
+        
+      },
+      /**
+       * 编辑角色
+       */
+      checkedChange(val) {
+        this.isChange = true;  //为ture证明修改过角色 
+        this.objParams.roleArr = [];
+        var flag;
+        console.log(val); //val:是roleName的数组  ["All","specail"] 
+         //两个for循环 替换成了对应的roleId的数组 保存在 this.objParams.roleArr
+        for (let i = 0; i < val.length; i++) {
+          flag = true;
+          for (let j = 0; j < this.options.length; j++) {
+            if (val[i] == this.options[j].roleName) {
+              flag = false;
+              this.objParams.roleArr.push(this.options[j].roleId)
+              break;
+            }
           }
         }
-        if(this.value == 1) {
-          this.page =1 
-        } 
-        this.myList()
-        
-      }).catch(() => {
-        this.$notify({
-          title: '提示信息',
-          message: this.value == 1 ? '添加失败' : '修改失败',
-          type: 'error'
-        })
-      })
-    },
-    choosePage(current) {
-			this.page = current
-			this.myList()
-		},
-    myList() {
-      this.loading = true
-			tantList({pageNumber: this.page,pageSize: 10}).then( res=> {
-        if(res.data.list.length < 1 && this.page > 1) {
-          this.page = this.page--
-          this.myList()
+        console.log(this.objParams.roleArr);
+      },
+      /**
+       * 确定 修改当前用户角色
+       */
+      Submit() {
+        //编辑过角色 isChange为true的时候 才掉修改角色的接口
+        if (this.isChange) {
+          modify(this.objParams).then(res => {
+            if (res.status == 1) {
+              this.$message({
+                message: '修改成功',
+                type: 'success'
+              })
+              this.page = 1;
+              this.myList();
+
+            } else {
+              this.$message({
+                message: '修改失败',
+                type: 'error'
+              })
+            }
+          })
+          this.isChange = false;
+          this.dialogFormVisible = false;
         } else {
-          this.total = res.data.total
-          this.list = [] = res.data.list
-          this.loading = false
-        } 
-      })
+          //如果用户没有改变过角色 就不需要掉修改角色的接口
+          this.dialogFormVisible = false;
+          //alert('我没有掉接口');
+        }
+      },
     }
   }
-}
+
 </script>
 
-<style lang="scss" scoped>
-  .table-box {
-    padding: 10px;
-  }
-  .pageinat {
-    margin: 20px 0;
-  }
+<style lang="scss">
+.role-box {
+  padding: 10px;
+}
+.pageinat {
+  margin: 20px 0;
+}
+
 </style>

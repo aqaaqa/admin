@@ -9,26 +9,38 @@
     </template>
     <template v-else-if="list.part == '语言知识运用'">
       <language1 v-if="list.type == '单选'" :itemList="list" />
-      <language2 v-else-if='list.type == "匹配"' :item="list"  />
+      <language2 v-else-if="list.type == '匹配'" :itemList="list" />
       <language3 v-else-if="list.type == '改写'" :itemList="list" />
-      <language4 v-else-if='list.type == "填空"' :item="list" />
-      <language5 v-else-if='list.type == "选词填空"' :item="list" />
+      <language5 v-else-if='list.type == "选词填空" && list.article' :item="list" />
+      <language4 v-else-if='list.type == "选词填空"' :item="list" />
       <language6 v-else-if="list.type == '提示填空'" :itemList="list" />
       <language7 v-else-if="list.type == '网格填空'" :itemList="list" />
       <language8 v-else-if='list.type == "完形填空"' :item="list" />
     </template>
     
-    <template v-else-if="list.part == '阅读'">
+    <template v-else-if="list.part == '阅读题'">
       <read1 v-if="list.type == '阅读单选'" :itemList="list" />
       <read2 v-else-if="list.type == '选句填空'" :itemList="list" />
       <read3 v-else-if="list.type == '判断'" :item="list" />
       <read4 v-else-if="list.type == '简答'" :itemList="list" />
     </template>
+
+    <template v-else-if="list.part == '写作题'">
+      <read4 v-if="list.type == '简答'" :itemList="list" />
+      <write2 v-else-if="list.type == '作文'" :itemList="list" />
+    </template>
+
+    <template v-else-if="list.part == '口语题'">
+      <read4 v-if="list.type == '简答'" :itemList="list" />
+      <speak3 v-else-if="list.type == '朗读'" :itemList="list" />
+      <speak2 v-else-if="list.type == '讨论'" :itemList="list" />
+    </template>
   </div>
 </template>
 
 <script>
-import { listen1, listen3, listen4, listen2, listen5, language1, language2, language3, language4, language5, language6, language7, language8, read1, read2, read3, read4} from './topictype'
+import { listen1, listen3, listen4, listen2, listen5, language1, language2, language3, language4, language5, language6, language7, language8, read1, read2, read3, read4,
+write2,speak2, speak3} from './topictype'
 
 export default {
   name: 'topic',
@@ -67,7 +79,10 @@ export default {
     read1,
     read2,
     read3,
-    read4
+    read4,
+    write2,
+    speak2,
+    speak3
   },
   created() {
     

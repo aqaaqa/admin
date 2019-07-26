@@ -4,10 +4,10 @@
       <el-button size="mini" @click="lookAnswer">查看脚本</el-button>
     </div> -->
     <div class="read1-main">
-      <div class="read1-article">{{item.article}}</div>
+      <div class="read1-article" v-html="item.article"></div>
       <ul class="read1-topic">
         <li v-for="(items, index) in list" :key="index">
-          <p>{{items.steam}}</p>
+          <p>{{items.steam[0]}}</p>
           <p class="read1-changes" :class="items.line ? 'line' : ''">
             <span v-for="(change, indexs) in items.options" :key="indexs" :style="change.indexOf(items.correct[0]+'.') == 0 && showAnswer ? 'color: #409EFF' : ''">
               {{change}}
