@@ -5,21 +5,26 @@
     <el-input type="textarea" v-model="form.desc" :autosize="{ minRows: 4, maxRows: 6}"></el-input>
   </el-form-item>
   <el-form-item label="题目" :label-width="formLabelWidth" > 
+    <p class="hint-text">注：只能放一个小题</p>
+    <el-input type="textarea" v-model="form.steam" :autosize="{ minRows: 10, maxRows: 20}"></el-input>
+  </el-form-item>
+  <el-form-item label="提示" :label-width="formLabelWidth" > 
     <p class="hint-text">注：小题之间空行隔开</p>
-    <el-input type="textarea" v-model="form.article" :autosize="{ minRows: 10, maxRows: 20}"></el-input>
+    <el-input type="textarea" v-model="form.options" :autosize="{ minRows: 10, maxRows: 20}"></el-input>
   </el-form-item>
 </el-form>  
 </template>
 
 <script>
-import { writeSteam } from '@/utils/arr'
+import { discSteam } from '@/utils/arr'
 
 export default {
   data(){
     return {
       form: {
-        desc: '二、书面表达。',
-        article: '88.你所在学校的英文杂志正在向学生征集有关英语学习的文章，请你结合自身学习英语的经历，写一则短文。要点如下：\n（1）你在英语学习过程中遇到了哪些困难？\n（2）你是如何解决这些困难的？\n（3）你认为自己在英语学习上还有哪些需要提高的地方？你打算怎么做？\n注意：\n（1）词数不少于80；\n（2）可以适当增加细节，以使行文连贯。',
+        desc: '二、讨论题',
+        steam: '91.随着网络时代的来临，市面上出现了越来越多的线上英语学习工具，如APP、电子书、网络课程等，你如何看待这些线上学习工具？\n提示：',
+        options: '（1）What kind of online English learning tools have you used? \r\n\n（2）Which one do you prefer, online English learning tools or traditional ways of learning?\r\n\n（3）What are the reasons for your preference?'
       },
       formLabelWidth: '120px',
     }
@@ -38,11 +43,9 @@ export default {
         this.$message.error(msg)
         return false
       }
-      let list  = writeSteam(form.article)
+      let list  = discSteam(form.steam, form.options)
       partObj.detail = list
-      // if( this.type == '阅读题') {
-      //   partObj.article = form.article.replace(/(\r\n)|(\n)/g,'<br/>')
-      // }
+
       return partObj
     }
 

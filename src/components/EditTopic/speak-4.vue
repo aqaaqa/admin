@@ -6,20 +6,25 @@
   </el-form-item>
   <el-form-item label="题目" :label-width="formLabelWidth" > 
     <p class="hint-text">注：小题之间空行隔开</p>
-    <el-input type="textarea" v-model="form.article" :autosize="{ minRows: 10, maxRows: 20}"></el-input>
+    <el-input type="textarea" v-model="form.steam" :autosize="{ minRows: 10, maxRows: 20}"></el-input>
+  </el-form-item>
+  <el-form-item label="提示" :label-width="formLabelWidth" > 
+    <p class="hint-text">注：小题之间空行隔开</p>
+    <el-input type="textarea" v-model="form.options" :autosize="{ minRows: 10, maxRows: 20}"></el-input>
   </el-form-item>
 </el-form>  
 </template>
 
 <script>
-import { writeSteam } from '@/utils/arr'
+import { discSteam } from '@/utils/arr'
 
 export default {
   data(){
     return {
       form: {
-        desc: '二、书面表达。',
-        article: '88.你所在学校的英文杂志正在向学生征集有关英语学习的文章，请你结合自身学习英语的经历，写一则短文。要点如下：\n（1）你在英语学习过程中遇到了哪些困难？\n（2）你是如何解决这些困难的？\n（3）你认为自己在英语学习上还有哪些需要提高的地方？你打算怎么做？\n注意：\n（1）词数不少于80；\n（2）可以适当增加细节，以使行文连贯。',
+        desc: '四、对话题',
+        steam: 'Work in pairs. Act out the following situation. You and your friends are planning a trip. You may consider:',
+        options: 'a) What’s your destination?\r\n\nb) Why do you want to go to this place? \r\n\nc) What should you prepare, for example, flight, visa, hotel, etc.?'
       },
       formLabelWidth: '120px',
     }
@@ -38,11 +43,9 @@ export default {
         this.$message.error(msg)
         return false
       }
-      let list  = writeSteam(form.article)
+      let list  = discSteam(form.steam, form.options)
       partObj.detail = list
-      // if( this.type == '阅读题') {
-      //   partObj.article = form.article.replace(/(\r\n)|(\n)/g,'<br/>')
-      // }
+
       return partObj
     }
 

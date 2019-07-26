@@ -29,7 +29,7 @@
     </div>
 
     <!-- 添加题目模块 -->
-    <el-dialog :visible.sync="dialogFormVisible" width="80%">
+    <el-dialog :visible.sync="dialogFormVisible" :before-close="handleClose" width="80%">
       <span slot="title">
         {{partObj.part ? `${partObj.part}—${partObj.type}` : ''}}
       </span>
@@ -45,9 +45,11 @@
         <language1 v-if="partObj.type == '单选'" ref="child" />
         <language2 v-else-if="partObj.type == '匹配'" ref="child" />
         <language3 v-else-if="partObj.type == '改写'" ref="child" />
-        <language4 v-else-if="partObj.type == '提示填空'" v-model="value7" ref="child" />
-        <language5 v-else-if="partObj.type == '选词填空'" ref="child" />
+        <language4 v-else-if="partObj.type == '提示填空'" ref="child" />
+        <language5 v-else-if="partObj.type == '短文填空'" ref="child" />
         <language6 v-else-if="partObj.type == '完形填空'" ref="child" />
+        <language7 v-else-if="partObj.type == '单句填空'" ref="child" />
+        <language8 v-else-if="partObj.type == '网格填空'" ref="child" />
       </template>
       <template v-else-if="partObj.part == '阅读题'">
         <read1 v-if="partObj.type == '阅读单选'" ref="child" />
@@ -59,51 +61,32 @@
         <read1 v-if="partObj.type == '阅读单选'" ref="child" />
         <read2 v-else-if="partObj.type == '选句填空'" ref="child" />
         <read3 v-else-if="partObj.type == '判断'" ref="child" />
-        <read4 v-else-if="partObj.type == '简答'" ref="child" v-model="value7"/>
+        <read4 v-else-if="partObj.type == '简答'" ref="child" :type="partObj.part"/>
       </template>
       <template v-else-if="partObj.part == '写作题'">
-        <read4 v-if="partObj.type == '简答'" ref="child" v-model="value7"/>
-        <write2 v-else-if="partObj.type == '作文'" ref="child"/>
+        <write2 v-if="partObj.type == '作文'" ref="child"/>
+        <read4 v-else-if="partObj.type == '简答'" ref="child" :type="partObj.part"/>
       </template>
       <template v-else-if="partObj.part == '口语题'">
-        <read4 v-if="partObj.type == '简答'" ref="child" v-model="value7"/>
+        <read4 v-if="partObj.type == '简答'" ref="child" :type="partObj.part"/>
+        <speak2 v-else-if="partObj.type == '朗读'" ref="child"/>
+        <speak3 v-else-if="partObj.type == '讨论'" ref="child"/>
+        <speak4 v-else-if="partObj.type == '对话'" ref="child"/>
+        <speak5 v-else-if="partObj.type == '辩论'" ref="child"/>
       </template>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogFormVisible = false" size="mini">取 消</el-button>
+        <el-button @click="handleClose" size="mini">取 消</el-button>
         <el-button type="primary" @click="opeaArr" size="mini">确 定</el-button>
       </div>
     </el-dialog>
-    <!-- <div class="mian">
-      <div v-if="partObj.part">
-        <p>{{partObj.part+'—' +partObj.type}}</p>
-        <el-form ref="form" :model="form" label-width="80px">
-          <el-form-item label="标题">
-            <el-input v-model="form.name"></el-input>
-          </el-form-item>
-          <el-form-item label="描述">
-            <el-input v-model="form.name"></el-input>
-          </el-form-item>
-          <el-form-item label="题目">
-            <el-input type="textarea" v-model="form.desc"></el-input>
-          </el-form-item>
-          <el-form-item label="答案">
-            <el-input type="textarea" v-model="form.desc"></el-input>
-          </el-form-item>
-          <el-form-item>
-            <el-button type="primary" @click="onSubmit">立即创建</el-button>
-            <el-button>取消</el-button>
-          </el-form-item>
-        </el-form>
-      </div>
-    </div> -->
   </div>
 </template>
 
 <script>
 import alltopic from '../../components/alltopic'
 import { titleOper } from '@/utils/arr'
-import { listen1, listen2, listen3, listen4, listen5, language1, language2, language3, language4
-,language5, language6, read1, read2, read3, read4, write2 } from '../../components/EditTopic'
+import { listen1, listen2, listen3, listen4, listen5, language1, language2, language3, language4, language5, 
+language6, language7, language8, read1, read2, read3, read4, write2, speak2, speak3, speak4, speak5 } from '../../components/EditTopic'
 import { partType, mulMenu, qestUp } from '@/api/ajax'
 
 export default {
@@ -132,11 +115,17 @@ export default {
     language4,
     language5,
     language6,
+    language7,
+    language8,
     read1,
     read2,
     read3,
     read4,
-    write2
+    write2,
+    speak2,
+    speak3,
+    speak4,
+    speak5
   },
   created() {
     partType().then(res=> {
@@ -153,6 +142,11 @@ export default {
     })
   },
   methods: {
+    handleClose() {
+      this.dialogFormVisible = false; 
+      this.value7= ''
+      this.partObj.part= ''
+    },
     opeaArr() {
       let obj = this.$refs.child.lists()
       let form = this.$refs.child.form
@@ -164,16 +158,17 @@ export default {
       }
       this.partObj = Object.assign(this.partObj, obj)
       console.log(this.partObj)
-      // qestUp({data: this.partObj}).then(res => {
-      //   console.log(res)
-      // })
+      qestUp({data: this.partObj}).then(res => {
+        console.log(res)
+      })
     },
     handleChange(value) {
       let arr = value.split('|')
-      // if(this.value1.length < 1) {
-      //   this.$message.error('请选择要添加题目的单元')
-      //   return  false
-      // }
+      if(this.value1.length < 1) {
+        this.$message.error('请选择要添加题目的单元')
+        return  false
+      }
+
       this.partObj = {
         type: arr[0],
         part: arr[1],
