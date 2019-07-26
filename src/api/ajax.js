@@ -248,3 +248,41 @@ export function qlogList(data) {
     data
   })
 }
+
+
+//查询全部模块试题
+/*
+ * 全部模块试题
+ * @param {*} data 
+ */
+export function partType(data) {
+  return request({
+    url: 'back/qest/partType',
+    method: 'post',
+    data
+  })
+}
+
+/*
+ * 多级菜单
+ * @param {*} data 
+ */
+export function mulMenu(data) {
+  return request({
+    url: '/back/base/mulMenu',
+    method: 'post',
+    data
+  })
+}
+
+/*
+ * 录入
+ * @param {*} data 
+ */
+export function qestUp(data) {
+  return request({
+    url: '/back/qest/qest',
+    method: 'post',
+    data
+  })
+}

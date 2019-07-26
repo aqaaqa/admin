@@ -114,6 +114,19 @@ export const constantRoutes = [
       }
     ]
   },
+  {
+    path: 'quest',
+    component: Layout,
+    redirect: '/quest',
+    meta: { title: '试题录入', icon: 'dashboard' },
+    children: [
+      {
+        path: '/quest',
+        meta: { title: '试题录入' },
+        component: () => import('@/views/quest/index'),
+      }
+    ]
+  },
   
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
