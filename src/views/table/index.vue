@@ -135,7 +135,6 @@ export default {
     },
     delSchool(id) {
       tantDel({tenantId: id}).then(res => {
-        console.log(res)
         this.$notify({
           title: '提示信息',
           message: '删除成功',

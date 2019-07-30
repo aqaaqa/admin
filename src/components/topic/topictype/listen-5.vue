@@ -13,14 +13,14 @@
             <span class="fonts">{{scope.row}}</span>
           </template>
           </el-table-column>
-          <el-table-column
+          <!-- <el-table-column
             style="text-align:center"
             align="center"
             width="50">
           <template v-if="showAnswer" slot-scope="scope">
             <span class="fonts">{{list.correct[scope.$index]}}</span>
           </template>
-          </el-table-column>
+          </el-table-column> -->
         </el-table>
       </div>
 
@@ -148,12 +148,13 @@ export default {
     display: inline-block; 
     vertical-align: top;
     &:nth-child(1) {
-      width: 55%;
+      width: 100%;
       min-width: 400px;
     }
     &:nth-child(2) {
-      width: 40%;
-      float: right;
+      width: 100%;
+      float: left;
+      margin-top:30px;
     }
   }
 }

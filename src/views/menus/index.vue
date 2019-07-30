@@ -220,7 +220,6 @@ export default {
       this.form.m_name = row.name
       this.form.m_baseCode = row.baseCode
       this.form.m_status = row.status == '1' ? '1' : '0'
-      console.log(this.form.m_status)
       this.form.m_baseId = row.baseId
       this.dialogFormVisible = true
     },

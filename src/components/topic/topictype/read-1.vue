@@ -42,6 +42,7 @@ export default {
       handler(val) {
         this.item = val
         this.list = val.detail
+        this.warps()
         this.showAnswer = val.isShow
       },
       deep: true
@@ -53,15 +54,7 @@ export default {
    
   },
   created() {
-    let newArrs = this.list.map(e=> {
-      for(let a of e.options){
-        let arr = a.split(' ')
-        if(arr.length > 5) {
-          return e.line = true
-        }
-      }
-      return e
-    })
+    this.warps()
   },
   mounted() {
     
@@ -70,6 +63,17 @@ export default {
   methods: {
     lookAnswer() {
       this.showAnswer = !this.showAnswer
+    },
+
+    warps() {
+      let newArrs = this.list.map(e=> {
+        for(let a of e.options){
+          if(a.length > 35) {
+            return e.line = true
+          }
+        }
+        return e
+      })
     }
   }
 }
@@ -77,7 +81,7 @@ export default {
 
 <style lang="scss" scoped>
 .read1-main {
-  width: 600px;
+  width: 480px;
   margin-top: 20px;
   font-size: 14px;
   font-weight:400;

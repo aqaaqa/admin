@@ -142,7 +142,7 @@ export function simpleOper(detail,str,cor) {
  let list = []
  let cors = cor.split(',')
  list.push({
-   stean: pushSteam(detail),
+   steam: pushSteam(detail),
    select_words : pushSteam(str),
    correct : cors
  })
@@ -225,11 +225,15 @@ export function writeSteam(str) {
     if(c) {
       b.push(c)
       if(i == a.length-1) {
-        arrs.push(b)
+        arrs.push({
+          steam: b
+        })
       }
     } else {
       if(b) {
-        arrs.push(b)
+        arrs.push({
+          steam: b
+        })
         b = []
       }
     }
@@ -304,7 +308,7 @@ export function discSteam(str, options) {
  * 辩论题型整合
  */
 export function argueStr(str) {
-  let list = []
+  let list = {}
   let a = str.split('\n')
   let b = {
     options: [],
@@ -320,22 +324,13 @@ export function argueStr(str) {
         b.steam.push(c)
       }
       if(i == a.length-1) {
-        list.push(b)
-        b = {
-          options: [],
-          steam: []
-        }
+        list = b
       }
     } else {
       if(x==0) {
         x=1
       } else {
-        list.push(b)
-        b = {
-          options: [],
-          steam: []
-        }
-        x=0
+        list = b
       }
     }
   }
@@ -357,11 +352,27 @@ export function argueSteam(str, options) {
   return arrs
 }
 
-export function tableOper (str, cor) {
+export function tableOper (str, cor, option) {
   let a = str.split('\n').filter(e=> e!= '')
-  let b = cor.split(',')
-  return [{
-    steam: a,
-    correct: b
-  }]
+
+  if(option) {
+    let b = cor.split('\n').map(e=> {
+      return e=e.trim()
+    })
+    let d = pushSteam(option)
+    return [{
+      steam: a,
+      correct: b,
+      options : d
+    }]
+  } else {
+    let b = cor.split(',').map(e=> {
+      return e=e.trim()
+    })
+    return [{
+      steam: a,
+      correct: b
+    }]
+  }
+  
 }

@@ -1,11 +1,12 @@
 <template>
   <div class="listen4">
     <div class="listen4-detail" v-if='itemAll.detail && itemAll.detail.length != 0'>
+      <p class="aritc-main" v-html="itemAll.article"></p>
       <div v-for='(dItem, index) in itemAll.detail' :key="index">
         <div v-for='(sItem, sIdx) in dItem.steam' :key="sIdx" class="listen4-steam">
-          <span class="listen4-num">{{sIdx+1}}. </span>
           <div class="listen4-sentence">
-            {{sItem}} <span class="listen4-line">{{isShow ? dItem.ftCorrect[sIdx] : ''}}</span>
+            {{sItem}} 
+            <!-- <span class="listen4-line">{{isShow ? dItem.ftCorrect[sIdx] : ''}}</span> -->
           </div>
         </div>
       </div>
@@ -35,17 +36,17 @@ export default {
   },
   computed: {
     itemAll () {
-      this.item.detail.forEach(ele => {
-        var ftCorrect = [];
-        ele.correct.forEach(c => {
-          if(c===0){
-            ftCorrect.push("F")
-          }else{
-            ftCorrect.push("T")
-          }
-        })
-        ele.ftCorrect = ftCorrect;
-      });
+      // this.item.detail.forEach(ele => {
+      //   var ftCorrect = [];
+      //   ele.correct.forEach(c => {
+      //     if(c===0){
+      //       ftCorrect.push("F")
+      //     }else{
+      //       ftCorrect.push("T")
+      //     }
+      //   })
+      //   ele.ftCorrect = ftCorrect;
+      // });
 
       return this.item;
     }
@@ -68,7 +69,7 @@ export default {
 
 <style lang="scss" scoped>
 .listen4{
-  width:1000px;
+  width: 480px;
   margin-top: 20px;
   .listen4-steam{
     display: flex;
@@ -95,6 +96,11 @@ export default {
       }
     }
   }
+}
+.aritc-main {
+  font-size: 14px;
+  line-height: 26px;
+  margin-bottom: 20px;
 }
 </style>
 

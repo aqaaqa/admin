@@ -5,7 +5,7 @@
         <table class="language5-options">
           <tr v-for="(wgItem,wgIndex) in item.wordsGroup" :key="wgIndex"><td v-for="(wItem,wIde) in wgItem" :key="wIde">{{wItem}}</td></tr>
         </table>
-        <div class="language5-article" :id='itemAll.id' v-html='itemAll.opAr'>
+        <div class="language5-article" :id='itemAll.id' v-html='itemAll.article'>
         </div>
       </div>
      
@@ -32,6 +32,15 @@ export default {
       handler(val) {
         this.isShow = val.isShow
         this.$nextTick(()=> {
+          this.item.detail.forEach(ele => {
+            var words = ele.select_words;
+            var count = 5;
+            var leg = words.length;
+            var n = 0;
+            this.wordsAll = []
+            this.words_Group(words,n);
+            ele.wordsGroup = this.wordsAll;
+          });
           this.viewAnswer()
         })
         
@@ -50,10 +59,10 @@ export default {
         this.words_Group(words,n);
         ele.wordsGroup = this.wordsAll;
       });
-      var opAr = this.item.article;
-      opAr = opAr.replace(/(_)+([0-9]{0,2})?(_)+/g,'<span class="line" style=" border-bottom: 1px #000 solid;line-height:20px;display: inline-block;width:100px;height:20px;text-align:center"></span>');
-      this.item.opAr = opAr;
-      this.id = this.item.id;
+      // var opAr = this.item.article;
+      // opAr = opAr.replace(/(_)+([0-9]{0,2})?(_)+/g,'<span class="line" style=" border-bottom: 1px #000 solid;line-height:20px;display: inline-block;width:100px;height:20px;text-align:center"></span>');
+      // this.item.opAr = opAr;
+      // this.id = this.item.id;
       return this.item
     }
   },
@@ -83,23 +92,23 @@ export default {
       }
     },
     handleArticle() {
-      var lineList = document.getElementById(this.itemAll.id).querySelectorAll(".line");
-      for(let i = 0; i<lineList.length; i++) {
-        lineList[i].innerHTML = (i+1);
-      }
+      // var lineList = document.getElementById(this.itemAll.id).querySelectorAll(".line");
+      // for(let i = 0; i<lineList.length; i++) {
+      //   lineList[i].innerHTML = (i+1);
+      // }
     },
     viewAnswer () {
-      if(this.isShow){
-        var lineList = document.getElementById(this.itemAll.id).querySelectorAll(".line");
-        for(let i = 0; i<lineList.length; i++) {
-          this.$nextTick(function(){
-            lineList[i].innerHTML = this.itemAll.detail[0].correct[i];
-          })
-        }
+      // if(this.isShow){
+      //   var lineList = document.getElementById(this.itemAll.id).querySelectorAll(".line");
+      //   for(let i = 0; i<lineList.length; i++) {
+      //     this.$nextTick(function(){
+      //       lineList[i].innerHTML = this.itemAll.detail[0].correct[i];
+      //     })
+      //   }
        
-      }else{
-        this.handleArticle();
-      }
+      // }else{
+      //   this.handleArticle();
+      // }
       
     }
   },
@@ -125,12 +134,12 @@ ul{
   border-bottom: 0;
   clear: both;
   overflow: hidden;
-  width:602px;
+  width:480px;
   padding:0;
   border-collapse: collapse;
   margin-bottom: 24px;
   td{
-    width:120px;
+    width:80px;
     min-height:38px;
     padding: 9px 16px;
     line-height: 20px;
@@ -141,7 +150,7 @@ ul{
   }
 }
 .language5-article{
-  width:700px;
+  width:500px;
   font-size:14px;
   font-weight:400;
   color:rgba(0,0,0,0.85);

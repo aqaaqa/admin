@@ -1,7 +1,7 @@
 <template>
   <div class="language8">
     <div class="language8-detail">
-      <div class="language8-article" :id='itemAll.id' ref="article" v-html="itemAll.opAr">
+      <div class="language8-article" :id='itemAll.id' ref="article" v-html="itemAll.article">
       </div>
       <div class="language8-box" v-if="itemAll.detail&&itemAll.detail.length!=0">
         <div class="language8-options" v-for="(item,index) in itemAll.detail" :key="index">
@@ -28,60 +28,60 @@ export default {
     item:{
       handler(val) {
         this.isShow = val.isShow
-        this.viewAnswer()
+        // this.viewAnswer()
       },
       deep:true
     }
   },
   computed: {
     itemAll () {
-      var zm = "ABCDEFGHI";
-      var opAr = this.item.article;
-      opAr = opAr.replace(/(_)+([0-9]{0,2})?(_)+/g,'<span class="line" style=" border-bottom: 1px #000 solid;line-height:20px;display: inline-block;width:100px;height:20px;text-align:center"></span>');
-      this.item.opAr = opAr;
-      this.id = this.item.id;
-      var correctArr = [];
-      this.item.detail.forEach((ele) => {
-        var correct =  ele.correct[0];
-        var options = ele.options;
-        options.forEach((op,oIdx) => {
-          var zm = op.split(".")[0];
-          var word = op.split(".")[1];
-          if(zm.trim() === correct){
-            correctArr.push(word.trim());
-          }
-        })
-      })
-      this.item.correctArr = correctArr;
+      // var zm = "ABCDEFGHI";
+      // var opAr = this.item.article;
+      // opAr = opAr.replace(/(_)+([0-9]{0,2})?(_)+/g,'<span class="line" style=" border-bottom: 1px #000 solid;line-height:20px;display: inline-block;width:100px;height:20px;text-align:center"></span>');
+      // this.item.opAr = opAr;
+      // this.id = this.item.id;
+      // var correctArr = [];
+      // this.item.detail.forEach((ele) => {
+      //   var correct =  ele.correct[0];
+      //   var options = ele.options;
+      //   options.forEach((op,oIdx) => {
+      //     var zm = op.split(".")[0];
+      //     var word = op.split(".")[1];
+      //     if(zm.trim() === correct){
+      //       correctArr.push(word.trim());
+      //     }
+      //   })
+      // })
+      // this.item.correctArr = correctArr;
       return this.item;
     }
   },
   methods: {
-    handleArticle() {
-      var lineList = document.getElementById(this.id).querySelectorAll(".line");
-      for(let i = 0; i<lineList.length; i++) {
-        lineList[i].innerHTML = (i+1);
-      }
-    },
+    // handleArticle() {
+    //   var lineList = document.getElementById(this.id).querySelectorAll(".line");
+    //   for(let i = 0; i<lineList.length; i++) {
+    //     lineList[i].innerHTML = (i+1);
+    //   }
+    // },
     //显示答案
-     viewAnswer () {
-      if(this.isShow){
-        var lineList = document.getElementById(this.id).querySelectorAll(".line");
-        for(let i = 0; i<lineList.length; i++) {
-          this.$nextTick(function(){
-            lineList[i].innerHTML = this.itemAll.detail[0].correct[i];
-          })
-        }
-      }else{
-        this.handleArticle();
-      } 
-    }
+    //  viewAnswer () {
+    //   if(this.isShow){
+    //     var lineList = document.getElementById(this.id).querySelectorAll(".line");
+    //     for(let i = 0; i<lineList.length; i++) {
+    //       this.$nextTick(function(){
+    //         lineList[i].innerHTML = this.itemAll.detail[0].correct[i];
+    //       })
+    //     }
+    //   }else{
+    //     this.handleArticle();
+    //   } 
+    // }
   },
   updated () {
-    this.handleArticle();
+    // this.handleArticle();
   },
   mounted () {
-    this.handleArticle();
+    // this.handleArticle();
   }
 }
 </script>
@@ -95,7 +95,7 @@ export default {
    margin-top: 20px;
  }
 .language8-article{
-  width:700px;
+  width:480px;
   font-size:14px;
   font-weight:400;
   color:rgba(0,0,0,0.85);

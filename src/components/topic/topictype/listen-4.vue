@@ -1,12 +1,12 @@
 <template>
   <div class="listen4">
-    <div class="listen4-detail" v-if='itemAll.detail && itemAll.detail.length != 0'>
-      <div v-for='(dItem, index) in itemAll.detail' :key="index">
+    <div class="listen4-detail" v-if='item.detail && item.detail.length != 0'>
+      <div v-for='(dItem, index) in item.detail' :key="index">
         <div v-for='(sItem, sIdx) in dItem.steam' :key="sIdx" class="listen4-steam">
           <!-- <span class="listen4-num">{{sIdx+1}}. </span> -->
           <div class="listen4-sentence">
             <span>{{sItem}}</span>
-            <span class="listen4-line">{{isShow ? dItem.ftCorrect[sIdx] : ''}}</span>
+            <!-- <span class="listen4-line">{{isShow ? dItem.ftCorrect[sIdx] : ''}}</span> -->
           </div>
         </div>
       </div>
@@ -35,26 +35,26 @@ export default {
     }
   },
   computed: {
-    itemAll () {
-      this.item.detail.forEach(ele => {
-        var ftCorrect = [];
-        ele.correct.forEach(c => {
-          if(c===0){
-            ftCorrect.push("F")
-          }else{
-            ftCorrect.push("T")
-          }
-        })
-        ele.ftCorrect = ftCorrect;
-      });
+    // itemAll () {
+    //   this.item.detail.forEach(ele => {
+    //     var ftCorrect = [];
+    //     ele.correct.forEach(c => {
+    //       if(c===0){
+    //         ftCorrect.push("F")
+    //       }else{
+    //         ftCorrect.push("T")
+    //       }
+    //     })
+    //     ele.ftCorrect = ftCorrect;
+    //   });
 
-      return this.item;
-    }
+    //   return this.item;
+    // }
   },
   methods: {
-    handleViewScript () {
-      this.isScript = true;
-    }
+    // handleViewScript () {
+    //   this.isScript = true;
+    // }
     
   },
 }

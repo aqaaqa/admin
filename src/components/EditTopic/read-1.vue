@@ -5,7 +5,7 @@
     <el-input type="textarea" v-model="form.desc" :autosize="{ minRows: 4, maxRows: 6}"></el-input>
   </el-form-item>
   <el-form-item label="文章" :label-width="formLabelWidth" > 
-    <p class="hint-text">注：段落之间空行隔开</p>
+    <p class="hint-text">注：段落之间换行隔开</p>
     <el-input type="textarea" v-model="form.article" :autosize="{ minRows: 10, maxRows: 20}"></el-input>
   </el-form-item>
   <el-form-item label="题目" :label-width="formLabelWidth" > 

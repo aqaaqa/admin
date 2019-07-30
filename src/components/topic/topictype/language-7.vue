@@ -10,9 +10,19 @@
 
         </table>
       </div>
-
       <div class="right">
         <p v-for="(itemO,index) in item.detail[0].options" :key="index">{{itemO}}</p>
+      </div>
+      <div>
+        <p>答案：</p>
+        <div class="left">
+          <table>
+            <tbody v-html="answer" class="danci" :id="item.id">
+
+            </tbody>
+
+          </table>
+        </div>
       </div>
     </div>
 
@@ -27,7 +37,9 @@
       return {
         isShow: this.itemList.isShow,
         html: '',
+        answer: '',
         item: this.itemList,
+        show: true
         // item: {
         //   id: 1,
         //   detail: [{
@@ -66,6 +78,7 @@
           this.item = val
           this.isShow = val.isShow
           this.$nextTick(()=> {
+            this.fnInit(this.item.detail[0].steam);
             this.look()
           })
           
@@ -75,9 +88,10 @@
     },
     mounted() {
       this.fnInit(this.item.detail[0].steam);
+      this.look()
     },
     methods: {
-      fnInit(obarr) {
+      fnInit(obarr,answer) {
         //document.getElementById(this.item.id).innerHTML = '';
         //var steam = ["2.2:8", "2.1:9", "3.5:D", "3.6:@", "4.3:(5)"];
         var map = {};
@@ -130,7 +144,12 @@
           Tr += '</tr>'
           html += Tr
         }
-        this.html = html;
+        
+        if(answer) {
+          this.answer = html;
+        } else {
+          this.html = html;
+        }
 
 
       },
@@ -138,14 +157,14 @@
       look() {
         //this.fnTest("第二次赋值");
         //删除之前的表格
-        if (this.isShow) {
+        if (this.show) {
           var newArr = [];
           for (let index = 0; index < this.item.detail[0].steam.length; index++) {
             if (this.item.detail[0].steam[index].indexOf('@') == -1) {
               newArr.push(this.item.detail[0].steam[index])
             }
           }
-          this.fnInit(newArr.concat(this.item.detail[0].correct));
+          this.fnInit(newArr.concat(this.item.detail[0].correct),'answer');
         }else{
           this.fnInit(this.item.detail[0].steam)
         }
@@ -184,7 +203,7 @@
     margin-bottom: 10px;
     display:inline-block;
     vertical-align: top;
-    margin-left: 30px;
+    margin-left: 10px;
   }
 
 </style>

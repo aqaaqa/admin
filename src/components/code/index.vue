@@ -201,7 +201,6 @@ export default {
     },
     delUnit(row) {
       deleteUnit({baseId: row.u_baseId, bankId: row.u_bankId}).then(res=> {
-        console.log(res)
         this.$notify({
           title: '提示信息',
           message: '删除成功',

@@ -1,7 +1,8 @@
 <template>
   <div class="listen5">
     <div class="listen5-main" style="margin-top:20px;">
-      <div style="width: 200px;">
+      <div style="width: 100%;">
+        <p>左侧</p>
         <el-table
           :data = list.steam
           :show-header = false
@@ -12,19 +13,12 @@
             <span class="fonts">{{scope.row}}</span>
           </template>
           </el-table-column>
-          <!-- <el-table-column
-            style="text-align:center"
-            align="center"
-            width="50">
-          <template v-if="showAnswer" slot-scope="scope">
-            <span class="fonts">{{list.correct[scope.$index]}}</span>
-          </template>
-          </el-table-column> -->
         </el-table>
       </div>
 
       
       <div >
+        <p>右侧</p>
         <el-table
           size="small"
           :data = list.options
@@ -146,11 +140,11 @@ export default {
     display: inline-block; 
     vertical-align: top;
     &:nth-child(1) {
-      width: 200px
+      width: 100%
     }
     &:nth-child(2) {
-      margin-left: 30px;
-      width: 400px;
+      width: 100%;
+      margin-top: 30px;
     }
   }
 }

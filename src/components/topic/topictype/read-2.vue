@@ -42,29 +42,29 @@
     },
     methods: {
       fnInit() {
-        var ar = this.item.article;
-        this.item.ar = ar.replace(/(_)+([0-9]{0,2})?(_)+/g,
-          '<span class="line" style=" border-bottom: 1px #000 solid;line-height:20px;display: inline-block;width:100px;height:20px;text-align:center"></span>'
-        );
+        // var ar = this.item.article;
+        // this.item.ar = ar.replace(/(_)+([0-9]{0,2})?(_)+/g,
+        //   '<span class="line" style=" border-bottom: 1px #000 solid;line-height:20px;display: inline-block;width:100px;height:20px;text-align:center"></span>'
+        // );
       },
       // 1 2 3 4
       handleArticle() {
-        var lineList = document.getElementById(this.item.id).querySelectorAll(".line");
-        for (let i = 0; i < lineList.length; i++) {
-          lineList[i].innerHTML = (i + 1);
-        }
+        // var lineList = document.getElementById(this.item.id).querySelectorAll(".line");
+        // for (let i = 0; i < lineList.length; i++) {
+        //   lineList[i].innerHTML = (i + 1);
+        // }
       },
       // 查看答案
       viewAnswer() {
         //false 
-        if (this.isShow) {
-          var lineList = document.getElementById(this.item.id).querySelectorAll(".line");
-          for (let i = 0; i < lineList.length; i++) {
-            lineList[i].innerHTML = this.item.detail[0].corrects[i];
-          }
-        }else{
-          this.handleArticle()
-        }
+        // if (this.isShow) {
+        //   var lineList = document.getElementById(this.item.id).querySelectorAll(".line");
+        //   for (let i = 0; i < lineList.length; i++) {
+        //     lineList[i].innerHTML = this.item.detail[0].corrects[i];
+        //   }
+        // }else{
+        //   this.handleArticle()
+        // }
 
       }
     }
@@ -80,7 +80,7 @@
     white-space: pre-line;
   }
   .taskArtcle{
-    width: 700px;
+    width: 480px;
     font-size: 14px;
     font-weight: 400;
     color: rgba(0, 0, 0, 0.85);
@@ -88,7 +88,7 @@
     margin-bottom: 24px;
   }
   .taskOptions{
-    width: 700px;
+    width: 480px;
     font-size: 14px;
     font-weight: 400;
     color: rgba(0, 0, 0, 0.85);

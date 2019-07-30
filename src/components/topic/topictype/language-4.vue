@@ -34,6 +34,15 @@ export default {
       handler(val) {
         this.showAnswer = val.isShow
         this.$nextTick(function() {
+          this.item.detail.forEach(ele => {
+            var words = ele.select_words;
+            var count = 5;
+            var leg = words.length;
+            var n = 0;
+            this.wordsAll = []
+            this.words_Group(words,n);
+            ele.wordsGroup = this.wordsAll;
+          });
           this.viewAnswer()
         })
         
@@ -57,17 +66,17 @@ export default {
       ele.wordsGroup = this.wordsAll;
     });
 
-    let list = JSON.parse(JSON.stringify(this.item.detail))
-    let listFilter = list.map(e=> {
-      let replauceList = e.steam.map((j,index) => {
-        let c = j.replace(/_+/g,`<i class='listen2-answer'>${e.correct[index]}</i>`)
-        j = c
-        return j
-      })
-      e.steam = replauceList
-      return e
-    })
-    this.listFilter = listFilter
+    // let list = JSON.parse(JSON.stringify(this.item.detail))
+    // let listFilter = list.map(e=> {
+    //   let replauceList = e.steam.map((j,index) => {
+    //     let c = j.replace(/_+/g,`<i class='listen2-answer'>${e.correct[index]}</i>`)
+    //     j = c
+    //     return j
+    //   })
+    //   e.steam = replauceList
+    //   return e
+    // })
+    // this.listFilter = listFilter
   },
   methods: {
     words_Group (wordsAll,n) {
@@ -129,12 +138,12 @@ ul{
   border-bottom: 0;
   clear: both;
   overflow: hidden;
-  width:602px;
+  width:480px;
   padding:0;
   border-collapse: collapse;
   margin-bottom: 24px;
   td{
-    width:120px;
+    width:80px;
     min-height:38px;
     padding: 9px 16px;
     line-height: 20px;
@@ -145,7 +154,7 @@ ul{
   }
 }
 .language5-article{
-  width:700px;
+  width:500px;
   font-size:14px;
   font-weight:400;
   color:rgba(0,0,0,0.85);

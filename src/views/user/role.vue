@@ -129,7 +129,7 @@
         this.isChange = true;  //为ture证明修改过角色 
         this.objParams.roleArr = [];
         var flag;
-        console.log(val); //val:是roleName的数组  ["All","specail"] 
+        // console.log(val); //val:是roleName的数组  ["All","specail"] 
          //两个for循环 替换成了对应的roleId的数组 保存在 this.objParams.roleArr
         for (let i = 0; i < val.length; i++) {
           flag = true;
@@ -141,7 +141,7 @@
             }
           }
         }
-        console.log(this.objParams.roleArr);
+        // console.log(this.objParams.roleArr);
       },
       /**
        * 确定 修改当前用户角色

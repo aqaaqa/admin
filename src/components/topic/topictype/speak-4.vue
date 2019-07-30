@@ -1,8 +1,8 @@
 <template>
   <div class="write2">
     <div class="write2-main" v-for= "(items, index) in list" :key="index">
-        <p v-for= "(art, index1) in items.steam" :key="index1" v-html="art"></p>
-        <p class="padd" v-for= "(opt, arr) in items.options" :key="arr+'a'">{{opt}}</p>
+      <p style="margin-top: 10px;" v-for= "(art, index1) in items.steam" :key="index1+'a'">{{art}}</p>
+      <p v-for= "(option, index2) in items.options" :key="index2+'b'">{{option}}</p>
     </div>
 
   </div>
@@ -10,7 +10,7 @@
 
 <script>
 export default {
-  name: 'speak2',
+  name: 'speak4',
   props:{
     itemList: {
       type: Object,
@@ -54,7 +54,7 @@ export default {
 
 <style lang="scss" scoped>
 .write2 {
-  width: 490px;
+  width: 500px;
   word-break:break-all;
   p {
     line-height: 28px;

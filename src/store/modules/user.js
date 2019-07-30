@@ -93,7 +93,6 @@ const actions = {
   getNewRole({ commit},params) {
     return new Promise((resolve, reject) => {
       activateBase({baseId:params.id,actKey: params.code}).then(response => {
-        console.log(response)
         const { data } = response
         const { items } = data
         let getRouter = filterAsyncRouter(getState(items)) //过滤路由

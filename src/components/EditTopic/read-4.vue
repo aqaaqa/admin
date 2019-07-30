@@ -5,7 +5,7 @@
     <el-input type="textarea" v-model="form.desc" :autosize="{ minRows: 4, maxRows: 6}"></el-input>
   </el-form-item>
   <el-form-item v-if="part == '阅读题'" label="文章" :label-width="formLabelWidth" > 
-    <p class="hint-text">注：段落之间空行隔开</p>
+    <p class="hint-text">注：段落之间换行隔开</p>
     <el-input type="textarea" v-model="form.article" :autosize="{ minRows: 10, maxRows: 20}"></el-input>
   </el-form-item>
   <el-form-item label="题目" :label-width="formLabelWidth" > 
@@ -23,6 +23,7 @@
 import { shortOper } from '@/utils/arr'
 
 export default {
+  props: ['value'],
   data(){
     return {
       form: {
@@ -33,6 +34,16 @@ export default {
       },
       formLabelWidth: '120px',
       part: '',
+      type: this.value
+    }
+  },
+  watch: {
+    value(val) {
+      this.type = val
+      if(val) {
+        this.types()
+      }
+      
     }
   },
   created() {
@@ -40,7 +51,7 @@ export default {
   },
   methods: {
     types() {
-      let a = this.$parent.$parent.value7.split('|')
+      let a = this.type.split('|')
       this.part = a[1]
       if(a[1] == '写作题') {
         this.form = {

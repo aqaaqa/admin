@@ -281,7 +281,7 @@ export function mulMenu(data) {
  */
 export function qestUp(data) {
   return request({
-    url: '/back/qest/qest',
+    url: '/back/qest/submit',
     method: 'post',
     data
   })
