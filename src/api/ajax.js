@@ -286,3 +286,38 @@ export function qestUp(data) {
     data
   })
 }
+
+/*
+ * 根据册、单元、题型查询题目
+ */
+export function qestList(data) {
+  return request({
+    url: 'back/qest/list',
+    method: 'post',
+    data
+  })
+} 
+
+/*
+ * 删除试题
+ * @param {*} data 
+ */
+export function qestDel(data) {
+  return request({
+    url: 'back/qest/delete',
+    method: 'post',
+    data
+  })
+}
+
+/*
+ * 编辑试题
+ * @param {*} data 
+ */
+export function qestEdit(data) {
+  return request({
+    url: 'back/qest/edit',
+    method: 'post',
+    data
+  })
+}

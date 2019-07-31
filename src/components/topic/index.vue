@@ -1,5 +1,5 @@
 <template>
-  <div style="width:500px;">
+  <div>
     <div class='topic-tit'>{{list.name}}</div>
     <div class="topic-des" v-if="list.directions && list.directions.en">
       <p>{{list.directions.en}}</p>
@@ -48,6 +48,10 @@
         <p v-for="(items, indexs) in item.correct" :key="indexs+'.'">{{items}}</p>
       </div>
     </div>
+    <div class="answer" v-if="list.part == '听力题' && list.article">
+      听力脚本：
+      <p v-html="list.article"></p>
+    </div>
   </div>
 </template>
 
@@ -57,14 +61,20 @@ write2,speak2, speak3, speak4, speak5} from './topictype'
 
 export default {
   name: 'topic',
-  props:{
-    allitem: {
-      type: Object,
-    },
-  },
+  props:['allitem'],
   data() {
     return {
       list: {},
+    }
+  },
+  watch: {
+    allitem:{
+      handler(val) {
+        if(val != 1) {
+          this.list = val
+        }
+      },
+      deep: true
     }
   },
   components: {
@@ -92,12 +102,15 @@ export default {
     speak5
   },
   created() {
-    
+    if(this.allitem != 1) {
+      this.list = this.allitem
+    }
   },
   mounted() {
   },
   methods: {
     passVal(data) {
+      console.log(data)
       this.list = Object.assign({}, data)
     }
     
@@ -121,6 +134,7 @@ export default {
 .answer {
   font-size: 14px;
   line-height: 26px;
+  width: 480px;
 }
 </style>
 

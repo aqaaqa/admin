@@ -127,6 +127,19 @@ export const constantRoutes = [
       }
     ]
   },
+  {
+    path: 'questedit',
+    component: Layout,
+    redirect: '/questedit',
+    meta: { title: '试题列表', icon: 'dashboard' },
+    children: [
+      {
+        path: '/questedit',
+        meta: { title: '试题列表' },
+        component: () => import('@/views/questedit/index'),
+      }
+    ]
+  },
   
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }

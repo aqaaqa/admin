@@ -351,7 +351,9 @@ export function argueSteam(str, options) {
   )
   return arrs
 }
-
+/**
+ * 表格，网格
+ */
 export function tableOper (str, cor, option) {
   let a = str.split('\n').filter(e=> e!= '')
 
@@ -374,5 +376,30 @@ export function tableOper (str, cor, option) {
       correct: b
     }]
   }
-  
+}
+
+/**
+ * 标题转 str
+ */
+export function titleStr(name, desc) {
+  let c = ''
+  if(desc && desc.en && desc.zh) {
+    c = `${name}\n${desc.en}\n${desc.zh}`
+  } else if(desc && desc.en) {
+    c = `${name}\n${desc.en}`
+  } else {
+    c = `${name}`
+  }
+  return c
+}
+/**
+ * 听力str
+ */
+export function listenStr(data) {
+  let form = {}
+  form.desc = titleStr(data.name, data.directions)
+  form.article = data.article ? data.article.replace(/<br>|<br\/>/g, '\n') : ''
+  let mp3 = data.mp3
+  form.url = mp3.substring(mp3.lastIndexOf('//')+2)
+  return form
 }

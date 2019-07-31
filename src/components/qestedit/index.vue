@@ -1,37 +1,7 @@
 <template>
   <div>
-    <div class="titles">
-      <div>
-        <label class="lable1"><i class='hint-text'>必选项*</i>选择添加单元：</label>
-        <el-cascader
-          size="mini"
-          :options="options"
-          :show-all-levels="false"
-          v-model="value1"
-          placeholder="选择单元"
-        ></el-cascader>
-      </div>
-      <div>
-        <label class="lable1">选择题型：</label>
-        <el-select size="mini" v-model="value7" placeholder="请选择" @change="handleChange">
-          <el-option-group
-            v-for="group in options3"
-            :key="group.label"
-            :label="group.label">
-            <el-option
-              v-for="item in group.options"
-              :key="item"
-              :label="item"
-              :value="item+'|'+group.label">
-            </el-option>
-          </el-option-group>
-        </el-select>
-      </div>
-    </div>
-
-    <!-- 添加题目模块 -->
     <div class="main-boxs">
-      <div v-show='value7' class="topic-module">
+      <div class="topic-module">
         <span slot="title" class="topic-title">
           {{partObj.part ? `${partObj.part}—${partObj.type}` : ''}}
         </span>
@@ -74,15 +44,12 @@
           <el-button type="primary" @click="opeaArr" size="mini">查 看</el-button>
         </div>
       </div>
-      <div class="show-topic" v-show="value7">
+      <div class="show-topic">
         <span slot="title" class="topic-title">
           {{partObj.part ? `${partObj.part}—${partObj.type}展示` : ''}}
         </span>
         <div class="topic-main">
           <topic ref= 'shows' :allitem = 'val' />
-        </div>
-        <div slot="footer" class="dialog-footer">
-          <el-button type="primary" @click="submits" size="mini">提 交</el-button>
         </div>
       </div>
     </div>
@@ -92,10 +59,13 @@
 <script>
 import { titleOper } from '@/utils/arr'
 import { listen1, listen2, listen3, listen4, listen5, language1, language2, language3, language4, language5, 
-language6, language7, language8, read1, read2, read3, read4, write2, speak2, speak3, speak4, speak5 } from '../../components/EditTopic'
-import { partType, mulMenu, qestUp } from '@/api/ajax'
-import topic from '../../components/topic/index'
+language6, language7, language8, read1, read2, read3, read4, write2, speak2, speak3, speak4, speak5 } from '../EditTopic/index'
+import { partType, mulMenu } from '@/api/ajax'
+import topic from '../topic/index'
+
+
 export default {
+  props: ['lists'],
   data() {
     return {
       textarea: '',
@@ -104,9 +74,24 @@ export default {
       options:[],
       value7: '',
       value1: [],
-      partObj: {},
+      partObj: JSON.parse(JSON.stringify(this.lists)),
       val: '1',
       dialogFormVisible: false,
+    }
+  },
+  watch: {
+    lists: {
+      handler(val) {
+        if(val != ''){
+          this.partObj = JSON.parse(JSON.stringify(val))
+          this.$nextTick(() => {
+            this.showsa()
+          })
+        }
+        
+      },
+      immediate: true,
+      deep: true
     }
   },
   components: {
@@ -147,19 +132,14 @@ export default {
     mulMenu().then(res=> {
       this.options = res.data.options
     })
+    
+  },
+  mounted() {
   },
   methods: {
-    handleClose() {
-      this.dialogFormVisible = false; 
-      this.value7= ''
-      this.partObj.part= ''
-    },
     submits() {
       this.opeaArr('show')
-      qestUp({data: this.partObj}).then(res => {
-        this.$message.success('添加成功')
-        this.value7 = ''
-      })
+      return this.partObj
     },
     opeaArr(val) {
       let obj = this.$refs.child.lists()
@@ -178,36 +158,10 @@ export default {
       }
       
     },
-    handleChange(value) {
-      let arr = value.split('|')
-      if(this.value1.length < 1) {
-        this.value7= ''
-        this.$message.error('请选择要添加题目的单元')
-        return  false
-      }
-
-      this.partObj = {
-        type: arr[0],
-        part: arr[1],
-        qestBase: this.value1[1]
-      }
-      this.$nextTick(() => {
-        this.opeaArr()
-      })
-      
-      
+    showsa() {
+      this.$refs.shows.passVal(this.partObj)
+      this.$refs.child.partForm(this.partObj)
     },
-    show() {
-      this.list = this.textarea.split('#')
-      let a = this.list.map(e=> {
-        let b = {
-          text: e,
-          change: e.split('\n')
-        }
-        
-        return b
-      })
-    }
   }
 
   

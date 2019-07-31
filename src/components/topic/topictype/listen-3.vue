@@ -30,6 +30,8 @@
           this.detailW = JSON.parse(JSON.stringify(val.detail[0]))
           this.isShow = val.isShow
           this.$nextTick(() => {
+            this.html = ''
+            this.PinJie(this.Arr);
             this.viewAnswer()
           })
           
@@ -42,32 +44,32 @@
     },
     methods: {
       viewAnswer() {
-        if (this.isShow) {
-          let lineList = document.getElementById(this.itemList.id).querySelectorAll('.line');
-          for (let index = 0; index < lineList.length; index++) {
-            lineList[index].value = this.detailW.correct[index];
-          }
-        }else{
-           let lineList = document.getElementById(this.itemList.id).querySelectorAll('.line');
-          for (let index = 0; index < lineList.length; index++) {
-            lineList[index].value = index+1
-          }
-        }
+        // if (this.isShow) {
+        //   let lineList = document.getElementById(this.itemList.id).querySelectorAll('.line');
+        //   for (let index = 0; index < lineList.length; index++) {
+        //     lineList[index].value = this.detailW.correct[index];
+        //   }
+        // }else{
+        //    let lineList = document.getElementById(this.itemList.id).querySelectorAll('.line');
+        //   for (let index = 0; index < lineList.length; index++) {
+        //     lineList[index].value = index+1
+        //   }
+        // }
 
       },
       look() {
 
-        let that = this
-        let arr2 = [];
-        for (let index = 0; index < this.arr.length; index++) {
-          let a = this.arr[index].replace(/(_)+(\d)?(_)+/g, function (a) {
-            return that.correct[0]
-          });
-          arr2.push(a);
-        }
+        // let that = this
+        // let arr2 = [];
+        // for (let index = 0; index < this.arr.length; index++) {
+        //   let a = this.arr[index].replace(/(_)+(\d)?(_)+/g, function (a) {
+        //     return that.correct[0]
+        //   });
+        //   arr2.push(a);
+        // }
 
-        that.Arr = arr2;
-        this.PinJie(that.Arr);
+        // that.Arr = arr2;
+        // this.PinJie(that.Arr);
 
       },
       //拼接html的方法
@@ -84,10 +86,11 @@
           let tr = '<tr>'
           for (let j = 0; j < this.last; j++) {
             let td = '<td>' +
-              arr[this.index].replace(/___\d+___/g, function (v) {
-                f++
-                return '<input type="text" class="line" value="' + f + '"/>'
-              }) +
+              arr[this.index]
+              // .replace(/___\d+___/g, function (v) {
+              //   f++
+              //   return '<input type="text" class="line" value="' + f + '"/>'
+              // }) +
               '</td>'
             tr += td
             this.index++
