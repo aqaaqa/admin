@@ -109,6 +109,7 @@ export default {
 <style lang="scss" scoped>
 .listen5 {
   background: #fff;
+  width: 480px;
 }
 .video-box {
   margin-top: 10px;

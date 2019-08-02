@@ -42,10 +42,10 @@
       <speak4 v-else-if="'对话，辩论'.indexOf(list.type) > -1" :itemList="list" />
     </template>
 
-    <div class="answer" v-if="list.type != '网格填空' && list.detail && list.detail[0].correct">
+    <div class="answer" v-if="list.type != '网格填空' && list.detail && list.detail[0].correct && list.detail[0].correct[0]">
       答案： 
-      <div v-for="(item, index) in list.detail" :key="index">
-        <p v-for="(items, indexs) in item.correct" :key="indexs+'.'">{{items}}</p>
+      <div style="margin-top: 10px;" v-for="(item, index) in list.detail" :key="index">
+        <p v-for="(items, indexs) in item.correct" :key="indexs+'.'" v-html="items"></p>
       </div>
     </div>
     <div class="answer" v-if="list.part == '听力题' && list.article">

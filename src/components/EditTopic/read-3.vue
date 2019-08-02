@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { judegOper } from '@/utils/arr'
+import { judegOper, readStr } from '@/utils/arr'
 
 
 export default {
@@ -31,10 +31,23 @@ export default {
         detail: '1. People can see many on-screen scenes in Harry Potter movie series, but they willstill not know how the secret of magic.\r\n\n2. The entrance ticket of Warner Bros. Studio is included in the tour fee.',
         cor: 'FT'
       },
-      formLabelWidth: '120px'
+      formLabelWidth: '100px'
     }
   },
   methods: {
+    partForm(val) {
+      let form = this.form
+      let a = readStr(val)
+      form.detail = '' 
+      form.cor = ''
+      form.article = val.article.replace(/<br>|<br\/>/g, '\n')
+      val.detail.forEach(e=> {
+        let steam = e.steam.join('\n').replace(/<br>|<br\/>/g, '\n')
+        form.detail = form.detail + steam +'\r\n\n'
+        e.correct[0] ? form.cor = form.cor+ e.correct[0] : ''
+      })
+      form = Object.assign(form, a)
+    },
     lists() {
       let partObj = {}
       let form = this.form

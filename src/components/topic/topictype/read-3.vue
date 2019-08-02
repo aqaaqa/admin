@@ -4,8 +4,7 @@
       <p class="aritc-main" v-html="itemAll.article"></p>
       <div v-for='(dItem, index) in itemAll.detail' :key="index">
         <div v-for='(sItem, sIdx) in dItem.steam' :key="sIdx" class="listen4-steam">
-          <div class="listen4-sentence">
-            {{sItem}} 
+          <div class="listen4-sentence" v-html="sItem">
             <!-- <span class="listen4-line">{{isShow ? dItem.ftCorrect[sIdx] : ''}}</span> -->
           </div>
         </div>

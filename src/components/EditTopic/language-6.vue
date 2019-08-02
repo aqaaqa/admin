@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { proOper } from '@/utils/arr'
+import { proOper, langStr } from '@/utils/arr'
 
 export default {
   props: ['value'],
@@ -32,14 +32,20 @@ export default {
         options:'1. A. Though B.Therefore C.However D. Instead\r\n\n2. A. establishment B. majority C. arrangement D. permission',
         cor: 'ABC'
       },
-      formLabelWidth: '120px'
+      formLabelWidth: '100px'
     }
   },
-  created() {
-    // let a = this.value.split('|')
-    // this.form.desc = '一、' + a[0]
-  },
   methods: {
+    partForm(val) {
+      let form = this.form
+      let a = langStr(val)
+      form.article = val.article.replace(/<br>|<br\/>/g, '\n')
+      val.detail.forEach(e=> {
+        form.cor = e.correct.join('')
+        form.options = e.options.join('\r\n\n').replace(/<br>|<br\/>/g, '\n')
+      })
+      form = Object.assign(form, a)
+    },
     lists() {
       let partObj = {}
       let form = this.form

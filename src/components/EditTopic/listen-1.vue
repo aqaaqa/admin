@@ -47,9 +47,10 @@ export default {
       form.cor = ''
       val.detail.forEach(e=> {
         let c = ''
+        let steam = e.steam.join('\n')
         c = e.options.join('\n')
-        form.detail = form.detail + e.steam +'\r\n\n' + c +'\r\n'
-        form.cor = form.cor+ e.correct[0] 
+        form.detail = form.detail + steam +'\r\n\n' + c +'\r\n\n'
+        e.correct[0] ? form.cor = form.cor+ e.correct[0] : ''
       })
       form = Object.assign(form, a)
     },

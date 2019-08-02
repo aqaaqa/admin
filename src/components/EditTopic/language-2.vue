@@ -14,14 +14,13 @@
       <el-input type="textarea" v-model="form.steam" :autosize="{ minRows: 10, maxRows: 20}"></el-input>
     </el-form-item>
     <el-form-item label="答案" :label-width="formLabelWidth" > 
-      <p class="hint-text">注：每个答案之间用英文逗号 ',' 分隔</p>
       <el-input v-model="form.cor" placeholder="请输入内容"></el-input>
     </el-form-item>
   </el-form>  
 </template>
 
 <script>
-import { matchOper } from '@/utils/arr'
+import { matchOper, langStr } from '@/utils/arr'
 
 
 export default {
@@ -33,10 +32,20 @@ export default {
         steam: 'A. Around the White House.\r\n\nB. Near the Washington Monument.\r\n\nC. In the National Park.\r\n\nD. Around the Tidal Basin.',
         cor: 'ACBD'
       },
-      formLabelWidth: '120px'
+      formLabelWidth: '100px'
     }
   },
   methods: {
+    partForm(val) {
+      let form = this.form
+      let a = langStr(val)
+      val.detail.forEach(e=> {
+        form.detail = e.steam.join('\r\n\n')
+        form.steam = e.options.join('\r\n\n')
+        form.cor = e.correct.join('')
+      })
+      form = Object.assign(form, a)
+    },
     lists() {
       let partObj = {}
       let form = this.form

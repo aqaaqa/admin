@@ -2,10 +2,9 @@
   <div class="lang3">
     <ul class="lang3-main">
       <li v-for="(item,index) in list" :key="index">
-        <p>{{item}}</p>
+        <p v-html="item"></p>
         <p>
-          <span v-show="showAnswer">
-            {{answer[index]}}
+          <span v-show="showAnswer" v-html="answer[index]">
           </span>
         </p>
       </li>
@@ -60,6 +59,4 @@ export default {
 
 <style lang="scss" scoped>
   @import "~@/styles/topic/lang3.scss";
-</style>
-<style lang="scss">
 </style>

@@ -155,11 +155,16 @@ export default {
       this.partObj.part= ''
     },
     submits() {
-      this.opeaArr('show')
-      qestUp({data: this.partObj}).then(res => {
-        this.$message.success('添加成功')
-        this.value7 = ''
-      })
+      let c = this.opeaArr('show')
+      if(c) {
+        qestUp({data: this.partObj}).then(res => {
+          this.$message.success('添加成功')
+          this.value7 = ''
+        })
+      } else {
+        return false
+      }
+      
     },
     opeaArr(val) {
       let obj = this.$refs.child.lists()
@@ -175,6 +180,9 @@ export default {
         if(val != 'show') {
           this.$refs.shows.passVal(this.partObj)
         }
+        return true
+      } else {
+        return false
       }
       
     },

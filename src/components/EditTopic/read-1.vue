@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { changeOper } from '@/utils/arr'
+import { changeOper, readStr } from '@/utils/arr'
 
 
 export default {
@@ -31,10 +31,25 @@ export default {
         detail: '29.Why does the author mention different ways to cook potatoes in Paragraph 4?\n\r\nA.To recommend his favourite potato dish.\nB.To introduce different types of potatoes in different countries.\nC.To show that potatoes are a main food for most people in their lives.\nD.To show that people have not lived until they have eaten a baked potato.',
         cor: 'ABB'
       },
-      formLabelWidth: '120px'
+      formLabelWidth: '100px'
     }
   },
   methods: {
+    partForm(val) {
+      let form = this.form
+      let a = readStr(val)
+      form.detail = '' 
+      form.cor = ''
+      form.article = val.article.replace(/<br>|<br\/>/g, '\n')
+      val.detail.forEach(e=> {
+        let c = ''
+        let steam = e.steam.join('\n')
+        c = e.options.join('\n')
+        form.detail = form.detail + steam +'\r\n\n' + c +'\r\n\n'
+        e.correct[0] ? form.cor = form.cor+ e.correct[0] : ''
+      })
+      form = Object.assign(form, a)
+    },
     lists() {
       let partObj = {}
       let form = this.form

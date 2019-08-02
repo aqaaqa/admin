@@ -36,15 +36,13 @@ export default {
         cor: 'wrewr,werw,werw',
         article: 'hi this is listening article , you can learn this for some time hi this is listening article , you can learn this for some time hi this is listening article , you can learn this for some time hi this is listening article , you can learn this for some time hi this is listening article , you can learn this for some time\nhi this is listening article , you can learn this for some time hi this is listening article , you can learn this for some time hi this is listening article , you can learn this for some time hi this is listening article , you can learn this for some time'
       },
-      formLabelWidth: '120px'
+      formLabelWidth: '100px'
     }
   },
   methods: {
     partForm(val) {
       let form = this.form
       let a = listenStr(val)
-      form.detail = '' 
-      form.cor = ''
       val.detail.forEach(e=> {
         form.detail = e.steam.join('\r\n\n')
         form.cor = e.correct.join(',')

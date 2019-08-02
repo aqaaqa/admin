@@ -5,7 +5,7 @@
       </div>
       <div class="language8-box" v-if="itemAll.detail&&itemAll.detail.length!=0">
         <div class="language8-options" v-for="(item,index) in itemAll.detail" :key="index">
-          <div v-for='(liItem, liIde) in item.options' :key="liIde">{{liItem}}</div>
+          <div v-for='(liItem, liIde) in item.options' :key="liIde" v-html="liItem"></div>
         </div>
       </div>
       

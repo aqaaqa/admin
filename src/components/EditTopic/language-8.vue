@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import { tableOper } from '@/utils/arr'
+import { tableOper, langStr } from '@/utils/arr'
 
 
 export default {
@@ -45,14 +45,20 @@ export default {
         cor: '2.1 a\n2.2 c',
         options: '53.a type of shoe that covers your whole foot and the lower part of your leg\r\n\n54.strange\r\n\n55.probable or expected'
       },
-      formLabelWidth: '120px'
-    }
-  },
-  computed: {
-    show() {
+      formLabelWidth: '100px'
     }
   },
   methods: {
+    partForm(val) {
+      let form = this.form
+      let a = langStr(val)
+      val.detail.forEach(e=> {
+        form.detail = e.steam.join('\n')
+        form.cor = e.correct.join('\n')
+        form.options = e.options.join('\r\n\n')
+      })
+      form = Object.assign(form, a)
+    },
     lists() {
       let partObj = {}
       let form = this.form

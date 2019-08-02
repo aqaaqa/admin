@@ -1,8 +1,8 @@
 <template>
   <div class="write2">
     <div class="write2-main" v-for= "(items, index) in list" :key="index">
-      <p style="margin-top: 10px;" v-for= "(art, index1) in items.steam" :key="index1+'a'">{{art}}</p>
-      <p v-for= "(option, index2) in items.options" :key="index2+'b'">{{option}}</p>
+      <p style="margin-top: 10px;" v-for= "(art, index1) in items.steam" :key="index1+'a'" v-html="art"></p>
+      <p v-for= "(option, index2) in items.options" :key="index2+'b'" v-html="option"></p>
     </div>
 
   </div>

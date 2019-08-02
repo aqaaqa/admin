@@ -32,15 +32,6 @@ export default {
       handler(val) {
         this.isShow = val.isShow
         this.$nextTick(()=> {
-          this.item.detail.forEach(ele => {
-            var words = ele.select_words;
-            var count = 5;
-            var leg = words.length;
-            var n = 0;
-            this.wordsAll = []
-            this.words_Group(words,n);
-            ele.wordsGroup = this.wordsAll;
-          });
           this.viewAnswer()
         })
         

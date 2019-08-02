@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { discSteam } from '@/utils/arr'
+import { discSteam, readStr } from '@/utils/arr'
 
 export default {
   data(){
@@ -26,10 +26,19 @@ export default {
         steam: 'Work in pairs. Act out the following situation. You and your friends are planning a trip. You may consider:',
         options: 'a) What’s your destination?\r\n\nb) Why do you want to go to this place? \r\n\nc) What should you prepare, for example, flight, visa, hotel, etc.?'
       },
-      formLabelWidth: '120px',
+      formLabelWidth: '100px',
     }
   },
   methods: {
+    partForm(val) {
+      let form = this.form
+      let a = readStr(val)
+      val.detail.forEach(e=> {
+        form.steam = e.steam.join('\n').replace(/<br>|<br\/>/g, '\n')
+        form.options = e.options.join('\r\n\n')
+      })
+      form = Object.assign(form, a)
+    },
     lists() {
       let partObj = {}
       let form = this.form

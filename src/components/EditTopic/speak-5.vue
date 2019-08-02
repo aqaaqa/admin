@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { argueSteam } from '@/utils/arr'
+import { argueSteam, readStr } from '@/utils/arr'
 
 export default {
   data(){
@@ -26,10 +26,18 @@ export default {
         steam1: 'Group A is in favour of using animals for research and experiments. You could use the following arguments:\r\n\na) Invaluable advances can be made in medicine through experiments on animals.\nb) Animal experiments help to reduce harm on patients and volunteers.\nc) It is possible to experiment on animals without being cruel to animals.',
         steam2: 'Group B is against using animals for research and experiments. You could use the following arguments:\r\n\na) What’s your destination?\nb) Why do you want to go to this place? \nc) What should you prepare, for example, flight, visa, hotel, etc.?'
       },
-      formLabelWidth: '120px',
+      formLabelWidth: '100px',
     }
   },
   methods: {
+    partForm(val) {
+      let form = this.form
+      let a = readStr(val)
+      let detail = val.detail
+      form.steam1 = detail[0].steam.join('\n') + '\r\n\n' + detail[0].options.join('\n')
+      form.steam2 = detail[1].steam.join('\n') + '\r\n\n' + detail[1].options.join('\n')
+      form = Object.assign(form, a)
+    },
     lists() {
       let partObj = {}
       let form = this.form

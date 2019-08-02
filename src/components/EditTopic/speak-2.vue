@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import { speakSteam } from '@/utils/arr'
+import { speakSteam, readStr } from '@/utils/arr'
 
 export default {
   data(){
@@ -21,10 +21,18 @@ export default {
         desc: '一、朗读课文',
         steam: '90.朗读《英语》（新标准）必修第一册第21页Sophie的评论。\r\n\n91.朗读《英语》（新标准）必修第一册第21页Sophie的评论。',
       },
-      formLabelWidth: '120px',
+      formLabelWidth: '100px',
     }
   },
   methods: {
+    partForm(val) {
+      let form = this.form
+      let a = readStr(val)
+      val.detail.forEach(e=> {
+        form.steam = e.steam.join('\r\n\n').replace(/<br>|<br\/>/g, '\n')
+      })
+      form = Object.assign(form, a)
+    },
     lists() {
       let partObj = {}
       let form = this.form

@@ -12,7 +12,7 @@
     <p class="hint-text">注：小题之间空行隔开</p>
     <el-input type="textarea" v-model="form.detail" :autosize="{ minRows: 10, maxRows: 20}"></el-input>
   </el-form-item>
-  <el-form-item label="答案" :label-width="formLabelWidth" > 
+  <el-form-item v-if="part != '口语题'" label="答案" :label-width="formLabelWidth" > 
     <p class="hint-text">注：小题之间空行隔开</p>
     <el-input type="textarea" v-model="form.cor" :autosize="{ minRows: 10, maxRows: 20}"></el-input>
   </el-form-item>
@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { shortOper } from '@/utils/arr'
+import { shortOper, readStr } from '@/utils/arr'
 
 export default {
   props: ['value'],
@@ -32,7 +32,7 @@ export default {
         detail: '19.What is Li Ming’s problem?\r\n\n20.What type of word is most likely to be used with the prefix “non-”?\r\n\n21.What happens to the prefix “in-” when it comes before the letters “b”, “l” and “r”?',
         cor: 'What is Li Ming’s proble\r\n\nWhat is Li Ming’s proble'
       },
-      formLabelWidth: '120px',
+      formLabelWidth: '100px',
       part: '',
       type: this.value
     }
@@ -53,26 +53,48 @@ export default {
     types() {
       let a = this.type.split('|')
       this.part = a[1]
-      if(a[1] == '写作题') {
+      if(a[1] == '口语题') {
         this.form = {
-          desc : '一、翻译题。使用括号中所给的单词或短语将下列句子翻译成英文。',
-          detail : '83.请在这张表格上填写您的基本信息。（fill in）\r\n\n84.你在使用这台新电脑时有困难吗？（have trouble doing）',
-          cor: 'What is Li Ming’s proble\r\n\nWhat is Li Ming’s proble'
+          desc: '四、 简答题\nAnswer the questions. \n回答下列问题。',
+          detail: '19.What is Li Ming’s problem?\r\n\n20.What type of word is most likely to be used with the prefix “non-”?\r\n\n21.What happens to the prefix “in-” when it comes before the letters “b”, “l” and “r”?',
         }
-      } else if(a[1] == '阅读题') {
+      } else if (a[1] == '阅读题') {
         this.form = {
           desc: '四、 简答题\nAnswer the questions. \n回答下列问题。',
           article: 'If you want to make sure your understanding is correct, you may want to change the sentence into simple language and ask the person you are talking to if the meaning is correct. It never hurts to try to make something that you have heard in a conversation clearer. If you don’t ask, you don’t learn.\r\n\nThis advice applies when you hear some odd phrases in a conversation. You have to consider what the general context is in the conversation, and from there you will be able to make a guess of how the idiomatic expression connects to the conversation. Of course, this requires that you listen actively to the conversation and that your mind is not somewhere else.',
           detail: '19.What is Li Ming’s problem?\r\n\n20.What type of word is most likely to be used with the prefix “non-”?\r\n\n21.What happens to the prefix “in-” when it comes before the letters “b”, “l” and “r”?',
           cor: 'What is Li Ming’s proble\r\n\nWhat is Li Ming’s proble'
         }
-      } else {
+      } else if (a[1] == '写作题') {
         this.form = {
-          desc : '三、简答题\nTalk about the following questions. \n谈论下列问题。',
-          detail : '92.What is the most important thing about learning English? Why do you think it is important?\r\n\n93.What may cause misunderstanding when you communicate with foreigners?',
+          desc: '四、 简答题\nAnswer the questions. \n回答下列问题。',
+          detail: '19.What is Li Ming’s problem?\r\n\n20.What type of word is most likely to be used with the prefix “non-”?\r\n\n21.What happens to the prefix “in-” when it comes before the letters “b”, “l” and “r”?',
           cor: 'What is Li Ming’s proble\r\n\nWhat is Li Ming’s proble'
         }
       }
+    },
+    partForm(val) {
+      let form = this.form
+      let a = readStr(val)
+      form.detail = '' 
+      if(this.part == '阅读题') {
+        form.article = val.article.replace(/<br>|<br\/>/g, '\n')
+      }
+      if(this.part != '口语题') {
+        form.cor = ''
+        val.detail.forEach(e=> {
+          let steam = e.steam.join('\n')
+          form.detail = form.detail + steam +'\r\n\n'
+          e.correct && e.correct[0] ? form.cor = form.cor+ e.correct[0] + '\r\n\n' : ''
+        })
+      } else {
+        val.detail.forEach(e=> {
+          let steam = e.steam.join('\n')
+          form.detail = form.detail + steam +'\r\n\n'
+        })
+      }
+      
+      form = Object.assign(form, a)
     },
     lists() {
       let partObj = {}
@@ -87,7 +109,13 @@ export default {
         this.$message.error(msg)
         return false
       }
-      let list  = shortOper(form.detail,form.cor)
+      let list
+      if(this.part == '口语题') {
+        list  = shortOper(form.detail)
+      } else {
+        list  = shortOper(form.detail,form.cor)
+      }
+      
       partObj.detail = list
       if( this.part == '阅读题') {
         partObj.article = form.article.replace(/(\r\n)|(\n)/g,'<br/>')

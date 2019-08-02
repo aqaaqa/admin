@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { discSteam } from '@/utils/arr'
+import { discSteam, readStr } from '@/utils/arr'
 
 export default {
   data(){
@@ -26,10 +26,19 @@ export default {
         steam: '91.随着网络时代的来临，市面上出现了越来越多的线上英语学习工具，如APP、电子书、网络课程等，你如何看待这些线上学习工具？\n提示：',
         options: '（1）What kind of online English learning tools have you used? \r\n\n（2）Which one do you prefer, online English learning tools or traditional ways of learning?\r\n\n（3）What are the reasons for your preference?'
       },
-      formLabelWidth: '120px',
+      formLabelWidth: '100px',
     }
   },
   methods: {
+    partForm(val) {
+      let form = this.form
+      let a = readStr(val)
+      val.detail.forEach(e=> {
+        form.steam = e.steam.join('\n').replace(/<br>|<br\/>/g, '\n')
+        form.options = e.options.join('\r\n\n')
+      })
+      form = Object.assign(form, a)
+    },
     lists() {
       let partObj = {}
       let form = this.form

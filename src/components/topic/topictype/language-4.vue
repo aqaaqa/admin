@@ -1,7 +1,7 @@
 <template>
   <div class="language5">
     <div class="language5-detail">
-      <div v-for="(item, index) in list" :key='index'>
+      <div v-for="(item, index) in itemAll.detail" :key='index'>
         <table class="language5-options">
           <tr v-for="(wgItem,wgIndex) in item.wordsGroup" :key="wgIndex"><td v-for="(wItem,wIde) in wgItem" :key="wIde">{{wItem}}</td></tr>
         </table>
@@ -33,16 +33,8 @@ export default {
     item:{
       handler(val) {
         this.showAnswer = val.isShow
+        this.list = val.detail
         this.$nextTick(function() {
-          this.item.detail.forEach(ele => {
-            var words = ele.select_words;
-            var count = 5;
-            var leg = words.length;
-            var n = 0;
-            this.wordsAll = []
-            this.words_Group(words,n);
-            ele.wordsGroup = this.wordsAll;
-          });
           this.viewAnswer()
         })
         
@@ -52,20 +44,19 @@ export default {
   },
   computed: {
     itemAll () {
+      this.item.detail.forEach(ele => {
+        var words = ele.select_words;
+        var count = 5;
+        var leg = words.length;
+        var n = 0;
+        this.wordsAll = []
+        this.words_Group(words,n);
+        ele.wordsGroup = this.wordsAll;
+      });
       return this.item
     }
   },
   created() {
-    this.item.detail.forEach(ele => {
-      var words = ele.select_words;
-      var count = 5;
-      var leg = words.length;
-      var n = 0;
-      this.wordsAll = []
-      this.words_Group(words,n);
-      ele.wordsGroup = this.wordsAll;
-    });
-
     // let list = JSON.parse(JSON.stringify(this.item.detail))
     // let listFilter = list.map(e=> {
     //   let replauceList = e.steam.map((j,index) => {
@@ -104,11 +95,11 @@ export default {
       }
     },
     viewAnswer() {
-      if(!this.showAnswer) {
-        this.list = this.item.detail
-      } else {
-        this.list = this.listFilter
-      }
+      // if(!this.showAnswer) {
+      //   this.list = this.item.detail
+      // } else {
+      //   this.list = this.listFilter
+      // }
     }
     
   },

@@ -84,6 +84,7 @@ export default {
       handler(val) {
         if(val != ''){
           this.partObj = JSON.parse(JSON.stringify(val))
+          this.value7 = this.partObj.type+'|'+ this.partObj.part
           this.$nextTick(() => {
             this.showsa()
           })
@@ -138,8 +139,13 @@ export default {
   },
   methods: {
     submits() {
-      this.opeaArr('show')
-      return this.partObj
+      let c = this.opeaArr('show')
+      if(c) {
+        return this.partObj
+      } else {
+        return false
+      }
+      
     },
     opeaArr(val) {
       let obj = this.$refs.child.lists()
@@ -155,6 +161,9 @@ export default {
         if(val != 'show') {
           this.$refs.shows.passVal(this.partObj)
         }
+        return true
+      } else {
+        return false
       }
       
     },

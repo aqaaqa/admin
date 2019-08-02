@@ -44,8 +44,6 @@ export default {
     partForm(val) {
       let form = this.form
       let a = listenStr(val)
-      form.detail = '' 
-      form.cor = ''
       val.detail.forEach(e=> {
         form.detail = e.steam.join('\r\n\n')
         form.cor = e.correct.join('')

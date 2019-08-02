@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { senOper } from '@/utils/arr'
+import { senOper, readStr } from '@/utils/arr'
 
 
 export default {
@@ -31,10 +31,20 @@ export default {
         detail: 'A. It is risky to start on your work a few days before your deadline. \r\n\nB. If it is due to valid reasons.\r\n\nC. Do not put your future to waste. \r\n\nD. So remember that you all are in the same boat. ',
         cor: 'ABB'
       },
-      formLabelWidth: '120px'
+      formLabelWidth: '100px'
     }
   },
   methods: {
+    partForm(val) {
+      let form = this.form
+      let a = readStr(val)
+      form.article = val.article.replace(/<br>|<br\/>/g, '\n')
+      val.detail.forEach(e=> {
+        form.detail = e.options.join('\r\n\n')
+        form.cor = e.correct.join('')
+      })
+      form = Object.assign(form, a)
+    },
     lists() {
       let partObj = {}
       let form = this.form

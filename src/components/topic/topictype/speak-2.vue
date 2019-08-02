@@ -2,7 +2,7 @@
   <div class="write2">
     <div class="write2-main" v-for= "(items, index) in list" :key="index">
         <p v-for= "(art, index1) in items.steam" :key="index1" v-html="art"></p>
-        <p class="padd" v-for= "(opt, arr) in items.options" :key="arr+'a'">{{opt}}</p>
+        <p class="padd" v-for= "(opt, arr) in items.options" :key="arr+'a'" v-html="opt"></p>
     </div>
 
   </div>

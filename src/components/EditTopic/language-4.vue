@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import { gapOper } from '@/utils/arr'
+import { gapOper, lang3Str } from '@/utils/arr'
 
 export default {
   props: ['value'],
@@ -28,14 +28,13 @@ export default {
         detail: '43.I was ______ (相当) surprised to see my parents in my school.\r\n\n44.His speech ______ (反映) the views of most citizens.\r\n\n45.Mike is new to this school, so he is ______ (不熟悉的) with his classmates.',
         cor: 'wrewr,werw,werw'
       },
-      formLabelWidth: '120px'
+      formLabelWidth: '100px'
     }
   },
-  created() {
-    // let a = this.value.split('|')
-    // this.form.desc = '一、' + a[0]
-  },
   methods: {
+    partForm(val) {
+      this.form = lang3Str(val,'splits')
+    },
     lists() {
       let partObj = {}
       let form = this.form

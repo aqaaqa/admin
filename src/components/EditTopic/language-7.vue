@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import { simpleOper } from '@/utils/arr'
+import { simpleOper, langStr } from '@/utils/arr'
 
 export default {
   data(){
@@ -32,14 +32,20 @@ export default {
         select_words:'comment\r\n\nlikely\r\n\nsculpt\r\n\nremind',
         cor: 'remind,sculpt,comment, likely'
       },
-      formLabelWidth: '120px'
+      formLabelWidth: '100px'
     }
   },
-  created() {
-    // let a = this.value.split('|')
-    // this.form.desc = '一、' + a[0]
-  },
   methods: {
+    partForm(val) {
+      let form = this.form
+      let a = langStr(val)
+      val.detail.forEach(e=> {
+        form.detail = e.steam.join('\r\n\n')
+        form.cor = e.correct.join(',')
+        form.select_words = e.select_words.join('\r\n\n')
+      })
+      form = Object.assign(form, a)
+    },
     lists() {
       let partObj = {}
       let form = this.form

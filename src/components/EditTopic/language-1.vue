@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { changeOper } from '@/utils/arr'
+import { changeOper, langStr } from '@/utils/arr'
 
 
 export default {
@@ -27,10 +27,23 @@ export default {
         detail: '1. --- Do you know the girl ______ the bike? I probably saw her when I was in Mexico.\n--- Really? It’s my sister. She went to Mexico last summer.\n\r\nA.	Writing English journals.\nB.	Moving to an English-speaking country.\nC.	Listening to English radio.',
         cor: 'ABB'
       },
-      formLabelWidth: '120px'
+      formLabelWidth: '100px'
     }
   },
   methods: {
+    partForm(val) {
+      let form = this.form
+      let a = langStr(val)
+      form.detail = '' 
+      form.cor = ''
+      val.detail.forEach(e=> {
+        let c = ''
+        c = e.options.join('\n')
+        form.detail = form.detail + e.steam +'\r\n\n' + c +'\r\n\n'
+        e.correct[0] ? form.cor = form.cor+ e.correct[0] : ''
+      })
+      form = Object.assign(form, a)
+    },
     lists() {
       let partObj = {}
       let form = this.form

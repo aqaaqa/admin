@@ -84,9 +84,14 @@ export function changeOper(str,cor) {
 /**
  * 判断
  */
-export function trueOper(str,cor) {
+export function trueOper(str,cor, other) {
   let list = []
-  let cors = cor.toUpperCase().split('')
+  let cors = ''
+  if(other) {
+    cors = cor.split('\n').filter(e => e != '')
+  } else {
+    cors = cor.toUpperCase().split('')
+  }
   list.push({
     steam : pushSteam(str),
     correct : cors
@@ -112,7 +117,7 @@ export function gapOper(str,cor) {
  */
 export function matchOper(str1,str2,cor) {
   let list = []
-  let cors = cor.split('')
+  let cors = cor.toUpperCase().split('')
   list.push({
     steam : pushSteam(str1),
     options: pushSteam(str2),
@@ -155,7 +160,7 @@ export function simpleOper(detail,str,cor) {
  */
 export function proOper(str,cor) {
   let list = []
-  let cors = cor.split('')
+  let cors = cor.toUpperCase().split('')
   let a = pushSteam(str).map(e=> {
     e = e.replace(/\n/g,' ')
     return e
@@ -172,7 +177,7 @@ export function proOper(str,cor) {
  */
 export function senOper(str,cor) {
   let list = []
-  let cors = cor.split('')
+  let cors = cor.toUpperCase().split('')
   list.push({
     options : pushSteam(str),
     correct : cors
@@ -186,7 +191,7 @@ export function senOper(str,cor) {
 export function judegOper(str,cor) {
   let list = []
   let steam = pushSteam(str)
-  let cors = cor.split('')
+  let cors = cor.toUpperCase().split('')
   for(let i = 0; i < steam.length; i++) {
     list.push({
       steam : [steam[i]],
@@ -203,23 +208,34 @@ export function judegOper(str,cor) {
 export function shortOper(str,cor) {
   let list = []
   let steam = pushSteam(str)
-  let cors = pushSteam(cor)
-  for(let i = 0; i < steam.length; i++) {
-    list.push({
-      steam : [steam[i]],
-      correct : [cors[i]]
-    })
+  if(cor) {
+    let cors = pushSteam(cor)
+    for(let i = 0; i < steam.length; i++) {
+      list.push({
+        steam : [steam[i]],
+        correct : [cors[i]]
+      })
+    }
+  } else {
+    for(let i = 0; i < steam.length; i++) {
+      list.push({
+        steam : [steam[i]],
+      })
+    }
   }
+  
+  
   return list
 }
 
 /**
  * 写作
  */
-export function writeSteam(str) {
+export function writeSteam(str,cor) {
   let arrs = []
   let b = []
   let a = str.split('\n')
+  let atr = pushSteam(cor)
   for(let i = 0; i <a.length; i++) {
     let c = a[i].trim()
     if(c) {
@@ -237,6 +253,9 @@ export function writeSteam(str) {
         b = []
       }
     }
+  }
+  for(let k = 0; k < arrs.length; k++) {
+    arrs[k].correct = [atr[k]]
   }
   return arrs
 }
@@ -355,7 +374,7 @@ export function argueSteam(str, options) {
  * 表格，网格
  */
 export function tableOper (str, cor, option) {
-  let a = str.split('\n').filter(e=> e!= '')
+  let a = str.split('\n').filter(e=> e.trim()!= '')
 
   if(option) {
     let b = cor.split('\n').map(e=> {
@@ -401,5 +420,42 @@ export function listenStr(data) {
   form.article = data.article ? data.article.replace(/<br>|<br\/>/g, '\n') : ''
   let mp3 = data.mp3
   form.url = mp3.substring(mp3.lastIndexOf('//')+2)
+  return form
+}
+
+/**
+ * 语言知识运用str
+ */
+export function langStr(data) {
+  let form = {}
+  form.desc = titleStr(data.name, data.directions)
+  return form
+}
+
+
+/**
+ * 阅读str
+ */
+export function readStr(data) {
+  let form = {}
+  form.desc = titleStr(data.name, data.directions)
+  return form
+}
+
+/**
+ * lang3,4
+ */
+export function lang3Str(val, a) {
+  let form = {}
+  val.detail.forEach(e=> {
+    form.detail = e.steam.join('\r\n\n')
+    if(a) {
+      form.cor = e.correct.join(',')
+    } else {
+      form.cor = e.correct.join('\r\n\n')
+    }
+    
+  })
+  form.desc = titleStr(val.name, val.directions)
   return form
 }

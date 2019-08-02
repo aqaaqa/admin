@@ -14,7 +14,6 @@
       <el-input type="textarea" v-model="form.steam" :autosize="{ minRows: 10, maxRows: 20}"></el-input>
     </el-form-item>
     <el-form-item label="答案" :label-width="formLabelWidth" > 
-      <p class="hint-text">注：每个答案之间用英文逗号 ',' 分隔</p>
       <el-input v-model="form.cor" placeholder="请输入内容"></el-input>
     </el-form-item>
     <el-form-item label="听力地址" :label-width="formLabelWidth" > 
@@ -42,19 +41,17 @@ export default {
         cor: 'ACBD',
         article: 'hi this is listening article , you can learn this for some time hi this is listening article , you can learn this for some time hi this is listening article , you can learn this for some time hi this is listening article , you can learn this for some time hi this is listening article , you can learn this for some time\nhi this is listening article , you can learn this for some time hi this is listening article , you can learn this for some time hi this is listening article , you can learn this for some time hi this is listening article , you can learn this for some time'
       },
-      formLabelWidth: '120px'
+      formLabelWidth: '100px'
     }
   },
   methods: {
     partForm(val) {
       let form = this.form
       let a = listenStr(val)
-      form.detail = '' 
-      form.cor = ''
       val.detail.forEach(e=> {
         form.detail = e.steam.join('\r\n\n')
         form.steam = e.options.join('\r\n\n')
-        form.cor = e.correct.join(',')
+        form.cor = e.correct.join('')
       })
       form = Object.assign(form, a)
     },

@@ -6,14 +6,14 @@
       
     </el-form-item>
     <el-form-item label="表格" :label-width="formLabelWidth" > 
-      <p class="hint-text">注：需添加标题，例第一行第一列1.1，第二行第一列2.1，每行之间空行隔开</p>
+      <p class="hint-text">注：需添加标题,标题和内容需空格隔开，例第一行第一列1.1 listen，第二行第一列2.1 ___1___，每行之间空行隔开</p>
       <el-input type="textarea" v-model="form.detail" :autosize="{ minRows: 10, maxRows: 20}"></el-input>
     </el-form-item>
     <el-form-item label="答案" :label-width="formLabelWidth" > 
       <p class="hint-text">注：每个答案之间用英文逗号 ',' 分隔</p>
       <el-input v-model="form.cor" placeholder="请输入内容"></el-input>
     </el-form-item>
-    <el-form-item v-if="show" label="听力地址" :label-width="formLabelWidth" > 
+    <el-form-item label="听力地址" :label-width="formLabelWidth" > 
       <el-input v-model="form.url" placeholder="请输入内容"></el-input>
     </el-form-item>
     <el-form-item label="听力脚本" :label-width="formLabelWidth" > 
@@ -37,24 +37,32 @@ export default {
         cor: 'around,house',
         article: 'hi this is listening article , you can learn this for some time hi this is listening article , you can learn this for some time hi this is listening article , you can learn this for some time hi this is listening article , you can learn this for some time hi this is listening article , you can learn this for some time\nhi this is listening article , you can learn this for some time hi this is listening article , you can learn this for some time hi this is listening article , you can learn this for some time hi this is listening article , you can learn this for some time'
       },
-      formLabelWidth: '120px'
+      formLabelWidth: '100px'
     }
   },
   computed: {
-    show() {
-    }
   },
   methods: {
     partForm(val) {
       let form = this.form
       let a = listenStr(val)
-      form.detail = '' 
-      form.cor = ''
+      let strs = ''
       val.detail.forEach(e=> {
-        // for (let i of e.steam) {
+        for (let i = 0; i < e.steam.length; i++) {
+          let q = e.steam[i].substr(0, 2)
+          if(i == 0) {
+            strs = e.steam[0] + '\n'
+          } else {
+            if(strs.indexOf(q) > -1) {
+              strs = strs + e.steam[i] + '\n'
+            } else {
+              strs = strs + '\r\n' + e.steam[i] + '\n'
+            }
+          }
           
-        // }
-        // form.cor = e.correct.join(',')
+        }
+        form.detail = strs
+        form.cor = e.correct.join(',')
       })
       form = Object.assign(form, a)
       

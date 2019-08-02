@@ -136,11 +136,14 @@ export default {
     },
     submits() {
       let datas = this.$refs.qest.submits()
-      qestEdit({data: datas}).then(res => {
-        this.$message.success('修改成功')
-        this.handleClose()
-        this.qestList()
-      })
+      if(datas) {
+        qestEdit({data: datas}).then(res => {
+          this.$message.success('修改成功')
+          this.handleClose()
+          this.qestList()
+        })
+      }
+      
     },
     editqest(list) {
       this.part = list

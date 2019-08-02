@@ -36,11 +36,12 @@
           })
           
         },
+        immediate: true,
         deep: true
       }
     },
     mounted() {
-      this.PinJie(this.Arr);
+      // this.PinJie(this.Arr);
     },
     methods: {
       viewAnswer() {

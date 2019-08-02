@@ -5,8 +5,7 @@
       <li v-for= "(items, index) in list" :key="index">
         <p v-html="items.steam[0]"></p>
         <p>
-          <span v-show="showAnswer">
-            {{items.correct}}
+          <span v-show="showAnswer" v-html="items.correct">
           </span>
         </p>
       </li>
