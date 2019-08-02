@@ -41,7 +41,7 @@ export function pushSteam(str) {
 export function changeOper(str,cor) {
   let list = []
   let a = str.split('\n')
-  let cors = cor.toUpperCase().split('')
+  let cors = cor.toUpperCase().split('\n').filter(e => e.trim() != '')
   let b = {
     options: [],
     steam: []
@@ -88,9 +88,9 @@ export function trueOper(str,cor, other) {
   let list = []
   let cors = ''
   if(other) {
-    cors = cor.split('\n').filter(e => e != '')
+    cors = cor.split('\n').filter(e => e.trim() != '')
   } else {
-    cors = cor.toUpperCase().split('')
+    cors = cor.toUpperCase().split('\n').filter(e => e.trim() != '')
   }
   list.push({
     steam : pushSteam(str),
@@ -104,7 +104,7 @@ export function trueOper(str,cor, other) {
  */
 export function gapOper(str,cor) {
   let list = []
-  let cors = cor.split(',')
+  let cors = cor.split('\n').filter(e=> e.trim() != '')
   list.push({
     steam : pushSteam(str),
     correct : cors
@@ -117,7 +117,7 @@ export function gapOper(str,cor) {
  */
 export function matchOper(str1,str2,cor) {
   let list = []
-  let cors = cor.toUpperCase().split('')
+  let cors = cor.toUpperCase().split('\n').filter(e=> e.trim() != '')
   list.push({
     steam : pushSteam(str1),
     options: pushSteam(str2),
@@ -131,7 +131,7 @@ export function matchOper(str1,str2,cor) {
  */
 export function choiceOper(str,cor) {
   let list = []
-  let cors = cor.split(',')
+  let cors = cor.split('\n').filter( e => e.trim() != '')
   list.push({
     select_words : pushSteam(str),
     correct : cors
@@ -145,7 +145,7 @@ export function choiceOper(str,cor) {
 */
 export function simpleOper(detail,str,cor) {
  let list = []
- let cors = cor.split(',')
+ let cors = cor.split('\n').filter( e => e.trim() != '')
  list.push({
    steam: pushSteam(detail),
    select_words : pushSteam(str),
@@ -160,7 +160,7 @@ export function simpleOper(detail,str,cor) {
  */
 export function proOper(str,cor) {
   let list = []
-  let cors = cor.toUpperCase().split('')
+  let cors = cor.toUpperCase().split('\n').filter(e => e.trim() != '')
   let a = pushSteam(str).map(e=> {
     e = e.replace(/\n/g,' ')
     return e
@@ -177,7 +177,7 @@ export function proOper(str,cor) {
  */
 export function senOper(str,cor) {
   let list = []
-  let cors = cor.toUpperCase().split('')
+  let cors = cor.toUpperCase().split('\n').filter(e => e.trim() != '')
   list.push({
     options : pushSteam(str),
     correct : cors
@@ -191,7 +191,7 @@ export function senOper(str,cor) {
 export function judegOper(str,cor) {
   let list = []
   let steam = pushSteam(str)
-  let cors = cor.toUpperCase().split('')
+  let cors = cor.toUpperCase().split('\n').filter(e => e.trim() != '')
   for(let i = 0; i < steam.length; i++) {
     list.push({
       steam : [steam[i]],
@@ -387,7 +387,7 @@ export function tableOper (str, cor, option) {
       options : d
     }]
   } else {
-    let b = cor.split(',').map(e=> {
+    let b = cor.split('\n').map(e=> {
       return e=e.trim()
     })
     return [{
@@ -450,7 +450,7 @@ export function lang3Str(val, a) {
   val.detail.forEach(e=> {
     form.detail = e.steam.join('\r\n\n')
     if(a) {
-      form.cor = e.correct.join(',')
+      form.cor = e.correct.join('\n')
     } else {
       form.cor = e.correct.join('\r\n\n')
     }

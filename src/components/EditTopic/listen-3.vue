@@ -10,8 +10,8 @@
       <el-input type="textarea" v-model="form.detail" :autosize="{ minRows: 10, maxRows: 20}"></el-input>
     </el-form-item>
     <el-form-item label="答案" :label-width="formLabelWidth" > 
-      <p class="hint-text">注：每个答案之间用英文逗号 ',' 分隔</p>
-      <el-input v-model="form.cor" placeholder="请输入内容"></el-input>
+      <p class="hint-text">注：每一题答案占一行</p>
+      <el-input type="textarea" v-model="form.cor" :autosize="{ minRows: 10, maxRows: 20}"></el-input>
     </el-form-item>
     <el-form-item label="听力地址" :label-width="formLabelWidth" > 
       <el-input v-model="form.url" placeholder="请输入内容"></el-input>
@@ -33,7 +33,7 @@ export default {
         desc: '二、听对话，填空\nListen to a conversation between two students and complete the following notes.\n听一段对话，根据所听内容，将以下笔记中的信息补充完整。',
         detail: '11. There is a large meeting hall _______ the South Block.\r\n\n12. _______ will begin at 2:00 p.m.\r\n\n13. The red building is _______ and is close to the _______.',
         url: '1.mp3',
-        cor: 'wrewr,werw,werw',
+        cor: 'wrewr\nwerw\nwerw',
         article: 'hi this is listening article , you can learn this for some time hi this is listening article , you can learn this for some time hi this is listening article , you can learn this for some time hi this is listening article , you can learn this for some time hi this is listening article , you can learn this for some time\nhi this is listening article , you can learn this for some time hi this is listening article , you can learn this for some time hi this is listening article , you can learn this for some time hi this is listening article , you can learn this for some time'
       },
       formLabelWidth: '100px'
@@ -45,7 +45,7 @@ export default {
       let a = listenStr(val)
       val.detail.forEach(e=> {
         form.detail = e.steam.join('\r\n\n')
-        form.cor = e.correct.join(',')
+        form.cor = e.correct.join('\n')
       })
       form = Object.assign(form, a)
       

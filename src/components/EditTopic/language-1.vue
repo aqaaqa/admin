@@ -10,7 +10,8 @@
     <el-input type="textarea" v-model="form.detail" :autosize="{ minRows: 10, maxRows: 20}"></el-input>
   </el-form-item>
   <el-form-item label="答案" :label-width="formLabelWidth" > 
-    <el-input v-model="form.cor" placeholder="请输入内容"></el-input>
+    <p class="hint-text">注：每一题答案占一行</p>
+    <el-input type="textarea" v-model="form.cor" :autosize="{ minRows: 10, maxRows: 20}"></el-input>
   </el-form-item>
 </el-form>  
 </template>
@@ -25,7 +26,7 @@ export default {
       form: {
         desc: '一、单选题\nChoose the correct answer from A, B and C. \n从A，B和C三个选项中选出正确选项。',
         detail: '1. --- Do you know the girl ______ the bike? I probably saw her when I was in Mexico.\n--- Really? It’s my sister. She went to Mexico last summer.\n\r\nA.	Writing English journals.\nB.	Moving to an English-speaking country.\nC.	Listening to English radio.',
-        cor: 'ABB'
+        cor: 'A\nB\nB'
       },
       formLabelWidth: '100px'
     }
@@ -40,7 +41,7 @@ export default {
         let c = ''
         c = e.options.join('\n')
         form.detail = form.detail + e.steam +'\r\n\n' + c +'\r\n\n'
-        e.correct[0] ? form.cor = form.cor+ e.correct[0] : ''
+        e.correct[0] ? form.cor = form.cor + e.correct[0]+'\n' : ''
       })
       form = Object.assign(form, a)
     },

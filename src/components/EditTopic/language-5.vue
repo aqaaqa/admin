@@ -14,8 +14,8 @@
       <el-input type="textarea" v-model="form.select_words" :autosize="{ minRows: 10, maxRows: 20}"></el-input>
     </el-form-item>
     <el-form-item label="答案" :label-width="formLabelWidth" > 
-      <p class="hint-text">注：每个答案之间用英文逗号 ',' 分隔</p>
-      <el-input v-model="form.cor" placeholder="请输入内容"></el-input>
+      <p class="hint-text">注：每一题答案占一行</p>
+      <el-input type="textarea" v-model="form.cor" :autosize="{ minRows: 10, maxRows: 20}"></el-input>
     </el-form-item>
   </el-form>  
 </template>
@@ -31,7 +31,7 @@ export default {
         desc: '五、填空题。阅读下面的短文，从方框中选择适当的单词或短语并用其正确形式将短文补充完整。',
         article: 'The Notre Dame de Paris (巴黎圣母院) is one of the most widely ___73___ symbols of the city of Paris and the French nation. \nIt is located in downtown Paris, along the Seine River. The features that make this cathedral so ___74___ are its rose windows and historic ___75___ . ',
         select_words:'comment\r\n\nlikely\r\n\nsculpt\r\n\nremind',
-        cor: 'remind,sculpt,comment, likely'
+        cor: 'remind\nsculpt\ncomment\nlikely'
       },
       formLabelWidth: '100px'
     }
@@ -42,7 +42,7 @@ export default {
       let a = langStr(val)
       form.article = val.article.replace(/<br>|<br\/>/g, '\n')
       val.detail.forEach(e=> {
-        form.cor = e.correct.join(',')
+        form.cor = e.correct.join('\n')
         form.select_words = e.select_words.join('\r\n\n')
       })
       form = Object.assign(form, a)

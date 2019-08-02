@@ -13,7 +13,8 @@
     <el-input type="textarea" v-model="form.detail" :autosize="{ minRows: 10, maxRows: 20}"></el-input>
   </el-form-item>
   <el-form-item label="答案" :label-width="formLabelWidth" > 
-    <el-input v-model="form.cor" placeholder="请输入内容"></el-input>
+    <p class="hint-text">注：每一题答案占一行</p>
+    <el-input type="textarea" v-model="form.cor" :autosize="{ minRows: 10, maxRows: 20}"></el-input>
   </el-form-item>
 </el-form>  
 </template>
@@ -29,7 +30,7 @@ export default {
         desc: '二、任务型阅读',
         article: 'Are you worried about moving up to senior high school? Have you ever thought about how to spend your three years of senior high school life? It is a completely new experience, but you shouldn’t be frightened. Here are some tips to help you. You are not alone. Maybe you do not notice that everybody else in your grade are just as nervous as you are. \n\r\n___1___ Moving up to senior high school is a chance, not a problem. Things are different, and all you need to do is to be open-minded and learn the new rules. ___2___ If you don’t know what to do or have problems in learning or relationship, you should ask for help. Teachers are certainly the best people to turn to because they have experience in dealing with students’ problems, including helping them get used to the new environment. Also, if you cannot attend the school for some days, ask your teachers about any missed work. It is your responsibility to catch up, not theirs. \n\r\n',
         detail: 'A. It is risky to start on your work a few days before your deadline. \r\n\nB. If it is due to valid reasons.\r\n\nC. Do not put your future to waste. \r\n\nD. So remember that you all are in the same boat. ',
-        cor: 'ABB'
+        cor: 'A\nB\nB'
       },
       formLabelWidth: '100px'
     }
@@ -41,7 +42,7 @@ export default {
       form.article = val.article.replace(/<br>|<br\/>/g, '\n')
       val.detail.forEach(e=> {
         form.detail = e.options.join('\r\n\n')
-        form.cor = e.correct.join('')
+        form.cor = e.correct.join('\n')
       })
       form = Object.assign(form, a)
     },

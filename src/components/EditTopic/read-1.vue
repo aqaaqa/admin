@@ -13,7 +13,8 @@
     <el-input type="textarea" v-model="form.detail" :autosize="{ minRows: 10, maxRows: 20}"></el-input>
   </el-form-item>
   <el-form-item label="答案" :label-width="formLabelWidth" > 
-    <el-input v-model="form.cor" placeholder="请输入内容"></el-input>
+    <p class="hint-text">注：每一题答案占一行</p>
+    <el-input type="textarea" v-model="form.cor" :autosize="{ minRows: 10, maxRows: 20}"></el-input>
   </el-form-item>
 </el-form>  
 </template>
@@ -29,7 +30,7 @@ export default {
         desc: '一、单选题',
         article: 'Food expressions are popular with language learners. They combine two things important to every culture: food and language. Today we are going to talk potatoes!\nWhether you like them boiled, baked or fried – potatoes are what we call a staple. This means they are a kind of basic food that you can build on. You can cover them in butter, salt and pepper or sour cream and herbs. ',
         detail: '29.Why does the author mention different ways to cook potatoes in Paragraph 4?\n\r\nA.To recommend his favourite potato dish.\nB.To introduce different types of potatoes in different countries.\nC.To show that potatoes are a main food for most people in their lives.\nD.To show that people have not lived until they have eaten a baked potato.',
-        cor: 'ABB'
+        cor: 'A\nB\nB'
       },
       formLabelWidth: '100px'
     }
@@ -46,7 +47,7 @@ export default {
         let steam = e.steam.join('\n')
         c = e.options.join('\n')
         form.detail = form.detail + steam +'\r\n\n' + c +'\r\n\n'
-        e.correct[0] ? form.cor = form.cor+ e.correct[0] : ''
+        e.correct[0] ? form.cor = form.cor+ e.correct[0] + '\n' : ''
       })
       form = Object.assign(form, a)
     },

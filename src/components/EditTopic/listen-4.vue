@@ -14,7 +14,8 @@
       <el-input type="textarea" v-model="form.steam" :autosize="{ minRows: 10, maxRows: 20}"></el-input>
     </el-form-item>
     <el-form-item label="答案" :label-width="formLabelWidth" > 
-      <el-input v-model="form.cor" placeholder="请输入内容"></el-input>
+      <p class="hint-text">注：每一题答案占一行</p>
+      <el-input type="textarea" v-model="form.cor" :autosize="{ minRows: 10, maxRows: 20}"></el-input>
     </el-form-item>
     <el-form-item label="听力地址" :label-width="formLabelWidth" > 
       <el-input v-model="form.url" placeholder="请输入内容"></el-input>
@@ -38,7 +39,7 @@ export default {
         detail: '1. It’s always a problem for a family with children to find a suitable restaurant on holiday.\r\n\n2. Children can cook by themselves and their parents can clean up for them.\r\n\n3. Family Restaurant only welcomes children from six to twelve years old.',
         steam: 'A. Around the White House.\r\n\nB. Near the Washington Monument.\r\n\nC. In the National Park.\r\n\nD. Around the Tidal Basin.',
         url: '1.mp3',
-        cor: 'ACBD',
+        cor: 'A\nC\nB\nD',
         article: 'hi this is listening article , you can learn this for some time hi this is listening article , you can learn this for some time hi this is listening article , you can learn this for some time hi this is listening article , you can learn this for some time hi this is listening article , you can learn this for some time\nhi this is listening article , you can learn this for some time hi this is listening article , you can learn this for some time hi this is listening article , you can learn this for some time hi this is listening article , you can learn this for some time'
       },
       formLabelWidth: '100px'
@@ -51,7 +52,7 @@ export default {
       val.detail.forEach(e=> {
         form.detail = e.steam.join('\r\n\n')
         form.steam = e.options.join('\r\n\n')
-        form.cor = e.correct.join('')
+        form.cor = e.correct.join('\n')
       })
       form = Object.assign(form, a)
     },

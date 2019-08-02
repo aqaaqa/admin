@@ -14,7 +14,8 @@
       <el-input type="textarea" v-model="form.options" :autosize="{ minRows: 10, maxRows: 20}"></el-input>
     </el-form-item>
     <el-form-item label="答案" :label-width="formLabelWidth" > 
-      <el-input v-model="form.cor" placeholder="请输入内容"></el-input>
+      <p class="hint-text">注：每一题答案占一行</p>
+      <el-input type="textarea" v-model="form.cor" :autosize="{ minRows: 10, maxRows: 20}"></el-input>
     </el-form-item>
   </el-form>  
 </template>
@@ -30,7 +31,7 @@ export default {
         desc: '八、完形填空题',
         article: 'Since the beginning of the twentieth century the number of wild Tigers has been on an alarming decrease. ___1___, it appears the tide has finally turned. The ___2___ of dedicated conservation programmes has ___3___ the first growth in wild population numbers for over a century and, while still vulnerable, the big cat’s future is looking a little more assured.',
         options:'1. A. Though B.Therefore C.However D. Instead\r\n\n2. A. establishment B. majority C. arrangement D. permission',
-        cor: 'ABC'
+        cor: 'A\nB\nC'
       },
       formLabelWidth: '100px'
     }
@@ -41,7 +42,7 @@ export default {
       let a = langStr(val)
       form.article = val.article.replace(/<br>|<br\/>/g, '\n')
       val.detail.forEach(e=> {
-        form.cor = e.correct.join('')
+        form.cor = e.correct.join('\n')
         form.options = e.options.join('\r\n\n').replace(/<br>|<br\/>/g, '\n')
       })
       form = Object.assign(form, a)

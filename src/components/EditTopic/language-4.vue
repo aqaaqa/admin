@@ -10,8 +10,8 @@
       <el-input type="textarea" v-model="form.detail" :autosize="{ minRows: 10, maxRows: 20}"></el-input>
     </el-form-item>
     <el-form-item label="答案" :label-width="formLabelWidth" > 
-      <p class="hint-text">注：每个答案之间用英文逗号 ',' 分隔</p>
-      <el-input v-model="form.cor" placeholder="请输入内容"></el-input>
+      <p class="hint-text">注：每一题答案占一行</p>
+      <el-input type="textarea" v-model="form.cor" :autosize="{ minRows: 10, maxRows: 20}"></el-input>
     </el-form-item>
   </el-form>  
 </template>
@@ -26,7 +26,7 @@ export default {
       form: {
         desc: '二、填空题。根据括号中的中文释义，用本单元出现的单词的正确形式完成句子。',
         detail: '43.I was ______ (相当) surprised to see my parents in my school.\r\n\n44.His speech ______ (反映) the views of most citizens.\r\n\n45.Mike is new to this school, so he is ______ (不熟悉的) with his classmates.',
-        cor: 'wrewr,werw,werw'
+        cor: 'wrewr\nwerw\nwerw'
       },
       formLabelWidth: '100px'
     }

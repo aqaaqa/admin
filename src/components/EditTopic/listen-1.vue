@@ -10,7 +10,8 @@
     <el-input type="textarea" v-model="form.detail" :autosize="{ minRows: 10, maxRows: 20}"></el-input>
   </el-form-item>
   <el-form-item label="答案" :label-width="formLabelWidth" > 
-    <el-input v-model="form.cor" placeholder="请输入内容"></el-input>
+    <p class="hint-text">注：每一题答案占一行</p>
+    <el-input type="textarea" v-model="form.cor" :autosize="{ minRows: 10, maxRows: 20}"></el-input>
   </el-form-item>
   <el-form-item label="听力地址" :label-width="formLabelWidth" > 
     <el-input v-model="form.url" placeholder="请输入内容"></el-input>
@@ -33,7 +34,7 @@ export default {
         desc: '一、听短对话，选择正确的答案\nListen to 10 short conversations and choose the correct answer for each question.\n听对话，从每题所给的A，B，C三个选项中选择正确选项。',
         detail: '6.	Which of the following is not Mr Lee’s suggestion about creating an English learning environment?\n\r\nA.	Writing English journals.\nB.	Moving to an English-speaking country.\nC.	Listening to English radio.',
         url: '1.mp3',
-        cor: 'ABB',
+        cor: 'A\nB\nB',
         article: 'hi this is listening article , you can learn this for some time hi this is listening article , you can learn this for some time hi this is listening article , you can learn this for some time hi this is listening article , you can learn this for some time hi this is listening article , you can learn this for some time\nhi this is listening article , you can learn this for some time hi this is listening article , you can learn this for some time hi this is listening article , you can learn this for some time hi this is listening article , you can learn this for some time'
       },
       formLabelWidth: '100px'
@@ -50,7 +51,7 @@ export default {
         let steam = e.steam.join('\n')
         c = e.options.join('\n')
         form.detail = form.detail + steam +'\r\n\n' + c +'\r\n\n'
-        e.correct[0] ? form.cor = form.cor+ e.correct[0] : ''
+        e.correct[0] ? form.cor = form.cor+ e.correct[0] + '\n' : ''
       })
       form = Object.assign(form, a)
     },

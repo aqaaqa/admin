@@ -11,7 +11,8 @@
       
     </el-form-item>
     <el-form-item label="答案" :label-width="formLabelWidth" > 
-      <el-input v-model="form.cor" placeholder="请输入内容"></el-input>
+      <p class="hint-text">注：每一题答案占一行</p>
+      <el-input type="textarea" v-model="form.cor" :autosize="{ minRows: 10, maxRows: 20}"></el-input>
     </el-form-item>
     <el-form-item label="听力地址" :label-width="formLabelWidth" > 
       <el-input v-model="form.url" placeholder="请输入内容"></el-input>
@@ -34,7 +35,7 @@ export default {
         desc: '四、判断题',
         detail: '1.	Mrs Webb didn’t receive any directions from Mr Smith.  ______\r\n\n2.	Mrs Webb travelled to downtown by an underground train. ______\r\n\n3.	Mr Smith’s office is opposite a road under the street. ______	\r\n\n4.	Mr Smith’s office is on street level. ______\r\n\n5.	Mr Smith doesn’t know American English well. ______',
         url: '1.mp3',
-        cor: 'FTFT',
+        cor: 'F\nT\nF\nT',
         article: 'hi this is listening article , you can learn this for some time hi this is listening article , you can learn this for some time hi this is listening article , you can learn this for some time hi this is listening article , you can learn this for some time hi this is listening article , you can learn this for some time\nhi this is listening article , you can learn this for some time hi this is listening article , you can learn this for some time hi this is listening article , you can learn this for some time hi this is listening article , you can learn this for some time'
       },
       formLabelWidth: '100px',
@@ -46,7 +47,7 @@ export default {
       let a = listenStr(val)
       val.detail.forEach(e=> {
         form.detail = e.steam.join('\r\n\n')
-        form.cor = e.correct.join('')
+        form.cor = e.correct.join('\n')
       })
       form = Object.assign(form, a)
       
