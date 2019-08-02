@@ -27,6 +27,7 @@ export default {
         cor: 'When I look back on previous years, many memories come to my mind. For example, I used to have an inferiority complex due to my poor English speaking and listening ability, despite being pretty good at English grammar. \r\n\nIt was absolutely frustrating being unable to engage in meaningful conversations, at the dining table of my house, where I lived with a native English speaker. However, little by little, I got used to it, as the saying goes, “Practice makes perfect.”'
       },
       formLabelWidth: '100px',
+      
     }
   },
   methods: {
