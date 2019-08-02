@@ -37,7 +37,7 @@ export default {
       form.cor = ''
       val.detail.forEach(e=> {
         form.article = form.article + e.steam.join('\n').replace(/<br>|<br\/>/g, '\n') + '\r\n\n'
-        e.correct && e.correct[0] ? form.cor = e.correct.join('\n').replace(/<br>|<br\/>/g, '\n') + '\r\n\n' : ''
+        e.correct && e.correct[0] ? form.cor = form.cor + e.correct.join('\n').replace(/<br>|<br\/>/g, '\n') + '\r\n\n' : ''
       })
       form = Object.assign(form, a)
     },

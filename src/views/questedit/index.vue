@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-loading.fullscreen.lock="loading">
     <div class="titles">
       <div>
         <label class="lable1">选择单元：</label>
@@ -90,6 +90,7 @@ import qestedit from '../../components/qestedit'
 export default {
   data() {
     return {
+      loading: false,
       list: [],
       options3: [],
       options:[],
@@ -182,6 +183,7 @@ export default {
         pageNumber: this.page,
         pageSize: 10
       }
+      this.loading = true
 			qestList(this.qest).then( res=> {
         if(!res.data.qests.length && this.page > 1) {
           this.page = Number(this.page) -1
@@ -192,8 +194,10 @@ export default {
           this.list.forEach(e=> {
           e.opentopic = false;
         })
-          // this.loading = false
+          this.loading = false
         } 
+      }).catch(()=> {
+        this.loading = false
       })
     }
   }
