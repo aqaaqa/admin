@@ -7,7 +7,7 @@ import request from '@/utils/request'
  */
 export function tantList(data) {
   return request({
-    url: '/back/tant/list',
+    url: '/back/school/list',
     method: 'post',
     data
   })
@@ -19,7 +19,7 @@ export function tantList(data) {
  */
 export function tantAdd(data) {
   return request({
-    url: '/back/tant/add',
+    url: '/back/school/add',
     method: 'post',
     data
   })
@@ -32,7 +32,7 @@ export function tantAdd(data) {
  */
 export function tantDel(data) {
   return request({
-    url: '/back/tant/delete',
+    url: '/back/school/delete',
     method: 'post',
     data
   })

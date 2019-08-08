@@ -10,14 +10,14 @@
           v-model="value1"
           value = 'id'
           placeholder="选择单元"
-          @change="handleChange"
+          @change="handleChange2"
         ></el-cascader>
       </div>
       <div>
         <label class="lable1">选择类型：</label>
         <el-select v-model="value3" size="mini" clearable placeholder="请选择" @change="handleChange">
           <el-option
-            v-for="item in options3"
+            v-for="item in menuList"
             :key="item.label"
             :label="item.label"
             :value="item.label">
@@ -26,7 +26,7 @@
       </div>
       <div>
         <label class="lable1">选择题型：</label>
-        <el-select size="mini" v-model="value7" clearable placeholder="请选择" @change="handleChange">
+        <el-select size="mini" v-model="value7" clearable placeholder="请选择" @change="handleChange1">
           <el-option-group
             v-for="group in options3"
             :key="group.label"
@@ -35,37 +35,43 @@
               v-for="item in group.options"
               :key="item"
               :label="item"
-              :value="item">
+              :value="item+'|'+group.label">
             </el-option>
           </el-option-group>
         </el-select>
       </div>
     </div>
-    <div class="topic-main">
-      <div v-for="(item,index) in list" :key = "index" class="topic-main-box">
-        <div class="topic-top">
-          <el-button type="primary" size="mini" @click="editqest(item)">编辑</el-button>
-          <el-button type="danger" size="mini" @click="delBtn(item.id)">删除</el-button>
-        </div>
-        <div class="items-height" :class="item.opentopic ? 'show-allheight' : ''">
-          <topic :allitem = 'item'/>
-        </div>
-        <div class="show-topic-btn">
-          <el-button v-if="item.opentopic" type="text" size="mini" @click="openTopic(index)">收起<i class="el-icon-arrow-up el-icon--right"></i></el-button>
-          <el-button v-else type="text" size="mini" @click="openTopic(index)">展开<i class="el-icon-arrow-down el-icon--right"></i></el-button>
+    <div v-if="list.length > 0">
+      <div class="topic-main">
+        <div v-for="(item,index) in list" :key = "index" class="topic-main-box">
+          <div class="topic-top">
+            <el-button type="primary" size="mini" @click="editqest(item)">编辑</el-button>
+            <el-button type="danger" size="mini" @click="delBtn(item.id)">删除</el-button>
+          </div>
+          <div class="items-height" :class="item.opentopic ? 'show-allheight' : ''">
+            <topic :allitem = 'item'/>
+          </div>
+          <div class="show-topic-btn">
+            <span style ="font-size: 14px; margin-right: 10px;">类型: {{item.part}}</span>
+            <el-button v-if="item.opentopic" type="text" size="mini" @click="openTopic(index)">收起<i class="el-icon-arrow-up el-icon--right"></i></el-button>
+            <el-button v-else type="text" size="mini" @click="openTopic(index)">展开<i class="el-icon-arrow-down el-icon--right"></i></el-button>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="pageinat">
-      <el-pagination background
-        size="mini"
-        :current-page="page"
-        layout="prev, pager, next"
-        @current-change="choosePage"
-        :total="total"
-        :page-size="10">
-      </el-pagination>
+      <div class="pageinat">
+        <el-pagination background
+          size="mini"
+          :current-page="page"
+          layout="prev, pager, next"
+          @current-change="choosePage"
+          :total="total"
+          :page-size="10">
+        </el-pagination>
+      </div>
+    </div>
+    <div class="topic-null" v-else>
+      暂无试题
     </div>
     <el-dialog
       title="编辑试题"
@@ -102,7 +108,8 @@ export default {
       page: 1,
       total: 0,
       part:{},
-      dialogVisible: false
+      dialogVisible: false,
+      menuList: []
     }
   },
   components: {
@@ -113,15 +120,15 @@ export default {
     partType().then(res=> {
       let list = res.data
       for(let e in list) {
-        this.options3.unshift({
+        this.menuList.unshift({
           label: e,
           options: list[e]
         })
       }
+      this.options3 = this.menuList
     })
     mulMenu().then(res=> {
       this.options = res.data.options
-      
       this.value1.push(this.options[0].value)
       this.value1.push(this.options[0].children[0].value)
       this.qestList()
@@ -157,6 +164,32 @@ export default {
       })
     },
     handleChange(value) {
+      this.value7 = ''
+      this.page = 1
+      this.qestList()
+      if(value) {
+        let menus = this.menuList
+        let a = []
+        for (let i in menus) {
+          if(menus[i].label == value) {
+            a = menus[i]
+            break
+          }
+        }
+        this.options3 = [a]
+      } else {
+        this.options3 = this.menuList
+      }
+    },
+    handleChange1(value) {
+      if(value) {
+        this.value3 = value.split('|')[1]
+      }
+      this.page = 1
+      this.qestList()
+      
+    },
+    handleChange2(value) {
       this.page = 1
       this.qestList()
     },
@@ -176,10 +209,16 @@ export default {
       } else {
         this.ids = ''
       }
+      let types = ''
+      if(this.value7) {
+        types = this.value7.split('|')[0]
+      } else {
+        types = ''
+      }
       this.qest = {
         id: this.ids,
         part: this.value3,
-        type: this.value7,
+        type: types,
         pageNumber: this.page,
         pageSize: 10
       }
@@ -244,5 +283,12 @@ export default {
   height: 100%;
   max-height: 100%;
   overflow: auto;
+}
+.topic-null {
+  margin: 20px;
+  border: 1px solid #ccc;
+  line-height: 50px;
+  text-align: center;
+  font-size: 14px;
 }
 </style>

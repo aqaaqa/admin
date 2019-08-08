@@ -11,9 +11,9 @@
         </table>
       </div>
       <div class="right">
-        <p v-for="(itemO,index) in item.detail[0].options" :key="index">{{itemO}}</p>
+        <p v-for="(itemO,index) in item.detail[0].options" :key="index" v-html="itemO"></p>
       </div>
-      <div>
+      <!-- <div>
         <p>答案：</p>
         <div class="left">
           <table>
@@ -23,7 +23,7 @@
 
           </table>
         </div>
-      </div>
+      </div> -->
     </div>
 
 

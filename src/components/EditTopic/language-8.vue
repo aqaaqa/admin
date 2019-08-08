@@ -6,7 +6,7 @@
       
     </el-form-item>
     <el-form-item label="网格" :label-width="formLabelWidth" > 
-      <p class="hint-text">注：需添加标题，例第一行第一列1.1，第二行第一列2.1
+      <p class="hint-text">注：需添加行和列组成的标题，例第一行第一列1.1，第二行第一列2.1
         <br/>
         ****标题和内容之间必须空格隔开
         <br/>
@@ -24,8 +24,6 @@
     </el-form-item>
     <el-form-item label="答案" :label-width="formLabelWidth" > 
       <p class="hint-text">注：每个答案之间用换行隔开
-        <br>
-        ****标题和答案之间必须空格隔开
       </p>
       <el-input type="textarea" v-model="form.cor" :autosize="{ minRows: 10, maxRows: 20}"></el-input>
     </el-form-item>
@@ -42,7 +40,7 @@ export default {
       form: {
         desc: '三、纵横字谜。根据下列释义，写出相应的单词。',
         detail: '1.2 34 \n1.4 35\n1.6 37\n1.8 38\n2.2 e\n2.3 @\n2.4 r\n2.5 @\n2.6 @\n2.8 @\n3.2 @\n3.4 @\n3.6 30\n',
-        cor: '2.1 a\n2.2 c',
+        cor: 'inners\nstyle',
         options: '53.a type of shoe that covers your whole foot and the lower part of your leg\r\n\n54.strange\r\n\n55.probable or expected'
       },
       formLabelWidth: '100px'

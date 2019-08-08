@@ -66,7 +66,7 @@ service.interceptors.response.use(
       router.push(`/login?redirect=${router.app._route.fullPath}`)
     } 
     Message({
-      message: error.msg,
+      message: '网络错误，请稍后重试',
       type: 'error',
       duration: 5 * 1000
     })

@@ -9,7 +9,7 @@
     <el-input type="textarea" v-model="form.steam" :autosize="{ minRows: 10, maxRows: 20}"></el-input>
   </el-form-item>
   <el-form-item label="提示" :label-width="formLabelWidth" > 
-    <p class="hint-text">注：小题之间空行隔开</p>
+    <p class="hint-text">注：小题换行隔开，每题提示之间空行隔开</p>
     <el-input type="textarea" v-model="form.options" :autosize="{ minRows: 10, maxRows: 20}"></el-input>
   </el-form-item>
 </el-form>  
@@ -24,7 +24,7 @@ export default {
       form: {
         desc: '四、对话题',
         steam: 'Work in pairs. Act out the following situation. You and your friends are planning a trip. You may consider:',
-        options: 'a) What’s your destination?\r\n\nb) Why do you want to go to this place? \r\n\nc) What should you prepare, for example, flight, visa, hotel, etc.?'
+        options: 'a) What’s your destination?\nb) Why do you want to go to this place? \nc) What should you prepare, for example, flight, visa, hotel, etc.?'
       },
       formLabelWidth: '100px',
     }
@@ -33,9 +33,11 @@ export default {
     partForm(val) {
       let form = this.form
       let a = readStr(val)
+      form.options = ''
+      form.steam = ''
       val.detail.forEach(e=> {
-        form.steam = e.steam.join('\n').replace(/<br>|<br\/>/g, '\n')
-        form.options = e.options.join('\r\n\n')
+        form.steam = form.steam + e.steam.join('\n').replace(/<br>|<br\/>/g, '\n') + '\r\n\n'
+        form.options =form.options+e.options.join('\n') + '\r\n\n'
       })
       form = Object.assign(form, a)
     },
@@ -44,7 +46,7 @@ export default {
       let form = this.form
       let msg
       for(let d in form) {
-        if(!form[d]) {
+        if(!form[d] && d != 'options') {
           msg = '信息不能为空'
         }
       }

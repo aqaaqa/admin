@@ -10,7 +10,7 @@
           border>
           <el-table-column>
           <template slot-scope="scope">
-            <span class="fonts">{{scope.row}}</span>
+            <span class="fonts" v-html="scope.row"></span>
           </template>
           </el-table-column>
           <!-- <el-table-column
@@ -35,7 +35,7 @@
           style="">
           <el-table-column>
           <template slot-scope="scope">
-            <span class="fonts">{{scope.row}}</span>
+            <span class="fonts" v-html="scope.row"></span>
           </template>
           </el-table-column>
         </el-table>

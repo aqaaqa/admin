@@ -3,8 +3,7 @@
     <div class="taskArtcle" v-html="item.article" :id="item.id">
     </div>
     <div v-for="(item,index) in item.detail" :key="index" class="taskOptions">
-      <div v-for="(item1,index2) in item.options" :key="index2">
-        {{item1}}
+      <div v-for="(item1,index2) in item.options" :key="index2" v-html="item1">
       </div>
     </div>
   </div>

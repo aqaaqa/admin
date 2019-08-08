@@ -9,7 +9,7 @@
 
 <script>
 export default {
-  name: 'lang6',
+  name: 'lang9',
   props:{
     itemList: {
       type: Object,

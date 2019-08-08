@@ -5,12 +5,10 @@
         <li>
           <div class="listen1-tigan">
             <!-- <span class="listen1-num">{{index+1}}.</span> -->
-            <p class="listen1-item" v-for="(steamItem, sIdx) in itm.steam" :key="sIdx">{{steamItem}}</p>
+            <p class="listen1-item" v-for="(steamItem, sIdx) in itm.steam" :key="sIdx" v-html="steamItem"></p>
           </div>
           <div class="listen1-options">
-            <p v-for='(option, idn) in itm.options' v-bind:key='idn' class="listen1-opt" :class="[itm.isFloat ? 'listen1-none' : 'listen1-fl']" :style="idn==itm.cpos ? styleObject : ''" >
-              {{option}}
-            </p>
+            <p v-for='(option, idn) in itm.options' v-bind:key='idn' class="listen1-opt" :class="[itm.isFloat ? 'listen1-none' : 'listen1-fl']" :style="idn==itm.cpos ? styleObject : ''" v-html="option"></p>
           </div>
         </li>
       </ul>

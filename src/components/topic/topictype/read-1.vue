@@ -7,11 +7,9 @@
       <div class="read1-article" v-html="item.article"></div>
       <ul class="read1-topic">
         <li v-for="(items, index) in list" :key="index">
-          <p>{{items.steam[0]}}</p>
+          <p v-html="items.steam[0]"></p>
           <p class="read1-changes" :class="items.line ? 'line' : ''">
-            <span v-for="(change, indexs) in items.options" :key="indexs" :style="change.indexOf(items.correct[0]+'.') == 0 && showAnswer ? 'color: #409EFF' : ''">
-              {{change}}
-            </span>
+            <span v-for="(change, indexs) in items.options" :key="indexs" :style="change.indexOf(items.correct[0]+'.') == 0 && showAnswer ? 'color: #409EFF' : ''" v-html="change"></span>
           </p>
         </li>
       </ul>

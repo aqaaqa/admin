@@ -6,39 +6,41 @@
           {{partObj.part ? `${partObj.part}—${partObj.type}` : ''}}
         </span>
         <!-- 题型 -->
-        <template v-if="partObj.part == '听力题'">
-          <listen1 v-if="partObj.type == '单选'" ref="child" />
-          <listen2 v-else-if="partObj.type == '判断'" ref="child" />
-          <listen3 v-else-if="partObj.type == '填空'" ref="child" />
-          <listen4 v-else-if="partObj.type == '匹配'" ref="child" />
-          <listen5 v-else-if="partObj.type == '填表格'" ref="child" />
+        <template v-if="partObj.part == '听力'">
+          <listen1 v-if="partObj.type == '选择题'" ref="child" />
+          <listen2 v-else-if="partObj.type == '判断题'" ref="child" />
+          <listen3 v-else-if="partObj.type == '填空题>填空'" ref="child" />
+          <listen4 v-else-if="partObj.type == '匹配题'" ref="child" />
+          <listen5 v-else-if="partObj.type == '填空题>填表格'" ref="child" />
         </template>
         <template v-else-if="partObj.part == '语言知识运用'">
-          <language1 v-if="partObj.type == '单选'" ref="child" />
-          <language2 v-else-if="partObj.type == '匹配'" ref="child" />
-          <language3 v-else-if="partObj.type == '改写'" ref="child" />
-          <language4 v-else-if="partObj.type == '提示填空'" ref="child" />
-          <language5 v-else-if="partObj.type == '短文填空'" ref="child" />
+          <language1 v-if="partObj.type == '选择题'" ref="child" />
+          <language2 v-else-if="partObj.type == '匹配题'" ref="child" />
+          <language3 v-else-if="partObj.type == '改写题'" ref="child" />
+          <language4 v-else-if="partObj.type == '填空题>提示填空'" ref="child" />
+          <language5 v-else-if="partObj.type == '填空题>短文填空'" ref="child" />
           <language6 v-else-if="partObj.type == '完形填空'" ref="child" />
-          <language7 v-else-if="partObj.type == '单句填空'" ref="child" />
-          <language8 v-else-if="partObj.type == '网格填空'" ref="child" />
+          <language7 v-else-if="partObj.type == '填空题>单句填空'" ref="child" />
+          <language8 v-else-if="partObj.type == '纵横字谜'" ref="child" />
+          <language9 v-else-if="partObj.type == '排序题'" ref="child" />
         </template>
-        <template v-else-if="partObj.part == '阅读题'">
-          <read1 v-if="partObj.type == '阅读单选'" ref="child" />
-          <read2 v-else-if="partObj.type == '选句填空'" ref="child" />
-          <read3 v-else-if="partObj.type == '判断'" ref="child" />
-          <read4 v-else-if="partObj.type == '简答'" ref="child" v-model="value7"/>
+        <template v-else-if="partObj.part == '阅读'">
+          <read1 v-if="partObj.type == '选择题'" ref="child" />
+          <read2 v-else-if="partObj.type == '任务型阅读'" ref="child" />
+          <read3 v-else-if="partObj.type == '判断题'" ref="child" />
+          <read4 v-else-if="partObj.type == '简答题'" ref="child" v-model="value7"/>
         </template>
-        <template v-else-if="partObj.part == '写作题'">
-          <write2 v-if="partObj.type == '作文'" ref="child"/>
-          <read4 v-else-if="partObj.type == '简答'" ref="child" v-model="value7"/>
+        <template v-else-if="partObj.part == '写作'">
+          <write2 v-if="'书面表达,读写结合>读后续写,读写结合>概要写作'.indexOf(partObj.type) > -1" ref="child"/>
+          <read4 v-else-if="partObj.type == '翻译'" ref="child" v-model="value7"/>
         </template>
-        <template v-else-if="partObj.part == '口语题'">
-          <read4 v-if="partObj.type == '简答'" ref="child" v-model="value7"/>
-          <speak2 v-else-if="partObj.type == '朗读'" ref="child"/>
-          <speak3 v-else-if="partObj.type == '讨论'" ref="child"/>
-          <speak4 v-else-if="partObj.type == '对话'" ref="child"/>
-          <speak5 v-else-if="partObj.type == '辩论'" ref="child"/>
+        <template v-else-if="partObj.part == '口语'">
+          <read4 v-if="partObj.type == '口语简答题'" ref="child" v-model="value7"/>
+          <speak2 v-else-if="partObj.type == '朗读题'" ref="child"/>
+          <speak3 v-else-if="partObj.type == '讨论题'" ref="child"/>
+          <speak4 v-else-if="partObj.type == '对话题'" ref="child"/>
+          <speak5 v-else-if="partObj.type == '辩论题'" ref="child"/>
+          <speak6 v-else-if="partObj.type == '复述题'" ref="child"/>
         </template>
         <div slot="footer" class="dialog-footer">
           <el-button type="primary" @click="opeaArr" size="mini">查 看</el-button>
@@ -59,7 +61,7 @@
 <script>
 import { titleOper } from '@/utils/arr'
 import { listen1, listen2, listen3, listen4, listen5, language1, language2, language3, language4, language5, 
-language6, language7, language8, read1, read2, read3, read4, write2, speak2, speak3, speak4, speak5 } from '../EditTopic/index'
+language6, language7, language8, language9, read1, read2, read3, read4, write2, speak2, speak3, speak4, speak5 } from '../EditTopic/index'
 import { partType, mulMenu } from '@/api/ajax'
 import topic from '../topic/index'
 
@@ -110,6 +112,7 @@ export default {
     language6,
     language7,
     language8,
+    language9,
     read1,
     read2,
     read3,

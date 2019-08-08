@@ -56,7 +56,7 @@ export default {
       // return '/example/table'
     },
     showLogo() {
-      return true
+      return false
     },
     variables() {
       return variables

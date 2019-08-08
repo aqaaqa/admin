@@ -16,7 +16,7 @@
 
 <script>
 export default {
-   name: 'Listening4',
+   name: 'speak6',
   data() {
    return {
     isScript:false,

@@ -34,6 +34,30 @@ export function pushSteam(str) {
   return arrs
 }
 
+/**
+ * 填充option
+ */
+export function pushOption(str) {
+  let arrs = []
+  let b = []
+  let a = str.split('\n')
+  for(let i = 0; i <a.length; i++) {
+    let c = a[i].trim()
+    if(c) {
+      b.push(c)
+      if(i == a.length-1) {
+        arrs.push(b)
+      }
+    } else {
+      if(b) {
+        arrs.push(b)
+        b = []
+      }
+    }
+  }
+  return arrs
+}
+
 
 /**
  * 单选
@@ -233,30 +257,36 @@ export function shortOper(str,cor) {
  */
 export function writeSteam(str,cor) {
   let arrs = []
-  let b = []
-  let a = str.split('\n')
-  let atr = pushSteam(cor)
-  for(let i = 0; i <a.length; i++) {
-    let c = a[i].trim()
-    if(c) {
-      b.push(c)
-      if(i == a.length-1) {
-        arrs.push({
-          steam: b
-        })
-      }
-    } else {
-      if(b) {
-        arrs.push({
-          steam: b
-        })
-        b = []
-      }
-    }
+  let b = cor.replace(/(\r\n)|(\n)/g,'<br/>').split(/#+/g)
+  let a = str.replace(/(\r\n)|(\n)/g,'<br/>').split(/#+/g)
+  console.log(a)
+  console.log(b)
+  // let atr = pushSteam(cor)
+  // for(let i = 0; i <a.length; i++) {
+  //   let c = a[i].trim()
+  //   if(c) {
+  //     b.push(c)
+  //     if(i == a.length-1) {
+  //       arrs.push({
+  //         steam: b
+  //       })
+  //     }
+  //   } else {
+  //     if(b) {
+  //       arrs.push({
+  //         steam: b
+  //       })
+  //       b = []
+  //     }
+  //   }
+  // }
+  for(let k = 0; k < a.length; k++) {
+    arrs.push({
+      steam: [a[k]],
+      correct: [b[k]]
+    })
   }
-  for(let k = 0; k < arrs.length; k++) {
-    arrs[k].correct = [atr[k]]
-  }
+  
   return arrs
 }
 
@@ -296,30 +326,16 @@ export function speakSteam(str) {
  * 讨论
  */
 export function discSteam(str, options) {
-  let arrs = [{
-    steam: []
-  }]
-  let b = ''
-  let a = str.split('\n')
-  for(let i = 0; i <a.length; i++) {
-    let c = a[i].trim()
-    if(c) {
-      if(b) {
-        b = b+'<br/>' +c
-      } else {
-        b = c
-      }
-      if(i == a.length-1) {
-        arrs[0].steam.push(b)
-      }
-    } else {
-      if(b) {
-        arrs[0].steam.push(b)
-        b = ''
-      }
-    }
+  let arrs = []
+  let b = pushOption(options)
+  let a = pushSteam(str)
+  console.log(b)
+  for(let i =0; i<a.length;i++) {
+    arrs.push({
+      steam: [a[i]],
+      options: b[i]
+    })
   }
-  arrs[0].options = options.split('\n').filter(e => e != '')
   return arrs
 }
 
@@ -396,6 +412,19 @@ export function tableOper (str, cor, option) {
     }]
   }
 }
+
+/**
+ * 复述
+ */
+export function retellOper(str) {
+  let list = []
+  list.push({
+    steam : pushSteam(str),
+  })
+  return list
+}
+
+
 
 /**
  * 标题转 str
