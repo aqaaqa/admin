@@ -3,7 +3,9 @@
   <el-form-item label="标题和描述" :label-width="formLabelWidth">
     <p class="hint-text">注：根据换行自动匹配对应标题和描述</p>
     <el-input type="textarea" v-model="form.desc" :autosize="{ minRows: 4, maxRows: 6}"></el-input>
-    
+  </el-form-item>
+  <el-form-item label="小标题" :label-width="formLabelWidth">
+    <el-input type="textarea" v-model="form.title" :autosize="{ minRows: 4, maxRows: 6}"></el-input>
   </el-form-item>
   <el-form-item label="题目" :label-width="formLabelWidth" > 
     <p class="hint-text">注：小题,题干需空一行隔开，选项必须一项占一行</p>
@@ -33,6 +35,7 @@ export default {
       form: {
         desc: '一、听短对话，选择正确的答案\nListen to 10 short conversations and choose the correct answer for each question.\n听对话，从每题所给的A，B，C三个选项中选择正确选项。',
         detail: '6.	Which of the following is not Mr Lee’s suggestion about creating an English learning environment?\n\r\nA.	Writing English journals.\nB.	Moving to an English-speaking country.\nC.	Listening to English radio.',
+        title: '听第一段对话，回答第6至第7题。',
         url: '1.mp3',
         cor: 'A\nB\nB',
         article: 'hi this is listening article , you can learn this for some time hi this is listening article , you can learn this for some time hi this is listening article , you can learn this for some time hi this is listening article , you can learn this for some time hi this is listening article , you can learn this for some time\nhi this is listening article , you can learn this for some time hi this is listening article , you can learn this for some time hi this is listening article , you can learn this for some time hi this is listening article , you can learn this for some time'
@@ -53,6 +56,7 @@ export default {
         form.detail = form.detail + steam +'\r\n\n' + c +'\r\n\n'
         e.correct[0] ? form.cor = form.cor+ e.correct[0] + '\n' : ''
       })
+      form.title = val.title
       form = Object.assign(form, a)
     },
     lists() {
@@ -60,7 +64,7 @@ export default {
       let form = this.form
       let msg
       for(let d in form) {
-        if(!form[d]) {
+        if(!form[d] && d!='title') {
           msg = '信息不能为空'
         }
       }
@@ -71,6 +75,7 @@ export default {
       let list  = changeOper(form.detail,form.cor)
       partObj.detail = list
       partObj.mp3 = form.url
+      partObj.title = form.title
       partObj.article = form.article.replace(/(\r\n)|(\n)/g,'<br/>')
       return partObj
     },

@@ -19,13 +19,12 @@
 <script>
 import { changeOper, langStr } from '@/utils/arr'
 
-
 export default {
   data(){
     return {
       form: {
         desc: '一、单选题\nChoose the correct answer from A, B and C. \n从A，B和C三个选项中选出正确选项。',
-        detail: '1. --- Do you know the girl ______ the bike? I probably saw her when I was in Mexico.\n--- Really? It’s my sister. She went to Mexico last summer.\n\r\nA.	Writing English journals.\nB.	Moving to an English-speaking country.\nC.	Listening to English radio.',
+        detail: '1. --- Do you know the girl ______ the bike? I probably saw her when I was in Mexico.\n--- Really? It\'s my sister. She went to Mexico last summer.\n\r\nA.	Writing English journals.\nB.	Moving to an English-speaking country.\nC.	Listening to English radio.',
         cor: 'A\nB\nB'
       },
       formLabelWidth: '100px'

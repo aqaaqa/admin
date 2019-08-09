@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <div style="display:inline-block">
+    <p v-if="itemList.title" class="topic-title" v-html="itemList.title"></p>
     <table cellspacing="0" cellspadding="0" border="0" :id='itemList.id'>
       <tbody v-html="html" class="listen-3-border"></tbody>
     </table>
@@ -115,6 +116,9 @@
   table {
     border-collapse: collapse;
     margin-top: 20px;
+  }
+  .topic-title {
+    text-align: center;
   }
 
 </style>

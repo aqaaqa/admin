@@ -5,20 +5,21 @@
     <breadcrumb class="breadcrumb-container" />
 
     <div class="right-menu">
+      <span style="vertical-align: top; padding-right: 10px;">{{name}}</span>
       <el-dropdown class="avatar-container" trigger="click">
         <div class="avatar-wrapper">
           <img :src="avatar+'?imageView2/1/w/80/h/80'" class="user-avatar">
           <i class="el-icon-caret-bottom" />
         </div>
         <el-dropdown-menu slot="dropdown" class="user-dropdown" size="small">
-          <router-link to="/">
+          <a href="http://hm.corpuscloud.cn/teach-resource/produce/index.html">
             <el-dropdown-item>
               首页
             </el-dropdown-item>
-          </router-link>
-          <el-dropdown-item divided>
+          </a>
+          <!-- <el-dropdown-item divided>
             <span style="display:block;" @click="logout">退出</span>
-          </el-dropdown-item>
+          </el-dropdown-item> -->
         </el-dropdown-menu>
       </el-dropdown>
     </div>
@@ -38,7 +39,8 @@ export default {
   computed: {
     ...mapGetters([
       'sidebar',
-      'avatar'
+      'avatar',
+      'name'
     ])
   },
   methods: {

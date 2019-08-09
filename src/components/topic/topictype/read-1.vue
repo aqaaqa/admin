@@ -66,7 +66,7 @@ export default {
     warps() {
       let newArrs = this.list.map(e=> {
         for(let a of e.options){
-          if(a.length > 35) {
+          if(a.length > 30) {
             return e.line = true
           }
         }

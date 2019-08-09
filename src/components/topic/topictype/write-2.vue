@@ -54,7 +54,7 @@ export default {
 
 <style lang="scss" scoped>
 .write2 {
-  width: 600px;
+  width: 500px;
   word-break:break-all;
   p {
     line-height: 28px;

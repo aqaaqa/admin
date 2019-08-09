@@ -5,7 +5,6 @@
       <p>{{list.directions.en}}</p>
       <p>{{list.directions.zh}}</p>
     </div>
-    <p v-if="list.title" class="topic-title" v-html="list.title"></p>
     <template v-if="list.part == '听力'">
       <listen1 v-if='list.type == "选择题"' :item='list' />
       <listen2 v-else-if="list.type == '填空题>填空'" :itemList="list"/>
@@ -139,13 +138,6 @@ export default {
   font-size: 14px;
   line-height: 26px;
   width: 480px;
-}
-.topic-title {
-  font-size: 14px;
-  font-weight: 700;
-  line-height: 24px;
-  text-align: center;
-  margin-top: 20px;
 }
 </style>
 

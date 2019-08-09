@@ -32,7 +32,12 @@ if (process.env.NODE_ENV === 'production') {
 Vue.use(ElementUI, { locale })
 
 Vue.config.productionTip = false
-
+Vue.directive('changes', {
+  handelChange:function(el) {
+    console.log(el)
+    // this.form[icons] = val.replace(/“|”/g ,'"').replace(/‘|’/g ,"'");
+  },
+})
 new Vue({
   el: '#app',
   router,

@@ -1,5 +1,6 @@
 <template>
   <div class="listen1">
+    <p v-if="itemAll.title" class="topic-title" v-html="itemAll.title"></p>
     <div class="listen1-detail" v-if="itemAll.detail">
       <ul v-for='(itm, index) in itemAll.detail' v-bind:key='index' class="listen1-steam">
         <li>
@@ -59,7 +60,7 @@ export default {
         var legCount = 0;
         em.options.forEach((op)=>{
           var length = op.length;
-          if(length > 80){
+          if(length > 30){
             legCount++
           }
         })
@@ -100,6 +101,7 @@ export default {
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
+
 .fl{float: left;}
 .fr{float: right}
 ul{padding: 0;}
@@ -159,5 +161,12 @@ ul{padding: 0;}
     }
     
   }
+}
+</style>
+<style lang="scss">
+.topic-title {
+  font-size: 14px;
+  font-weight: 700;
+  margin-top: 20px;
 }
 </style>

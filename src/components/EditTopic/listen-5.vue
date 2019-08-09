@@ -71,6 +71,7 @@ export default {
         form.detail = strs
         form.cor = e.correct.join('\n')
       })
+      form.title = val.title
       form = Object.assign(form, a)
       
     },

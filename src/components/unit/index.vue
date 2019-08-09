@@ -61,6 +61,10 @@
           <el-radio v-model="units.u_status" label="1">开启</el-radio>
           <el-radio v-model="units.u_status" label="0">关闭</el-radio>
         </el-form-item>
+        <el-form-item label="单元类型" :label-width="formLabelWidth">
+          <el-radio v-model="units.type" label="1">单元题</el-radio>
+          <el-radio v-model="units.type" label="2">总复习题</el-radio>
+        </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="inner = false" size="mini">取 消</el-button>
@@ -80,7 +84,8 @@ export default {
         u_name: '',
         u_baseCode: '',
         m_baseCode: '',
-        u_status: 1
+        u_status: '1',
+        type: '1'
       },
       icon: 1,
       formLabelWidth: '120px',
@@ -173,7 +178,8 @@ export default {
         u_name: '',
         u_baseCode: this.bases.baseCode,
         m_baseCode: this.bases.baseCode,
-        u_status: '1'
+        u_status: '1',
+        type: '1'
       }
       this.icon = 1
     },
