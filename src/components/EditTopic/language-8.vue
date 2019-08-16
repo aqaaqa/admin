@@ -40,7 +40,7 @@ export default {
       form: {
         desc: '三、纵横字谜。根据下列释义，写出相应的单词。',
         detail: '1.2 34 \n1.4 35\n1.6 37\n1.8 38\n2.2 e\n2.3 @\n2.4 r\n2.5 @\n2.6 @\n2.8 @\n3.2 @\n3.4 @\n3.6 30\n',
-        cor: 'inners\nstyle',
+        cor: '53.inners\n54.style',
         options: '53.a type of shoe that covers your whole foot and the lower part of your leg\r\n\n54.strange\r\n\n55.probable or expected'
       },
       formLabelWidth: '100px'

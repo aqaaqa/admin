@@ -31,7 +31,7 @@ export default {
         desc: '八、完形填空题',
         article: 'Since the beginning of the twentieth century the number of wild Tigers has been on an alarming decrease. ___1___, it appears the tide has finally turned. The ___2___ of dedicated conservation programmes has ___3___ the first growth in wild population numbers for over a century and, while still vulnerable, the big cat’s future is looking a little more assured.',
         options:'1. A. Though B.Therefore C.However D. Instead\r\n\n2. A. establishment B. majority C. arrangement D. permission',
-        cor: 'A\nB\nC'
+        cor: '1.A\n2.B\n3.C'
       },
       formLabelWidth: '100px'
     }
@@ -40,10 +40,12 @@ export default {
     partForm(val) {
       let form = this.form
       let a = langStr(val)
-      form.article = val.article.replace(/<br>|<br\/>/g, '\n')
+      form.article = val.article.replace(/<br>|<br\/>/g, '\n') 
+      form.cor = ''
+      form.options = ''
       val.detail.forEach(e=> {
-        form.cor = e.correct.join('\n')
-        form.options = e.options.join('\r\n\n').replace(/<br>|<br\/>/g, '\n')
+        form.cor = form.cor + e.correct.join('')+'\n'
+        form.options = form.options + e.steam.join('')+' '+e.options.join(' ').replace(/<br>|<br\/>/g, '\n') + '\r\n\n'
       })
       form = Object.assign(form, a)
     },

@@ -34,6 +34,9 @@ body, div, span, header, footer, nav, section, aside, article, ul, dl, dt, dd, l
   -webkit-text-size-adjust: none;
 }
 
+i {
+  font-style: italic;
+}
 #app {
   height: 100%;
   min-width: 1024px;
@@ -81,7 +84,16 @@ div:focus {
   padding: 20px;
 }
 
+
+span,p,li {
+  word-break: keep-all;
+  word-wrap: break-word;
+}
+
+
+
 .hint-text {
   font-size: 14px;
   color: #F56C6C;
+  font-style: normal;
 }

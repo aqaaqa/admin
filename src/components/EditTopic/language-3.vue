@@ -25,7 +25,7 @@ export default {
       form: {
         desc: '三、改写题\nRewrite the sentences by using verb-ing form. \n用动词的ing形式改写下列句子。',
         detail: '1.	Mrs Webb didn’t receive any directions from Mr Smith.  \r\n\n2.	Mrs Webb travelled to downtown by an underground train. \r\n\n3.	Mr Smith’s office is opposite a road under the street. 	\r\n\n4.	Mr Smith’s office is on street level. \r\n\n5.	Mr Smith doesn’t know American English well. ',
-        cor: 'Mrs Webb didn’t receive any directions from Mr Smith.\r\n\nMrs Webb didn’t receive any directions from Mr Smith.'
+        cor: '1.Mrs Webb didn’t receive any directions from Mr Smith.\r\n\n2.Mrs Webb didn’t receive any directions from Mr Smith.'
       },
       formLabelWidth: '100px',
     }

@@ -4,7 +4,6 @@ const _import = require('@/router/_import_' + process.env.NODE_ENV)
 
 // export function routerGo(role, to, next) {
 //   let getRole = filterAsyncRouter(role) //过滤路由
-//   // console.log(getRouter)
 //   router.addRoutes(getRole) //动态添加路由
 //   global.antRouter = getRole //将路由数据传递给全局变量，做侧边栏菜单渲染工作
 //   next({ ...to, replace: true })
@@ -38,7 +37,6 @@ export function removeSession(name) { //localStorage 获取数组对象的方法
 
 
 export function getState(data) {
-  // console.log(data)
   let child = []
   const roleList = data.map(e=> {
     if(e.children) {
@@ -60,7 +58,6 @@ export function filterAsyncRouter(asyncRouterMap) { //遍历后台传来的路�
           route.redirect = route.children[0].path
         }
       } else {
-        // console.log(route.component)
         route.component = _import('table/index')
       }
     }

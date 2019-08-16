@@ -321,3 +321,29 @@ export function qestEdit(data) {
     data
   })
 }
+
+
+/*
+ * 添加上传音频
+ * @param {*} data 
+ */
+export function RequestUploads(data) {
+  return request({
+    url: 'back/qest/submitWithMp3',
+    method: 'post',
+    data
+  })
+}
+
+/*
+ * 编辑上传音频
+ * @param {*} data 
+ */
+export function EditUploads(data) {
+  return request({
+    url: 'back/qest/editWithMp3',
+    method: 'post',
+    data
+  })
+}
+

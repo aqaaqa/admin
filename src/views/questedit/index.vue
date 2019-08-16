@@ -81,7 +81,7 @@
       <qestedit ref="qest" :lists = "part"/>
       <span slot="footer" class="dialog-footer">
         <el-button @click="handleClose" size="mini">取 消</el-button>
-        <el-button type="primary" @click="submits" size="mini">提 交</el-button>
+        <el-button type="primary" @click="submits" :loading = 'loading1' size="mini">提 交</el-button>
       </span>
     </el-dialog>
     
@@ -97,6 +97,7 @@ export default {
   data() {
     return {
       loading: false,
+      loading1: false,
       list: [],
       options3: [],
       options:[],
@@ -139,18 +140,27 @@ export default {
   },
   methods:{
     handleClose() {
-      this.part = ''
+      this.part = 1
       this.dialogVisible = false
     },
     submits() {
       let datas = this.$refs.qest.submits()
+      
       if(datas) {
-        qestEdit({data: datas}).then(res => {
-          this.$message.success('修改成功')
-          this.handleClose()
-          this.qestList()
-        })
+        this.loading1 = true
+        if((datas.part == '听力' || datas.type=='复述题') && datas.mp3.indexOf('blob') > -1) {
+          this.$store.dispatch('page/setUpload', datas)
+          this.$refs.qest.$refs.child.$refs.mp3Up.submitUpload()
+        } else {
+          qestEdit({data: datas}).then(res => {
+            this.$message.success('修改成功')
+            this.handleClose()
+            this.qestList()
+          })
+          this.loading1 = false
+        }
       }
+      
       
     },
     editqest(list) {

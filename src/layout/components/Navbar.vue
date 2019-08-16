@@ -5,6 +5,7 @@
     <breadcrumb class="breadcrumb-container" />
 
     <div class="right-menu">
+      <router-link style="font-size:14px;vertical-align: top; padding-right: 10px; color: #F56C6C;" target="_blank" :to="{path:'/tinymce'}">阅读表格转换</router-link>
       <span style="vertical-align: top; padding-right: 10px;">{{name}}</span>
       <el-dropdown class="avatar-container" trigger="click">
         <div class="avatar-wrapper">

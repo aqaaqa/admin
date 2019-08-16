@@ -5,7 +5,14 @@
       </div>
       <div class="language8-box" v-if="itemAll.detail&&itemAll.detail.length!=0">
         <div class="language8-options" v-for="(item,index) in itemAll.detail" :key="index">
-          <div v-for='(liItem, liIde) in item.options' :key="liIde" v-html="liItem"></div>
+
+          <div class="lang8-mains">
+            <span  v-for="(title,i) in item.steam" :key="i+'.'" v-html="title"></span>
+            <p>
+              <span v-for='(liItem, liIde) in item.options' :key="liIde" v-html="liItem"></span>
+            </p>
+            
+          </div>
         </div>
       </div>
       
@@ -134,5 +141,24 @@ export default {
         margin-right:40px;
       }
     }
+}
+.lang8-mains {
+  min-width: 500px;
+  max-width: 700px;
+  > span {
+    display: inline-block;
+    width: 20px;
+    vertical-align: top;
+  }
+  > p {
+    width:calc(100% - 24px); 
+    display:inline-block;
+    vertical-align: top;
+    > span {
+      display: inline-block;
+      width: 25%;
+      min-width: 120px;
+    }
+  }
 }
 </style>

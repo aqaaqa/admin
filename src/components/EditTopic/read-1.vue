@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { changeOper, readStr } from '@/utils/arr'
+import { changeOper, readStr, strTab } from '@/utils/arr'
 
 
 export default {
@@ -30,7 +30,7 @@ export default {
         desc: '一、单选题',
         article: 'Food expressions are popular with language learners. They combine two things important to every culture: food and language. Today we are going to talk potatoes!\nWhether you like them boiled, baked or fried – potatoes are what we call a staple. This means they are a kind of basic food that you can build on. You can cover them in butter, salt and pepper or sour cream and herbs. ',
         detail: '29.Why does the author mention different ways to cook potatoes in Paragraph 4?\n\r\nA.To recommend his favourite potato dish.\nB.To introduce different types of potatoes in different countries.\nC.To show that potatoes are a main food for most people in their lives.\nD.To show that people have not lived until they have eaten a baked potato.',
-        cor: 'A\nB\nB'
+        cor: '29.A'
       },
       formLabelWidth: '100px'
     }
@@ -66,7 +66,7 @@ export default {
       }
       let list  = changeOper(form.detail,form.cor)
       partObj.detail = list
-      partObj.article = form.article.replace(/(\r\n)|(\n)/g,'<br/>')
+      partObj.article = strTab(form.article)
       return partObj
     }
 

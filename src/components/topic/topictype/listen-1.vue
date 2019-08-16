@@ -116,7 +116,7 @@ ul{padding: 0;}
       margin:0;
       clear:both;
       overflow: hidden;
-      margin-bottom: 24px;
+      margin-bottom: 10px;
       .listen1-tigan{
         display: flex;
         justify-content: flex-start;
@@ -133,7 +133,7 @@ ul{padding: 0;}
         font-weight:400;
         color:rgba(0,0,0,1);
         line-height:20px;
-        margin-bottom:16px;
+        margin-bottom:5px;
       }
       .listen1-options{
         clear:both;
@@ -141,15 +141,14 @@ ul{padding: 0;}
         padding-left: 24px;
         .listen1-opt{
           font-size:14px;
-
           font-weight:400;
           color:rgba(0,0,0,1);
           line-height:20px;
           min-width: 80px; 
           margin: 0;
+          line-height: 20px;
         }
         .listen1-none{
-          margin-bottom: 16px;
           float: none;
         }
         .listen1-fl{

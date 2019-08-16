@@ -183,16 +183,36 @@ export function simpleOper(detail,str,cor) {
  * 完型填空
  */
 export function proOper(str,cor) {
-  let list = []
   let cors = cor.toUpperCase().split('\n').filter(e => e.trim() != '')
-  let a = pushSteam(str).map(e=> {
-    e = e.replace(/\n/g,' ')
-    return e
-  })
-  list.push({
-    options : a,
-    correct : cors
-  })
+  let list = []
+  let arrs = {
+    options: [],
+    steam: []
+  }
+  let strs = str.split('\n')
+  for(let i in strs) {
+    let k = strs[i].trim()
+    if(k) {
+      let a = k.indexOf('A.')
+      let b = k.indexOf('B.')
+      let c = k.indexOf('C.')
+      let d = k.indexOf('D.')
+      arrs.steam.push(k.substring(0,a).trim())
+      arrs.options.push(k.substring(a,b).trim())
+      arrs.options.push(k.substring(b,c).trim())
+      arrs.options.push(k.substring(c,d).trim())
+      arrs.options.push(k.substring(d).trim())
+      list.push(arrs)
+      arrs = {
+        options: [],
+        steam: []
+      }
+    }
+  }
+
+  for(let i=0;i< list.length;i++) {
+    list[i].correct = [cors[i]]
+  }
   return list
 }
 
@@ -257,10 +277,8 @@ export function shortOper(str,cor) {
  */
 export function writeSteam(str,cor) {
   let arrs = []
-  let b = cor.replace(/(\r\n)|(\n)/g,'<br/>').split(/#+/g)
-  let a = str.replace(/(\r\n)|(\n)/g,'<br/>').split(/#+/g)
-  console.log(a)
-  console.log(b)
+  let b = strTab(cor).split(/###+/g)
+  let a = strTab(str).split(/###+/g)
   // let atr = pushSteam(cor)
   // for(let i = 0; i <a.length; i++) {
   //   let c = a[i].trim()
@@ -329,7 +347,6 @@ export function discSteam(str, options) {
   let arrs = []
   let b = pushOption(options)
   let a = pushSteam(str)
-  console.log(b)
   for(let i =0; i<a.length;i++) {
     arrs.push({
       steam: [a[i]],
@@ -447,8 +464,8 @@ export function listenStr(data) {
   let form = {}
   form.desc = titleStr(data.name, data.directions)
   form.article = data.article ? data.article.replace(/<br>|<br\/>/g, '\n') : ''
-  let mp3 = data.mp3
-  form.url = mp3.substring(mp3.lastIndexOf('//')+2)
+  // let mp3 = data.mp3
+  // form.url = mp3.substring(mp3.lastIndexOf('//')+2)
   return form
 }
 
@@ -487,4 +504,35 @@ export function lang3Str(val, a) {
   })
   form.desc = titleStr(val.name, val.directions)
   return form
+}
+
+
+/**
+ * str加表格
+ */
+
+export function strTab(html) {
+  var arr = [];
+  for(var i=0;i<html.length;){
+    var s = html.indexOf('<table ', i);
+    var e = html.indexOf('</table>', s);
+    if(s!= -1 & e!=-1){
+      var prev = html.substring(i,s);
+      var table = html.substring(s,e+8);
+      arr.push(prev.replace(/[\r]?[\n]/g, '<br>'));
+      arr.push(table);
+      i = e+8;
+      if(html.substring(i,i+2) ==  '\r\n'){
+        i+=2;
+      }else if(html.substring(i,i+1) ==  '\n'){
+        i+=1;
+      }
+    }else{
+      var prev = html.substring(i);
+      arr.push(prev.replace(/[\r]?[\n]/g, '<br>'));
+      i = html.length;
+    }
+  }
+  
+  return arr.join('')
 }

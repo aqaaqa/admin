@@ -30,7 +30,7 @@ export default {
         desc: '一、填空题。从方框中选择适当的单词并用其正确形式填入句子中。\nFill in the blanks with the correct form of the words below.\n用下列单词的正确形式填空。',
         detail: '33.	The museum collects many world-famous paintings and ______.\r\n\n34.	Although he is my friend, I hold a(n) ______ view on this plan.\r\n\n35.	People were not aware of the fire until the ______ rang.\r\n\n36.	Parents and teachers should encourage young children’s ______.',
         select_words:'comment\r\n\nlikely\r\n\nsculpt\r\n\nremind',
-        cor: 'remind\nsculpt\ncomment\nlikely'
+        cor: '33.remind\n34.sculpt\n35.comment\n36.likely'
       },
       formLabelWidth: '100px'
     }

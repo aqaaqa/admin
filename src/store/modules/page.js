@@ -7,7 +7,8 @@ const state = {
   score: getSession('score'),
   changeTopic: getSession('changeTopic'),
   changeTab: getSession('tab'),
-  paper: getSession('paper')
+  paper: getSession('paper'),
+  upload: {}
 }
 
 const mutations = {
@@ -31,7 +32,11 @@ const mutations = {
   },
   SET_PAPER: (state,paper) => {
     state.paper = paper
+  },
+  SET_UPLOAD: (state,upload) => {
+    state.upload = upload
   }
+  
 }
 
 const actions = {
@@ -77,7 +82,11 @@ const actions = {
   setCount({commit},data) {
     commit('SET_COUNT', data)
     saveSession('count', data)
-  }
+  },
+  
+  setUpload({commit},data) {
+    commit('SET_UPLOAD', data)
+  },
 }
 
 export default {

@@ -26,7 +26,7 @@ export default {
       form: {
         desc: '二、排序题。重新排列下列每题中的单词，使之组成句子。',
         detail: '43.girls playing the tennis are\r\n\n44.job is a looking for he\r\n\n45.disagreed my totally mother\r\n\n46.fell down the ground the apple on',
-        cor: '1.The girls are playing tennis.\n2.He is looking for a job.\n3.My mother totally disagreed.\n4.The apple fell down on the ground.'
+        cor: '43.The girls are playing tennis.\n44.He is looking for a job.\n45.My mother totally disagreed.\n46.The apple fell down on the ground.'
       },
       formLabelWidth: '100px'
     }
@@ -49,7 +49,6 @@ export default {
         return false
       }
       let list  = gapOper(form.detail,form.cor)
-      console.log(list)
       partObj.detail = list
       return partObj
     }

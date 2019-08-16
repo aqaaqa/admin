@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { senOper, readStr } from '@/utils/arr'
+import { senOper, readStr, strTab } from '@/utils/arr'
 
 
 export default {
@@ -30,7 +30,7 @@ export default {
         desc: '二、任务型阅读',
         article: 'Are you worried about moving up to senior high school? Have you ever thought about how to spend your three years of senior high school life? It is a completely new experience, but you shouldn’t be frightened. Here are some tips to help you. You are not alone. Maybe you do not notice that everybody else in your grade are just as nervous as you are. \n\r\n___1___ Moving up to senior high school is a chance, not a problem. Things are different, and all you need to do is to be open-minded and learn the new rules. ___2___ If you don’t know what to do or have problems in learning or relationship, you should ask for help. Teachers are certainly the best people to turn to because they have experience in dealing with students’ problems, including helping them get used to the new environment. Also, if you cannot attend the school for some days, ask your teachers about any missed work. It is your responsibility to catch up, not theirs. \n\r\n',
         detail: 'A. It is risky to start on your work a few days before your deadline. \r\n\nB. If it is due to valid reasons.\r\n\nC. Do not put your future to waste. \r\n\nD. So remember that you all are in the same boat. ',
-        cor: 'A\nB\nB'
+        cor: '1.A\n2.B\n3.B'
       },
       formLabelWidth: '100px'
     }
@@ -61,7 +61,9 @@ export default {
       }
       let list  = senOper(form.detail,form.cor)
       partObj.detail = list
-      partObj.article = form.article.replace(/(\r\n)|(\n)/g,'<br/>')
+      // partObj.article = form.article.replace(/(\r\n)|(\n)/g,'<br/>')
+      partObj.article = strTab(form.article)
+
       return partObj
     }
 

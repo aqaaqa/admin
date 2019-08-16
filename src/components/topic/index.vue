@@ -43,22 +43,30 @@
       <speak4 v-else-if="'对话题，辩论题'.indexOf(list.type) > -1" :itemList="list" />
       <speak6 v-else-if='list.type == "复述题"'  :item='list'/>
     </template>
-    <div class="answer" v-if="list.detail && list.detail[0].correct && list.detail[0].correct[0]">
+    <div class="answer-br" v-if="list.detail && list.detail[0].correct && list.detail[0].correct[0]">
       答案： 
       <div style="margin-top: 10px;" v-for="(item, index) in list.detail" :key="index">
         <p v-for="(items, indexs) in item.correct" :key="indexs+'.'" v-html="items"></p>
       </div>
     </div>
-    <div class="answer" v-if="'听力,口语'.indexOf(list.part) > -1 && list.article">
+    <div class="answer-br" v-if="(list.part == '听力' || list.type=='复述题') && list.article">
       听力脚本：
       <p v-html="list.article"></p>
     </div>
+    <div class="videos-show" v-if="(list.part == '听力' || list.type=='复述题') && list.mp3" >
+      音频文件：
+      <div style="display:inline-block;">
+        <VueAudio style="margin-top: 10px;" :theUrl="list.mp3" :theControlList="audios.controlList"/>
+      </div>
+    </div>
+
   </div>
 </template>
 
 <script>
 import { listen1, listen3, listen4, listen2, listen5, language1, language2, language3, language4, language5, 
 language6, language7, language8, language9, read1, read2, read3, read4, write2,speak2, speak3, speak4, speak5, speak6} from './topictype'
+import  VueAudio  from '../audio'
 
 export default {
   name: 'topic',
@@ -66,6 +74,9 @@ export default {
   data() {
     return {
       list: {},
+      audios: {
+        controlList: "noDownload noSpeed onlyOnePlaying"
+      },
     }
   },
   watch: {
@@ -79,6 +90,7 @@ export default {
     }
   },
   components: {
+    VueAudio,
     listen2,
     listen1,
     listen3,
@@ -113,7 +125,6 @@ export default {
   },
   methods: {
     passVal(data) {
-      console.log(data)
       this.list = Object.assign({}, data)
     }
     
@@ -134,10 +145,31 @@ export default {
   border: 1px solid rgb(247, 205, 18);
   background:rgb(233, 235, 142);
 }
-.answer {
+.answer-br {
   font-size: 14px;
   line-height: 26px;
   width: 480px;
+}
+.videos-show {
+  font-size: 14px;
+  margin-top: 10px;
+}
+</style>
+<style lang="scss">
+.answer-br {
+  span:nth-child(3n+1) {
+    display: inline-block;
+    vertical-align: top;
+    padding-right: 4px;
+    width: 30px;
+    text-align: right;
+    box-sizing: border-box;
+  }
+  span:nth-child(3n+2) {
+    display: inline-block;
+    vertical-align: top;
+    width: calc(100% - 30px);
+  }
 }
 </style>
 

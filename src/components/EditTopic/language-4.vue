@@ -26,7 +26,7 @@ export default {
       form: {
         desc: '二、填空题。根据括号中的中文释义，用本单元出现的单词的正确形式完成句子。',
         detail: '43.I was ______ (相当) surprised to see my parents in my school.\r\n\n44.His speech ______ (反映) the views of most citizens.\r\n\n45.Mike is new to this school, so he is ______ (不熟悉的) with his classmates.',
-        cor: 'wrewr\nwerw\nwerw'
+        cor: '43.wrewr\n44.werw\n45.werw'
       },
       formLabelWidth: '100px'
     }

@@ -51,7 +51,7 @@ service.interceptors.response.use(
       Message({
         message: res.msg || 'Error',
         type: 'error',
-        duration: 5 * 1000
+        duration: 2 * 1000
       })
       return Promise.reject(new Error(res.message || 'Error'))
     } else {
@@ -68,7 +68,7 @@ service.interceptors.response.use(
     Message({
       message: '网络错误，请稍后重试',
       type: 'error',
-      duration: 5 * 1000
+      duration: 2 * 1000
     })
     return Promise.reject(error)
   }

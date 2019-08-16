@@ -27,6 +27,7 @@ module.exports = {
   assetsDir: 'static',
   lintOnSave: false,
   productionSourceMap: false,
+  
   devServer: {
     port: port,
     open: true,
@@ -38,7 +39,7 @@ module.exports = {
       // change xxx-api/login => mock/login
       // detail: https://cli.vuejs.org/config/#devserver-proxy
       [process.env.VUE_APP_BASE_API]: {
-        target: `http://192.168.0.9`,
+        target: `http://192.168.0.4`,
         changeOrigin: true,
         pathRewrite: {
           ['^' + process.env.VUE_APP_BASE_API]: ''

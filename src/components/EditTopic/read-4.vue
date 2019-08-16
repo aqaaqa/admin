@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { shortOper, readStr } from '@/utils/arr'
+import { shortOper, readStr, strTab } from '@/utils/arr'
 
 export default {
   props: ['value'],
@@ -30,7 +30,7 @@ export default {
         desc: '四、 简答题\nAnswer the questions. \n回答下列问题。',
         article: 'If you want to make sure your understanding is correct, you may want to change the sentence into simple language and ask the person you are talking to if the meaning is correct. It never hurts to try to make something that you have heard in a conversation clearer. If you don’t ask, you don’t learn.\r\n\nThis advice applies when you hear some odd phrases in a conversation. You have to consider what the general context is in the conversation, and from there you will be able to make a guess of how the idiomatic expression connects to the conversation. Of course, this requires that you listen actively to the conversation and that your mind is not somewhere else.',
         detail: '19.What is Li Ming’s problem?\r\n\n20.What type of word is most likely to be used with the prefix “non-”?\r\n\n21.What happens to the prefix “in-” when it comes before the letters “b”, “l” and “r”?',
-        cor: 'What is Li Ming’s proble\r\n\nWhat is Li Ming’s proble'
+        cor: '19.What is Li Ming’s proble\r\n\n20.What is Li Ming’s proble'
       },
       formLabelWidth: '100px',
       part: '',
@@ -63,13 +63,13 @@ export default {
           desc: '四、 简答题\nAnswer the questions. \n回答下列问题。',
           article: 'If you want to make sure your understanding is correct, you may want to change the sentence into simple language and ask the person you are talking to if the meaning is correct. It never hurts to try to make something that you have heard in a conversation clearer. If you don’t ask, you don’t learn.\r\n\nThis advice applies when you hear some odd phrases in a conversation. You have to consider what the general context is in the conversation, and from there you will be able to make a guess of how the idiomatic expression connects to the conversation. Of course, this requires that you listen actively to the conversation and that your mind is not somewhere else.',
           detail: '19.What is Li Ming’s problem?\r\n\n20.What type of word is most likely to be used with the prefix “non-”?\r\n\n21.What happens to the prefix “in-” when it comes before the letters “b”, “l” and “r”?',
-          cor: 'What is Li Ming’s proble\r\n\nWhat is Li Ming’s proble'
+          cor: '19.What is Li Ming’s proble\r\n\n20.What is Li Ming’s proble'
         }
       } else if (a[1] == '写作') {
         this.form = {
           desc: '四、 翻译',
           detail: '19.What is Li Ming’s problem?\r\n\n20.What type of word is most likely to be used with the prefix “non-”?\r\n\n21.What happens to the prefix “in-” when it comes before the letters “b”, “l” and “r”?',
-          cor: 'What is Li Ming’s proble\r\n\nWhat is Li Ming’s proble'
+          cor: '19.What is Li Ming’s proble\r\n\n20.What is Li Ming’s proble'
         }
       }
     },
@@ -118,7 +118,8 @@ export default {
       
       partObj.detail = list
       if( this.part == '阅读') {
-        partObj.article = form.article.replace(/(\r\n)|(\n)/g,'<br/>')
+        // partObj.article = form.article.replace(/(\r\n)|(\n)/g,'<br/>')
+        partObj.article = strTab(form.article)
       }
       return partObj
     }

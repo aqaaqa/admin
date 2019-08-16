@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="quest">
     <div class="titles">
       <div>
         <label class="lable1"><i class='hint-text'>必选项*</i>选择添加单元：</label>
@@ -85,7 +85,7 @@
           <topic ref= 'shows' :allitem = 'val' />
         </div>
         <div slot="footer" class="dialog-footer">
-          <el-button type="primary" @click="submits" size="mini">提 交</el-button>
+          <el-button type="primary" :loading="loading" @click="submits" size="mini">提 交</el-button>
         </div>
       </div>
     </div>
@@ -93,12 +93,14 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import { titleOper } from '@/utils/arr'
 import { listen1, listen2, listen3, listen4, listen5, language1, language2, language3, language4, language5, 
 language6, language7, language8, language9, read1, read2, read3, read4, write2, speak2, speak3, speak4, speak5, speak6 } from '../../components/EditTopic'
 import { partType, mulMenu, qestUp } from '@/api/ajax'
 import topic from '../../components/topic/index'
 export default {
+  name: 'quest',
   data() {
     return {
       textarea: '',
@@ -110,6 +112,7 @@ export default {
       partObj: {},
       val: '1',
       dialogFormVisible: false,
+      loading: this.change
     }
   },
   components: {
@@ -139,6 +142,11 @@ export default {
     speak5,
     speak6
   },
+  computed: {
+    ...mapGetters([
+      'upload',
+    ])
+  },
   created() {
     partType().then(res=> {
       let list = res.data
@@ -160,14 +168,24 @@ export default {
       this.partObj.part= ''
     },
     submits() {
+      this.loading = true
       let c = this.opeaArr('show')
-      if(c) {
-        qestUp({data: this.partObj}).then(res => {
-          this.$message.success('添加成功')
-          this.value7 = ''
-        })
+      if((this.partObj.part == '听力' || this.partObj.type=='复述题') && this.partObj.mp3) {
+        if(c) {
+          this.$store.dispatch('page/setUpload', this.partObj)
+          this.$refs.child.$refs.mp3Up.submitUpload()
+        }
       } else {
-        return false
+        if(c) {
+          qestUp({data: this.partObj}).then(res => {
+            this.$message.success('添加成功')
+            this.value7 = ''
+            this.loading = false
+          })
+        } else {
+          return false
+
+        }
       }
       
     },

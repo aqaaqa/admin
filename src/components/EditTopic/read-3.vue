@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { judegOper, readStr } from '@/utils/arr'
+import { judegOper, readStr, strTab } from '@/utils/arr'
 
 
 export default {
@@ -30,7 +30,7 @@ export default {
         desc: '三、判断题\nDecide if the following statements are true or false. \n判断下列表述的正误。',
         article: 'If you want to make sure your understanding is correct, you may want to change the sentence into simple language and ask the person you are talking to if the meaning is correct. It never hurts to try to make something that you have heard in a conversation clearer. If you don’t ask, you don’t learn.\r\n\nThis advice applies when you hear some odd phrases in a conversation. You have to consider what the general context is in the conversation, and from there you will be able to make a guess of how the idiomatic expression connects to the conversation. Of course, this requires that you listen actively to the conversation and that your mind is not somewhere else.',
         detail: '1. People can see many on-screen scenes in Harry Potter movie series, but they willstill not know how the secret of magic.\r\n\n2. The entrance ticket of Warner Bros. Studio is included in the tour fee.',
-        cor: 'F\nT'
+        cor: '1.F\n2.T'
       },
       formLabelWidth: '100px'
     }
@@ -64,7 +64,8 @@ export default {
       }
       let list  = judegOper(form.detail,form.cor)
       partObj.detail = list
-      partObj.article = form.article.replace(/(\r\n)|(\n)/g,'<br/>')
+      // partObj.article = form.article.replace(/(\r\n)|(\n)/g,'<br/>')
+      partObj.article = strTab(form.article)
       return partObj
     }
 

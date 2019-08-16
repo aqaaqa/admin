@@ -31,7 +31,7 @@ export default {
         desc: '五、填空题。阅读下面的短文，从方框中选择适当的单词或短语并用其正确形式将短文补充完整。',
         article: 'The Notre Dame de Paris (巴黎圣母院) is one of the most widely ___73___ symbols of the city of Paris and the French nation. \nIt is located in downtown Paris, along the Seine River. The features that make this cathedral so ___74___ are its rose windows and historic ___75___ . ',
         select_words:'comment\r\n\nlikely\r\n\nsculpt\r\n\nremind',
-        cor: 'remind\nsculpt\ncomment\nlikely'
+        cor: '73.remind\n74.sculpt\n 75.comment'
       },
       formLabelWidth: '100px'
     }

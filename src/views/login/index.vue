@@ -357,7 +357,7 @@ $fc: rgb(24, 144, 255);
       -webkit-appearance: none;
       border-radius: 0px;
       padding: 5px 5px 5px 15px;
-      color: $light_gray;
+      color: rgb(117, 117, 117);
       height: 32px;
       caret-color: #000;
 

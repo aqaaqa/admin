@@ -11,6 +11,7 @@ const getters = {
   score: state => state.page.score,
   changeTopic: state => state.page.changeTopic,
   changeTab: state => state.page.changeTab,
-  paper: state => state.page.paper
+  paper: state => state.page.paper,
+  upload: state => state.page.upload
 }
 export default getters

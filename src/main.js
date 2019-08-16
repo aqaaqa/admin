@@ -7,11 +7,9 @@ import 'element-ui/lib/theme-chalk/index.css'
 import locale from 'element-ui/lib/locale/lang/en' // lang i18n
 
 import '@/styles/index.scss' // global css
-
 import App from './App'
 import store from './store'
 import router from './router'
-
 import '@/icons' // icon
 import '@/permission' // permission control
 
@@ -34,7 +32,6 @@ Vue.use(ElementUI, { locale })
 Vue.config.productionTip = false
 Vue.directive('changes', {
   handelChange:function(el) {
-    console.log(el)
     // this.form[icons] = val.replace(/“|”/g ,'"').replace(/‘|’/g ,"'");
   },
 })

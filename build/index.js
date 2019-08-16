@@ -18,8 +18,8 @@ if (process.env.npm_config_preview || rawArgv.includes('--preview')) {
 
   app.use(
     publicPath,
-    // serveStatic('./dist', {
-    serveStatic('./tr-admin', {
+    serveStatic('./dist', {
+    // serveStatic('./tr-admin', {
       index: ['index.html', '/']
     })
   )

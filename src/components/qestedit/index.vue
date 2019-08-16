@@ -61,7 +61,7 @@
 <script>
 import { titleOper } from '@/utils/arr'
 import { listen1, listen2, listen3, listen4, listen5, language1, language2, language3, language4, language5, 
-language6, language7, language8, language9, read1, read2, read3, read4, write2, speak2, speak3, speak4, speak5 } from '../EditTopic/index'
+language6, language7, language8, language9, read1, read2, read3, read4, write2, speak2, speak3, speak4, speak5,speak6 } from '../EditTopic/index'
 import { partType, mulMenu } from '@/api/ajax'
 import topic from '../topic/index'
 
@@ -84,7 +84,7 @@ export default {
   watch: {
     lists: {
       handler(val) {
-        if(val != ''){
+        if(val != 1){
           this.partObj = JSON.parse(JSON.stringify(val))
           this.value7 = this.partObj.type+'|'+ this.partObj.part
           this.$nextTick(() => {
@@ -121,7 +121,8 @@ export default {
     speak2,
     speak3,
     speak4,
-    speak5
+    speak5,
+    speak6
   },
   created() {
     partType().then(res=> {
