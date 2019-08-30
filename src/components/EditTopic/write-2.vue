@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { writeSteam, readStr} from '@/utils/arr'
+import { writeSteam, readStr, cleanCor} from '@/utils/arr'
 
 export default {
   data(){
@@ -52,8 +52,9 @@ export default {
           e.steam ? form.article = form.article + e.steam.join('\n').replace(/<br>|<br\/>/g, '\n') + '\n######\n' : ''
           e.correct && e.correct[0] ? form.cor = form.cor + e.correct.join('\n').replace(/<br>|<br\/>/g, '\n') + '\n######\n' : ''
         }
-        
+        form.cor = cleanCor(form.cor)
       }
+      
       form = Object.assign(form, a)
     },
     lists() {
@@ -69,6 +70,7 @@ export default {
         this.$message.error(msg)
         return false
       }
+      form.cor = cleanCor(form.cor)
       let list  = writeSteam(form.article, form.cor)
       partObj.detail = list
       // if( this.type == '阅读题') {

@@ -5,6 +5,12 @@
       <p>{{list.directions.en}}</p>
       <p>{{list.directions.zh}}</p>
     </div>
+    <div class="videos-show" v-if="(list.part == '听力' || list.type=='复述题') && list.mp3Stem" >
+      题干音频文件：
+      <div style="display:inline-block;">
+        <VueAudio style="margin-top: 10px;" :theUrl="list.mp3Stem.indexOf('blob:') > -1 ? list.mp3Stem : list.mp3Path+list.mp3Stem" :theControlList="audios.controlList"/>
+      </div>
+    </div>
     <template v-if="list.part == '听力'">
       <listen1 v-if='list.type == "选择题"' :item='list' />
       <listen2 v-else-if="list.type == '填空题>填空'" :itemList="list"/>
@@ -50,13 +56,13 @@
       </div>
     </div>
     <div class="answer-br" v-if="(list.part == '听力' || list.type=='复述题') && list.article">
-      听力脚本：
+      音频脚本：
       <p v-html="list.article"></p>
     </div>
     <div class="videos-show" v-if="(list.part == '听力' || list.type=='复述题') && list.mp3" >
       音频文件：
       <div style="display:inline-block;">
-        <VueAudio style="margin-top: 10px;" :theUrl="list.mp3" :theControlList="audios.controlList"/>
+        <VueAudio style="margin-top: 10px;" :theUrl="list.mp3.indexOf('blob:') > -1 ? list.mp3 : list.mp3Path+list.mp3" :theControlList="audios.controlList"/>
       </div>
     </div>
 

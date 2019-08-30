@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import { proOper, langStr } from '@/utils/arr'
+import { proOper, langStr, cleanCor } from '@/utils/arr'
 
 export default {
   props: ['value'],
@@ -31,7 +31,7 @@ export default {
         desc: '八、完形填空题',
         article: 'Since the beginning of the twentieth century the number of wild Tigers has been on an alarming decrease. ___1___, it appears the tide has finally turned. The ___2___ of dedicated conservation programmes has ___3___ the first growth in wild population numbers for over a century and, while still vulnerable, the big cat’s future is looking a little more assured.',
         options:'1. A. Though B.Therefore C.However D. Instead\r\n\n2. A. establishment B. majority C. arrangement D. permission',
-        cor: '1.A\n2.B\n3.C'
+        cor: '1.A\n2.B'
       },
       formLabelWidth: '100px'
     }
@@ -47,6 +47,7 @@ export default {
         form.cor = form.cor + e.correct.join('')+'\n'
         form.options = form.options + e.steam.join('')+' '+e.options.join(' ').replace(/<br>|<br\/>/g, '\n') + '\r\n\n'
       })
+      form.cor = cleanCor(form.cor)
       form = Object.assign(form, a)
     },
     lists() {
@@ -62,10 +63,17 @@ export default {
         this.$message.error(msg)
         return false
       }
+      form.cor = cleanCor(form.cor)
       let list  = proOper(form.options,form.cor)
-      partObj.detail = list
-      partObj.article = form.article.replace(/(\r\n)|(\n)/g,'<br/>')
-      return partObj
+      if(list) {
+        partObj.detail = list
+        partObj.article = form.article.replace(/(\r\n)|(\n)/g,'<br/>')
+        return partObj
+      } else {
+        this.$message.error('格式错误,请检查输入格式')
+        return false
+      }
+      
     }
   }
 }

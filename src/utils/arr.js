@@ -89,19 +89,28 @@ export function changeOper(str,cor) {
       if(x==0) {
         x=1
       } else {
-        list.push(b)
-        b = {
-          options: [],
-          steam: []
+        if(b.options.length > 0 && b.steam.length > 0) {
+          list.push(b)
+          b = {
+            options: [],
+            steam: []
+          }
+          x=0
         }
-        x=0
+        
       }
     }
   }
-  for(let i=0;i< list.length;i++) {
-    list[i].correct = [cors[i]]
+  if(cors.length != list.length) {
+    return false
+  } else {
+    for(let i=0;i< list.length;i++) {
+      list[i].correct = [cors[i]]
+    }
+    return list
   }
-  return list
+  
+  
 }
 
 
@@ -116,11 +125,17 @@ export function trueOper(str,cor, other) {
   } else {
     cors = cor.toUpperCase().split('\n').filter(e => e.trim() != '')
   }
-  list.push({
-    steam : pushSteam(str),
-    correct : cors
-  })
-  return list
+  let steam = pushSteam(str)
+  if(steam.length == cors.length) {
+    list.push({
+      steam : steam,
+      correct : cors
+    })
+    return list
+  } else {
+    return false
+  }
+  
 }
 
 /**
@@ -142,12 +157,18 @@ export function gapOper(str,cor) {
 export function matchOper(str1,str2,cor) {
   let list = []
   let cors = cor.toUpperCase().split('\n').filter(e=> e.trim() != '')
-  list.push({
-    steam : pushSteam(str1),
-    options: pushSteam(str2),
-    correct : cors
-  })
-  return list
+  let steam = pushSteam(str1)
+  if(steam.length == cors.length) {
+    list.push({
+      steam : steam,
+      options: pushSteam(str2),
+      correct : cors
+    })
+    return list
+  } else {
+    return false
+  }
+  
 }
 
 /**
@@ -168,14 +189,20 @@ export function choiceOper(str,cor) {
 * 单句填空
 */
 export function simpleOper(detail,str,cor) {
- let list = []
- let cors = cor.split('\n').filter( e => e.trim() != '')
- list.push({
-   steam: pushSteam(detail),
-   select_words : pushSteam(str),
-   correct : cors
- })
- return list
+  let list = []
+  let cors = cor.split('\n').filter( e => e.trim() != '')
+  let steam = pushSteam(detail)
+  if(steam.length == cors.length) {
+    list.push({
+      steam: steam,
+      select_words : pushSteam(str),
+      correct : cors
+    })
+    return list
+  } else {
+    return false
+  }
+ 
 }
 
 
@@ -210,10 +237,15 @@ export function proOper(str,cor) {
     }
   }
 
-  for(let i=0;i< list.length;i++) {
-    list[i].correct = [cors[i]]
+  if(list.length == cors.length) {
+    for(let i=0;i< list.length;i++) {
+      list[i].correct = [cors[i]]
+    }
+    return list
+  } else {
+    return false
   }
-  return list
+  
 }
 
 /**
@@ -236,13 +268,18 @@ export function judegOper(str,cor) {
   let list = []
   let steam = pushSteam(str)
   let cors = cor.toUpperCase().split('\n').filter(e => e.trim() != '')
-  for(let i = 0; i < steam.length; i++) {
-    list.push({
-      steam : [steam[i]],
-      correct : [cors[i]]
-    })
+  if(steam.length == cors.length) {
+    for(let i = 0; i < steam.length; i++) {
+      list.push({
+        steam : [steam[i]],
+        correct : [cors[i]]
+      })
+    }
+    return list
+  } else {
+    return false
   }
-  return list
+  
 }
 
 
@@ -394,14 +431,10 @@ export function argueStr(str) {
  * 辩论
  */
 export function argueSteam(str, options) {
-  let arrs=[]
-  arrs.push(
-    argueStr(str)
-  )
-  arrs.push(
-    argueStr(options)
-  )
-  return arrs
+  return [{
+    steam: [str.replace(/(\r\n)|(\n)/g,'<br/>')],
+    options: options.split('\n')
+  }]
 }
 /**
  * 表格，网格
@@ -410,9 +443,7 @@ export function tableOper (str, cor, option) {
   let a = str.split('\n').filter(e=> e.trim()!= '')
 
   if(option) {
-    let b = cor.split('\n').map(e=> {
-      return e=e.trim()
-    })
+    let b = cor.split('\n').filter(e=> e.trim()!= '')
     let d = pushSteam(option)
     return [{
       steam: a,
@@ -420,9 +451,7 @@ export function tableOper (str, cor, option) {
       options : d
     }]
   } else {
-    let b = cor.split('\n').map(e=> {
-      return e=e.trim()
-    })
+    let b = cor.split('\n').filter(e=> e.trim()!= '')
     return [{
       steam: a,
       correct: b
@@ -497,11 +526,13 @@ export function lang3Str(val, a) {
     form.detail = e.steam.join('\r\n\n')
     if(a) {
       form.cor = e.correct.join('\n')
+      form.cor = cleanCor(form.cor)
     } else {
       form.cor = e.correct.join('\r\n\n')
+      form.cor = cleanCor1(form.cor)
     }
-    
   })
+  
   form.desc = titleStr(val.name, val.directions)
   return form
 }
@@ -535,4 +566,28 @@ export function strTab(html) {
   }
   
   return arr.join('')
+}
+
+
+/**
+ * 
+ */
+
+ // form.cor = form.cor.replace(/^\d+\.\s*(.*)$/,'$1')
+export function cleanCor(cor) {
+  let cors = cor.split('\n')
+  for(let i in cors) {
+    cors[i] = cors[i].replace(/^\d+\.\s*(.*)$/,'$1').trim()
+  }
+  cors = cors.join('\n')
+  return cors
+}
+
+export function cleanCor1(cor) {
+  let cors = cor.split('\r\n\n')
+  for(let i in cors) {
+    cors[i] = cors[i].trim().replace(/^$|\d+\.\s*(.*)$/,'$1')
+  }
+  cors = cors.join('\r\n\n')
+  return cors
 }

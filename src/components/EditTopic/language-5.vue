@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import { choiceOper, langStr } from '@/utils/arr'
+import { choiceOper, langStr, cleanCor } from '@/utils/arr'
 
 export default {
   props: ['value'],
@@ -31,7 +31,7 @@ export default {
         desc: '五、填空题。阅读下面的短文，从方框中选择适当的单词或短语并用其正确形式将短文补充完整。',
         article: 'The Notre Dame de Paris (巴黎圣母院) is one of the most widely ___73___ symbols of the city of Paris and the French nation. \nIt is located in downtown Paris, along the Seine River. The features that make this cathedral so ___74___ are its rose windows and historic ___75___ . ',
         select_words:'comment\r\n\nlikely\r\n\nsculpt\r\n\nremind',
-        cor: '73.remind\n74.sculpt\n 75.comment'
+        cor: '73.remind\n74.sculpt\n75.comment'
       },
       formLabelWidth: '100px'
     }
@@ -45,6 +45,7 @@ export default {
         form.cor = e.correct.join('\n')
         form.select_words = e.select_words.join('\r\n\n')
       })
+      form.cor = cleanCor(form.cor)
       form = Object.assign(form, a)
     },
     lists() {
@@ -60,6 +61,7 @@ export default {
         this.$message.error(msg)
         return false
       }
+      form.cor = cleanCor(form.cor)
       let list  = choiceOper(form.select_words,form.cor)
       partObj.detail = list
       partObj.article = form.article.replace(/(\r\n)|(\n)/g,'<br/>')

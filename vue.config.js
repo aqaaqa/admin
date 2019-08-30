@@ -22,7 +22,7 @@ module.exports = {
    * Detail: https://cli.vuejs.org/config/#publicpath
    */
   // /teach-resource/produce
-  publicPath: '/',
+  publicPath: '/teach-resource/produce',
   outputDir: 'tr-admin',
   assetsDir: 'static',
   lintOnSave: false,
@@ -46,7 +46,7 @@ module.exports = {
         }
       }
     },
-    after: require('./mock/mock-server.js')
+    // after: require('./mock/mock-server.js')
   },
   configureWebpack: {
     // provide the app's title in webpack's name field, so that

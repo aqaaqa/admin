@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { shortOper, readStr, strTab } from '@/utils/arr'
+import { shortOper, readStr, strTab, cleanCor1 } from '@/utils/arr'
 
 export default {
   props: ['value'],
@@ -87,6 +87,7 @@ export default {
           form.detail = form.detail + steam +'\r\n\n'
           e.correct && e.correct[0] ? form.cor = form.cor+ e.correct[0] + '\r\n\n' : ''
         })
+        form.cor = cleanCor1(form.cor)
       } else {
         val.detail.forEach(e=> {
           let steam = e.steam.join('\n').replace(/<br>|<br\/>/g, '\n')
@@ -113,6 +114,7 @@ export default {
       if(this.part == '口语') {
         list  = shortOper(form.detail)
       } else {
+        form.cor = cleanCor1(form.cor)
         list  = shortOper(form.detail,form.cor)
       }
       

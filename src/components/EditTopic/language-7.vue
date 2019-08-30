@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import { simpleOper, langStr } from '@/utils/arr'
+import { simpleOper, langStr, cleanCor } from '@/utils/arr'
 
 export default {
   data(){
@@ -44,6 +44,7 @@ export default {
         form.cor = e.correct.join('\n')
         form.select_words = e.select_words.join('\r\n\n')
       })
+      form.cor = cleanCor(form.cor)
       form = Object.assign(form, a)
     },
     lists() {
@@ -59,9 +60,16 @@ export default {
         this.$message.error(msg)
         return false
       }
+      form.cor = cleanCor(form.cor)
       let list  = simpleOper(form.detail,form.select_words,form.cor)
-      partObj.detail = list
-      return partObj
+      if(list) {
+        partObj.detail = list
+        return partObj
+      } else {
+        this.$message.error('格式错误,请检查输入格式')
+        return false
+      }
+      
     }
   }
 }

@@ -2,7 +2,7 @@
 <el-form :model="form" size="mini">
   
   <el-form-item label="听力音频" :label-width="formLabelWidth" > 
-    <p class="hint-text">注：只能上传mp3,ogg,wav格式文件</p>
+    <p class="hint-text">注：只能上传mp3,ogg,wav格式文件,听力题干文件名称必须带'stem',其他文件不能带'stem'</p>
     <upload ref = 'mp3Up' />
   </el-form-item>
   <el-form-item label="标题和描述" :label-width="formLabelWidth">
@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import { changeOper, listenStr } from '@/utils/arr'
+import { changeOper, listenStr, cleanCor } from '@/utils/arr'
 import upload  from '../upload/index' 
 
 export default {
@@ -45,7 +45,6 @@ export default {
         article: '<span>1.</span><span>W: What’s that building next to the playground? The sports centre? \nM: No, it’s the library. The sports centre is near the meeting hall.</span>\n<span>2.</span><span>B: Have you seen my dictionary? I remember I put it next to the textbooks, but it’s not there.\nW: Let me check the shelf. Um… Nope. Ah, here it is, under the newspaper!</span>\r\n\nyou can learn this for some time hi this is listening article , you can learn this for some time\nhi this is listening article , you can learn this for some time hi this is listening article , you can learn this for some time hi this is listening article , you can learn this for some time hi this is listening article , you can learn this for some time'
       },
       formLabelWidth: '100px',
-      mp3Url: ''
     }
   },
   components: {
@@ -65,7 +64,8 @@ export default {
         e.correct[0] ? form.cor = form.cor+ e.correct[0] + '\n' : ''
       })
       form.title = val.title
-      this.$refs.mp3Up.arrPush(val.mp3)
+      this.$refs.mp3Up.arrPush(val.mp3,val.mp3Stem,val.mp3Path)
+      form.cor = cleanCor(form.cor)
       form = Object.assign(form, a)
     },
     lists() {
@@ -81,12 +81,19 @@ export default {
         this.$message.error(msg)
         return false
       }
+      form.cor = cleanCor(form.cor)
       let list  = changeOper(form.detail,form.cor)
-      partObj.detail = list
-      partObj.mp3 = this.$refs.mp3Up.imageUrl
-      partObj.title = form.title
-      partObj.article = form.article.replace(/(\r\n)|(\n)/g,'<br/>')
-      return partObj
+      if(list) {
+        partObj.detail = list
+        partObj.mp3 = this.$refs.mp3Up.imageUrl
+        partObj.mp3Stem = this.$refs.mp3Up.mp3Stem
+        partObj.title = form.title
+        partObj.article = form.article.replace(/(\r\n)|(\n)/g,'<br/>')
+        return partObj
+      } else {
+        this.$message.error('格式错误,请检查输入格式')
+        return false
+      }
     },
     
 

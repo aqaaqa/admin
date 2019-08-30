@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import { changeOper, langStr } from '@/utils/arr'
+import { changeOper, langStr, cleanCor } from '@/utils/arr'
 
 export default {
   data(){
@@ -25,7 +25,7 @@ export default {
       form: {
         desc: '一、单选题\nChoose the correct answer from A, B and C. \n从A，B和C三个选项中选出正确选项。',
         detail: '1. --- Do you know the girl ______ the bike? I probably saw her when I was in Mexico.\n--- Really? It\'s my sister. She went to Mexico last summer.\n\r\nA.	Writing English journals.\nB.	Moving to an English-speaking country.\nC.	Listening to English radio.',
-        cor: '1.A\n2.B\n3.B'
+        cor: '1.A'
       },
       formLabelWidth: '100px'
     }
@@ -41,6 +41,7 @@ export default {
         c = e.options.join('\n')
         form.detail = form.detail + e.steam +'\r\n\n' + c +'\r\n\n'
         e.correct[0] ? form.cor = form.cor + e.correct[0]+'\n' : ''
+        form.cor = cleanCor(form.cor)
       })
       form = Object.assign(form, a)
     },
@@ -57,9 +58,16 @@ export default {
         this.$message.error(msg)
         return false
       }
+      form.cor = cleanCor(form.cor)
       let list  = changeOper(form.detail,form.cor)
-      partObj.detail = list
-      return partObj
+      if(list) {
+        partObj.detail = list
+        return partObj
+      } else {
+        this.$message.error('格式错误,请检查输入格式')
+        return false
+      }
+      
     }
 
   }

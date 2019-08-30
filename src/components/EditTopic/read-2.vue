@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { senOper, readStr, strTab } from '@/utils/arr'
+import { senOper, readStr, strTab,cleanCor } from '@/utils/arr'
 
 
 export default {
@@ -44,6 +44,7 @@ export default {
         form.detail = e.options.join('\r\n\n')
         form.cor = e.correct.join('\n')
       })
+      form.cor = cleanCor(form.cor)
       form = Object.assign(form, a)
     },
     lists() {
@@ -59,6 +60,7 @@ export default {
         this.$message.error(msg)
         return false
       }
+      form.cor = cleanCor(form.cor)
       let list  = senOper(form.detail,form.cor)
       partObj.detail = list
       // partObj.article = form.article.replace(/(\r\n)|(\n)/g,'<br/>')

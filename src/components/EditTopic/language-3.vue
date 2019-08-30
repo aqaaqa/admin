@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { trueOper, lang3Str } from '@/utils/arr'
+import { trueOper, lang3Str, cleanCor1 } from '@/utils/arr'
 
 
 export default {
@@ -24,7 +24,7 @@ export default {
     return {
       form: {
         desc: '三、改写题\nRewrite the sentences by using verb-ing form. \n用动词的ing形式改写下列句子。',
-        detail: '1.	Mrs Webb didn’t receive any directions from Mr Smith.  \r\n\n2.	Mrs Webb travelled to downtown by an underground train. \r\n\n3.	Mr Smith’s office is opposite a road under the street. 	\r\n\n4.	Mr Smith’s office is on street level. \r\n\n5.	Mr Smith doesn’t know American English well. ',
+        detail: '1.	Mrs Webb didn’t receive any directions from Mr Smith.  \r\n\n2.	Mrs Webb travelled to downtown by an underground train.',
         cor: '1.Mrs Webb didn’t receive any directions from Mr Smith.\r\n\n2.Mrs Webb didn’t receive any directions from Mr Smith.'
       },
       formLabelWidth: '100px',
@@ -47,9 +47,16 @@ export default {
         this.$message.error(msg)
         return false
       }
+      form.cor = cleanCor1(form.cor)
       let list  = trueOper(form.detail,form.cor,'other')
-      partObj.detail = list
-      return partObj
+      if(list) {
+        partObj.detail = list
+        return partObj
+      } else {
+        this.$message.error('格式错误,请检查输入格式')
+        return false
+      }
+      
     }
   }
 }

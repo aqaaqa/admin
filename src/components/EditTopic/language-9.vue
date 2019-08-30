@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import { gapOper, lang3Str } from '@/utils/arr'
+import { gapOper, lang3Str, cleanCor } from '@/utils/arr'
 
 export default {
   props: ['value'],
@@ -48,9 +48,16 @@ export default {
         this.$message.error(msg)
         return false
       }
+      form.cor = cleanCor(form.cor)
       let list  = gapOper(form.detail,form.cor)
-      partObj.detail = list
-      return partObj
+      if(list[0].correct.length == list[0].steam.length) {
+        partObj.detail = list
+        return partObj
+      } else {
+        this.$message.error('格式错误,请检查输入格式')
+        return false
+      }
+      
     }
   }
 }

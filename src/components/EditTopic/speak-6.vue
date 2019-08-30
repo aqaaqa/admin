@@ -46,7 +46,7 @@ export default {
       val.detail.forEach(e=> {
         form.detail = e.steam.join('\r\n\n').replace(/<br>|<br\/>/g, '\n')
       })
-      this.$refs.mp3Up.arrPush(val.mp3)
+      this.$refs.mp3Up.arrPush(val.mp3,'',val.mp3Path)
       form = Object.assign(form, a)
       
     },

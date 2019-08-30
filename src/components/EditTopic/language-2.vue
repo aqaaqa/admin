@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import { matchOper, langStr } from '@/utils/arr'
+import { matchOper, langStr,cleanCor } from '@/utils/arr'
 
 
 export default {
@@ -31,7 +31,7 @@ export default {
         desc: '二、匹配题',
         detail: '1. It’s always a problem for a family with children to find a suitable restaurant on holiday.\r\n\n2. Children can cook by themselves and their parents can clean up for them.\r\n\n3. Family Restaurant only welcomes children from six to twelve years old.',
         steam: 'A. Around the White House.\r\n\nB. Near the Washington Monument.\r\n\nC. In the National Park.\r\n\nD. Around the Tidal Basin.',
-        cor: '1.A\n2.C\n3.B\n4.D'
+        cor: '1.A\n2.C\n3.B'
       },
       formLabelWidth: '100px'
     }
@@ -44,6 +44,7 @@ export default {
         form.detail = e.steam.join('\r\n\n')
         form.steam = e.options.join('\r\n\n')
         form.cor = e.correct.join('\n')
+        form.cor = cleanCor(form.cor)
       })
       form = Object.assign(form, a)
     },
@@ -60,9 +61,15 @@ export default {
         this.$message.error(msg)
         return false
       }
+      form.cor = cleanCor(form.cor)
       let list  = matchOper(form.detail, form.steam,form.cor)
-      partObj.detail = list
-      return partObj
+      if(list) {
+        partObj.detail = list
+        return partObj
+      } else {
+        this.$message.error('格式错误,请检查输入格式')
+        return false
+      }
     }
   }
 }

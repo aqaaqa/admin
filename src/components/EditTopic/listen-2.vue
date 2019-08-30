@@ -1,7 +1,7 @@
 <template>
   <el-form :model="form" size="mini">
     <el-form-item label="听力音频" :label-width="formLabelWidth" > 
-      <p class="hint-text">注：只能上传mp3,ogg,wav格式文件</p>
+      <p class="hint-text">注：只能上传mp3,ogg,wav格式文件,听力题干文件名称必须带'stem',其他文件不能带'stem'</p>
       <upload ref = 'mp3Up' />
     </el-form-item>
     <el-form-item label="标题和描述" :label-width="formLabelWidth">
@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import { trueOper, listenStr } from '@/utils/arr'
+import { trueOper, listenStr, cleanCor } from '@/utils/arr'
 import upload  from '../upload/index' 
 
 export default {
@@ -38,7 +38,7 @@ export default {
       form: {
         desc: '四、判断题',
         detail: '1.	Mrs Webb didn’t receive any directions from Mr Smith.  ______\r\n\n2.	Mrs Webb travelled to downtown by an underground train. ______\r\n\n3.	Mr Smith’s office is opposite a road under the street. ______	\r\n\n4.	Mr Smith’s office is on street level. ______\r\n\n5.	Mr Smith doesn’t know American English well. ______',
-        cor: '1.F\n2.T\n3.F\n4.T',
+        cor: '1.F\n2.T\n3.F\n4.T\n5.T',
         article: 'hi this is listening article , you can learn this for some time hi this is listening article , you can learn this for some time hi this is listening article , you can learn this for some time hi this is listening article , you can learn this for some time hi this is listening article , you can learn this for some time\nhi this is listening article , you can learn this for some time hi this is listening article , you can learn this for some time hi this is listening article , you can learn this for some time hi this is listening article , you can learn this for some time'
       },
       formLabelWidth: '100px',
@@ -55,7 +55,8 @@ export default {
         form.detail = e.steam.join('\r\n\n')
         form.cor = e.correct.join('\n')
       })
-      this.$refs.mp3Up.arrPush(val.mp3)
+      this.$refs.mp3Up.arrPush(val.mp3,val.mp3Stem,val.mp3Path)
+      form.cor = cleanCor(form.cor)
       form = Object.assign(form, a)
       
     },
@@ -72,11 +73,19 @@ export default {
         this.$message.error(msg)
         return false
       }
+      form.cor = cleanCor(form.cor)
       let list  = trueOper(form.detail,form.cor)
-      partObj.detail = list
-      partObj.mp3 = this.$refs.mp3Up.imageUrl
-      partObj.article = form.article.replace(/(\r\n)|(\n)/g,'<br/>')
-      return partObj
+      if(list) {
+        partObj.detail = list
+        partObj.mp3 = this.$refs.mp3Up.imageUrl
+        partObj.mp3Stem = this.$refs.mp3Up.mp3Stem
+        partObj.article = form.article.replace(/(\r\n)|(\n)/g,'<br/>')
+        return partObj
+      } else {
+        this.$message.error('格式错误,请检查输入格式')
+        return false
+      }
+      
     }
   }
 }

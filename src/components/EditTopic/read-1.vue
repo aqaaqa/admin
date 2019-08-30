@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { changeOper, readStr, strTab } from '@/utils/arr'
+import { changeOper, readStr, strTab, cleanCor } from '@/utils/arr'
 
 
 export default {
@@ -49,6 +49,7 @@ export default {
         form.detail = form.detail + steam +'\r\n\n' + c +'\r\n\n'
         e.correct[0] ? form.cor = form.cor+ e.correct[0] + '\n' : ''
       })
+      form.cor = cleanCor(form.cor)
       form = Object.assign(form, a)
     },
     lists() {
@@ -64,10 +65,17 @@ export default {
         this.$message.error(msg)
         return false
       }
+      form.cor = cleanCor(form.cor)
       let list  = changeOper(form.detail,form.cor)
-      partObj.detail = list
-      partObj.article = strTab(form.article)
-      return partObj
+      if(list) {
+        partObj.detail = list
+        partObj.article = strTab(form.article)
+        return partObj
+      } else {
+        this.$message.error('格式错误,请检查输入格式')
+        return false
+      }
+      
     }
 
   }

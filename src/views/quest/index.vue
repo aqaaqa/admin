@@ -170,7 +170,7 @@ export default {
     submits() {
       this.loading = true
       let c = this.opeaArr('show')
-      if((this.partObj.part == '听力' || this.partObj.type=='复述题') && this.partObj.mp3) {
+      if((this.partObj.part == '听力' || this.partObj.type=='复述题') && (this.partObj.mp3 || this.partObj.mp3Stem)) {
         if(c) {
           this.$store.dispatch('page/setUpload', this.partObj)
           this.$refs.child.$refs.mp3Up.submitUpload()
@@ -200,6 +200,7 @@ export default {
           zh: title[2]
         }
         this.partObj = Object.assign(this.partObj, obj)
+        console.log(obj)
         if(val != 'show') {
           this.$refs.shows.passVal(this.partObj)
         }

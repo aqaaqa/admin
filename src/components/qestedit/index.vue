@@ -162,6 +162,7 @@ export default {
           zh: title[2]
         }
         this.partObj = Object.assign(this.partObj, obj)
+        console.log(obj)
         if(val != 'show') {
           this.$refs.shows.passVal(this.partObj)
         }

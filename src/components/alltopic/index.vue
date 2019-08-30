@@ -46,7 +46,6 @@ export default {
   },
   methods: {
     searchBtn() {
-      console.log(this.search.input)
     },
     lookAnswer(index) {
       let keys = JSON.parse(JSON.stringify(this.list[index]))

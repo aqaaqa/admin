@@ -147,11 +147,11 @@ export default {
   max-width: 700px;
   > span {
     display: inline-block;
-    width: 20px;
+    width: 40px;
     vertical-align: top;
   }
   > p {
-    width:calc(100% - 24px); 
+    width:calc(100% - 44px); 
     display:inline-block;
     vertical-align: top;
     > span {

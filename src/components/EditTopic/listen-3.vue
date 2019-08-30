@@ -1,7 +1,7 @@
 <template>
   <el-form :model="form" size="mini">
     <el-form-item label="听力音频" :label-width="formLabelWidth" > 
-      <p class="hint-text">注：只能上传mp3,ogg,wav格式文件</p>
+      <p class="hint-text">注：只能上传mp3,ogg,wav格式文件,听力题干文件名称必须带'stem',其他文件不能带'stem'</p>
       <upload ref = 'mp3Up' />
     </el-form-item>
     <el-form-item label="标题和描述" :label-width="formLabelWidth">
@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import { gapOper, listenStr} from '@/utils/arr'
+import { gapOper, listenStr, cleanCor} from '@/utils/arr'
 import upload  from '../upload/index' 
 
 export default {
@@ -54,7 +54,8 @@ export default {
         form.detail = e.steam.join('\r\n\n')
         form.cor = e.correct.join('\n')
       })
-      this.$refs.mp3Up.arrPush(val.mp3)
+      this.$refs.mp3Up.arrPush(val.mp3,val.mp3Stem,val.mp3Path)
+      form.cor = cleanCor(form.cor)
       form = Object.assign(form, a)
       
     },
@@ -71,9 +72,11 @@ export default {
         this.$message.error(msg)
         return false
       }
+      form.cor = cleanCor(form.cor)
       let list  = gapOper(form.detail,form.cor)
       partObj.detail = list
       partObj.mp3 = this.$refs.mp3Up.imageUrl
+      partObj.mp3Stem = this.$refs.mp3Up.mp3Stem
       partObj.article = form.article.replace(/(\r\n)|(\n)/g,'<br/>')
       return partObj
     }
