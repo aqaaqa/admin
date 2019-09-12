@@ -25,6 +25,7 @@
       <language4 v-else-if='list.type == "填空题>单句填空"' :item="list" />
       <language5 v-else-if='list.type == "填空题>短文填空"' :item="list" />
       <language6 v-else-if="list.type == '填空题>提示填空'" :itemList="list" />
+      <language10 v-else-if="list.type == '填空题>短文提示填空'" :itemList="list" />
       <language7 v-else-if="list.type == '纵横字谜'" :itemList="list" />
       <language8 v-else-if='list.type == "完形填空"' :item="list" />
       <language9 v-else-if='list.type == "排序题"' :itemList="list" />
@@ -71,7 +72,7 @@
 
 <script>
 import { listen1, listen3, listen4, listen2, listen5, language1, language2, language3, language4, language5, 
-language6, language7, language8, language9, read1, read2, read3, read4, write2,speak2, speak3, speak4, speak5, speak6} from './topictype'
+language6, language7, language8, language9, language10, read1, read2, read3, read4, write2,speak2, speak3, speak4, speak5, speak6} from './topictype'
 import  VueAudio  from '../audio'
 
 export default {
@@ -111,6 +112,7 @@ export default {
     language6,
     language7,
     language9,
+    language10,
     read1,
     read2,
     read3,

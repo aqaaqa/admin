@@ -52,7 +52,8 @@
             <topic :allitem = 'item'/>
           </div>
           <div class="show-topic-btn">
-            <span style ="font-size: 14px; margin-right: 10px;">类型: {{item.part}}</span>
+            <span style ="font-size: 14px; margin-right: 10px;">id: {{item.id}}</span>
+            <span style ="font-size: 14px; margin-right: 10px;">类型: {{item.type}}</span>
             <el-button v-if="item.opentopic" type="text" size="mini" @click="openTopic(index)">收起<i class="el-icon-arrow-up el-icon--right"></i></el-button>
             <el-button v-else type="text" size="mini" @click="openTopic(index)">展开<i class="el-icon-arrow-down el-icon--right"></i></el-button>
           </div>

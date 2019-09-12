@@ -48,9 +48,11 @@
           <language2 v-else-if="partObj.type == '匹配题'" ref="child" />
           <language3 v-else-if="partObj.type == '改写题'" ref="child" />
           <language4 v-else-if="partObj.type == '填空题>提示填空'" ref="child" />
+          <language10 v-else-if="partObj.type == '填空题>短文提示填空'" ref="child" />
           <language5 v-else-if="partObj.type == '填空题>短文填空'" ref="child" />
-          <language6 v-else-if="partObj.type == '完形填空'" ref="child" />
           <language7 v-else-if="partObj.type == '填空题>单句填空'" ref="child" />
+          <language6 v-else-if="partObj.type == '完形填空'" ref="child" />
+          
           <language8 v-else-if="partObj.type == '纵横字谜'" ref="child" />
           <language9 v-else-if="partObj.type == '排序题'" ref="child" />
         </template>
@@ -96,7 +98,7 @@
 import { mapGetters } from 'vuex'
 import { titleOper } from '@/utils/arr'
 import { listen1, listen2, listen3, listen4, listen5, language1, language2, language3, language4, language5, 
-language6, language7, language8, language9, read1, read2, read3, read4, write2, speak2, speak3, speak4, speak5, speak6 } from '../../components/EditTopic'
+language6, language7, language8, language9, language10, read1, read2, read3, read4, write2, speak2, speak3, speak4, speak5, speak6 } from '../../components/EditTopic'
 import { partType, mulMenu, qestUp } from '@/api/ajax'
 import topic from '../../components/topic/index'
 export default {
@@ -131,6 +133,7 @@ export default {
     language7,
     language8,
     language9,
+    language10,
     read1,
     read2,
     read3,

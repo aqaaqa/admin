@@ -40,7 +40,10 @@ export const constantRoutes = [
     path: '/tinymce',
     component: () => import('@/views/tinymce'),
   },
-
+  {
+    path: '/upload',
+    component: () => import('@/views/upload'),
+  },
   {
     path: '/404',
     component: () => import('@/views/404'),

@@ -5,7 +5,12 @@
     <breadcrumb class="breadcrumb-container" />
 
     <div class="right-menu">
-      <router-link style="font-size:14px;vertical-align: top; padding-right: 10px; color: #F56C6C;" target="_blank" :to="{path:'/tinymce'}">阅读表格转换</router-link>
+      <router-link class="link-color" target="_blank" :to="{path:'/tinymce'}">
+        表格转换
+      </router-link>
+      <router-link class="link-color" target="_blank" :to="{path:'/upload'}">
+        录入图片上传
+      </router-link>
       <span style="vertical-align: top; padding-right: 10px;">{{name}}</span>
       <el-dropdown class="avatar-container" trigger="click">
         <div class="avatar-wrapper">
@@ -18,9 +23,9 @@
               首页
             </el-dropdown-item>
           </a>
-          <!-- <el-dropdown-item divided>
+          <el-dropdown-item divided>
             <span style="display:block;" @click="logout">退出</span>
-          </el-dropdown-item> -->
+          </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
     </div>
@@ -133,5 +138,11 @@ export default {
       }
     }
   }
+}
+.link-color {
+  font-size:14px;
+  vertical-align: top; 
+  padding-right: 10px; 
+  color: #F56C6C;
 }
 </style>

@@ -93,7 +93,7 @@
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
-      <el-button @click="dialogFormVisible1 = false" size="mini">取 消</el-button>
+      <el-button @click="dialogFormVisible = false" size="mini">取 消</el-button>
       <el-button type="primary" @click="addSchool()" size="mini" :loading="loading1">确 定</el-button>
     </div>
   </el-dialog>
@@ -140,7 +140,7 @@ import { mapGetters } from 'vuex'
 
 export default {
   data(){
-    return{
+    return {
       loading: false,
       loading1: false,
       dialogFormVisible: false,
