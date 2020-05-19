@@ -158,17 +158,12 @@ export function matchOper(str1,str2,cor) {
   let list = []
   let cors = cor.toUpperCase().split('\n').filter(e=> e.trim() != '')
   let steam = pushSteam(str1)
-  if(steam.length == cors.length) {
-    list.push({
-      steam : steam,
-      options: pushSteam(str2),
-      correct : cors
-    })
-    return list
-  } else {
-    return false
-  }
-  
+  list.push({
+    steam : steam,
+    options: pushSteam(str2),
+    correct : cors
+  })
+  return list
 }
 
 /**

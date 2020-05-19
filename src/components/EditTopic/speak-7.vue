@@ -22,9 +22,9 @@ export default {
   data(){
     return {
       form: {
-        desc: '五、辩论题',
-        steam1: 'Work in groups. Hold a debate on whether we should use animals for research and experiments. \n分组辩论：是否应该用动物进行科学实验和研究。根据以下正反双方的观点以及提示的论点进行辩论。',
-        steam2: 'Group A is in favour of using animals for research and experiments. You could use the following arguments:\na) Invaluable advances can be made in medicine through experiments on animals.\nb) Animal experiments help to reduce harm on patients and volunteers.\nc) It is possible to experiment on animals without being cruel to animals.\nGroup B is against using animals for research and experiments. You could use the following arguments:\na) What’s your destination?\nb) Why do you want to go to this place? \nc) What should you prepare, for example, flight, visa, hotel, etc.?'
+        desc: '八、演讲题',
+        steam1: 'Work in groups. Hold a debate on whether we should use animals for research and experiments.',
+        steam2: 'You could use the following arguments:\na) Invaluable advances can be made in medicine through experiments on animals.\nb) Animal experiments help to reduce harm on patients and volunteers.\nc) It is possible to experiment on animals without being cruel to animals.'
       },
       formLabelWidth: '100px',
     }

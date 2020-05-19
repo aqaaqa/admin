@@ -137,6 +137,8 @@ export default {
         }
       }
       const _data = JSON.stringify(this.upload);
+      console.log(_data)
+      console.log(_data.length)
       formData.append("data", _data);
       // this.percen = 1
       axios.defaults.withCredentials = true
@@ -166,7 +168,7 @@ export default {
           } else {
             this.$message({
               type: "warning",
-              message: '修改失败,请检查音频'
+              message: res.data.msg || '修改失败,请检查音频'
             })
           }
         }).catch((err) => {
@@ -236,7 +238,7 @@ export default {
             } else {
               this.$message({
                 type: "warning",
-                message: '上传失败，请重新上传'
+                message: res.data.msg || '上传失败,请检查音频'
               })
             }
         }).catch((err)=>{
@@ -248,7 +250,7 @@ export default {
           this.$parent.$parent.$parent.$parent.loading = false
           this.$message({
             type: "error",
-            message: '上传失败，请重新上传'
+            message: '上传失败,请检查音频'
           })
           
         })

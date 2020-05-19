@@ -40,8 +40,8 @@ export default {
     return {
       form: {
         desc: '五、匹配题',
-        detail: '1. It’s always a problem for a family with children to find a suitable restaurant on holiday.\r\n\n2. Children can cook by themselves and their parents can clean up for them.\r\n\n3. Family Restaurant only welcomes children from six to twelve years old.',
-        steam: 'A. Around the White House.\r\n\nB. Near the Washington Monument.\r\n\nC. In the National Park.\r\n\nD. Around the Tidal Basin.',
+        detail: '<strong>YEAR</strong>\r\n\n1. It’s always a problem for a family with children to find a suitable restaurant on holiday.\r\n\n2. Children can cook by themselves and their parents can clean up for them.\r\n\n3. Family Restaurant only welcomes children from six to twelve years old.',
+        steam: '<strong>THINGS HAPPENED</strong>\r\n\nA. Around the White House.\r\n\nB. Near the Washington Monument.\r\n\nC. In the National Park.\r\n\nD. Around the Tidal Basin.',
         cor: '1.A\n2.C\n3.B',
         article: 'hi this is listening article , you can learn this for some time hi this is listening article , you can learn this for some time hi this is listening article , you can learn this for some time hi this is listening article , you can learn this for some time hi this is listening article , you can learn this for some time\nhi this is listening article , you can learn this for some time hi this is listening article , you can learn this for some time hi this is listening article , you can learn this for some time hi this is listening article , you can learn this for some time'
       },
@@ -79,17 +79,11 @@ export default {
       }
       form.cor = cleanCor(form.cor)
       let list  = matchOper(form.detail, form.steam,form.cor)
-      if(list) {
-        partObj.detail = list
-        partObj.mp3 = this.$refs.mp3Up.imageUrl
-        partObj.mp3Stem = this.$refs.mp3Up.mp3Stem
-        partObj.article = form.article.replace(/(\r\n)|(\n)/g,'<br/>')
-        return partObj
-      } else {
-        this.$message.error('格式错误,请检查输入格式')
-        return false
-      }
-      
+      partObj.detail = list
+      partObj.mp3 = this.$refs.mp3Up.imageUrl
+      partObj.mp3Stem = this.$refs.mp3Up.mp3Stem
+      partObj.article = form.article.replace(/(\r\n)|(\n)/g,'<br/>')
+      return partObj
     }
   }
 }

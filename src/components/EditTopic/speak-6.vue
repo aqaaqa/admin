@@ -64,6 +64,8 @@ export default {
         return false
       }
       let list  = retellOper(form.detail)
+
+      console.log(list)
       partObj.detail = list
       partObj.mp3 = this.$refs.mp3Up.imageUrl
       partObj.article = form.article.replace(/(\r\n)|(\n)/g,'<br/>')

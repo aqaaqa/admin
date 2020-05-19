@@ -44,18 +44,15 @@
     },
     methods: {
       handleRemove(file, fileList) {
-        console.log(file, fileList);
         this.url.filter(e =>  {
           e.indexOf(file.name) < 0
         })
-        console.log(this.url)
       },
       handlePictureCardPreview(file) {
         this.dialogImageUrl = file.url;
         this.dialogVisible = true;
       },
       handleAvatarSuccess(res, file) {
-        console.log(res)
         const { data } = res
         this.url.push(`${data.picUrl}${data.picture}`)
         // this.imageUrl = URL.createObjectURL(file.raw);

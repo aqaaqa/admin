@@ -60,10 +60,10 @@
       <template v-else-if="icon == 0">
         <el-form :model="edit" size="mini">
           <el-form-item label="状态" :label-width="formLabelWidth">
-            <el-radio v-model="edit.status" label="0">未发售</el-radio>
-            <el-radio v-model="edit.status" label="1">发售中</el-radio>
-            <el-radio v-model="edit.status" label="2">已激活</el-radio>
-            <el-radio v-model="edit.status" label="3">禁用</el-radio>
+            <el-radio v-model="edit.status" label="0">禁用</el-radio>
+            <el-radio v-model="edit.status" label="1">未发售</el-radio>
+            <el-radio v-model="edit.status" label="2">发售中</el-radio>
+            <el-radio v-model="edit.status" label="3">已激活</el-radio>
           </el-form-item>
         </el-form>
       </template>
@@ -115,13 +115,13 @@ export default {
     filterStatus(val) {
       let text
       switch (val) {
-        case '1':
+        case '2':
           text = "发售中";
           break; 
-        case '2':
+        case '3':
           text = "已激活";
           break; 
-        case '3':
+        case '0':
           text = "禁用";
           break; 
         default: 

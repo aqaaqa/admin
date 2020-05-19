@@ -58,7 +58,6 @@ export default {
   watch: {
     fileList: {
       handler(val) {
-        console.log(1)
         this.urls()
       },
       deep: true
@@ -226,7 +225,6 @@ export default {
         }
         
       }
-      console.log(this.imageUrl)
     }
   }
 }

@@ -149,7 +149,7 @@ export default {
       
       if(datas) {
         this.loading1 = true
-        if((datas.part == '听力' || datas.type=='复述题') && (datas.mp3.indexOf('blob') > -1 || datas.mp3Stem.indexOf('blob') > -1)) {
+        if((datas.part == '听力' && (datas.mp3.indexOf('blob') > -1 || datas.mp3Stem.indexOf('blob') > -1)) || (datas.type=='复述题' && datas.mp3.indexOf('blob') > -1)) {
           this.$store.dispatch('page/setUpload', datas)
           this.$refs.qest.$refs.child.$refs.mp3Up.submitUpload()
         } else {

@@ -42,6 +42,7 @@
           <speak4 v-else-if="partObj.type == '对话题'" ref="child"/>
           <speak5 v-else-if="partObj.type == '辩论题'" ref="child"/>
           <speak6 v-else-if="partObj.type == '复述题'" ref="child"/>
+          <speak7 v-else-if="partObj.type == '演讲题'" ref="child"/>
         </template>
         <div slot="footer" class="dialog-footer">
           <el-button type="primary" @click="opeaArr" size="mini">查 看</el-button>
@@ -62,7 +63,7 @@
 <script>
 import { titleOper } from '@/utils/arr'
 import { listen1, listen2, listen3, listen4, listen5, language1, language2, language3, language4, language5, 
-language6, language7, language8, language9, language10, read1, read2, read3, read4, write2, speak2, speak3, speak4, speak5,speak6 } from '../EditTopic/index'
+language6, language7, language8, language9, language10, read1, read2, read3, read4, write2, speak2, speak3, speak4, speak5,speak6,speak7 } from '../EditTopic/index'
 import { partType, mulMenu } from '@/api/ajax'
 import topic from '../topic/index'
 
@@ -124,7 +125,8 @@ export default {
     speak3,
     speak4,
     speak5,
-    speak6
+    speak6,
+    speak7
   },
   created() {
     partType().then(res=> {
@@ -164,7 +166,6 @@ export default {
           zh: title[2]
         }
         this.partObj = Object.assign(this.partObj, obj)
-        console.log(obj)
         if(val != 'show') {
           this.$refs.shows.passVal(this.partObj)
         }
